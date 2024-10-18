@@ -1,0 +1,2 @@
+# Ignorar carpetas __pycache__ que contienen archivos .pyc
+__pycache__/
