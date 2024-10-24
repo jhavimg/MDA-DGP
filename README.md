@@ -1,3 +1,18 @@
+# Instalación servidor de Django
+1. Crear entorno virtual
+`python -m venv .venv`
+2. Entrar en el entorno virtual
+
+Windows: `.venv\Scripts\activate`
+Linux: `source .venv/bin/activate`
+
+3. Instalar Django
+
+`pip install django`
+
+#
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
