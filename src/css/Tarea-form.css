@@ -1,0 +1,11 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333333; /* Color del texto */
+    margin: 0;
+    padding: 20px;
+}
+
+h2{
+    position: relative;
+    display: inline-block;
+}
