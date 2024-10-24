@@ -10,6 +10,10 @@ Linux: `source .venv/bin/activate`
 
 `pip install django`
 
+4. Instalar MongoDB
+
+`pip install mongoengine`
+
 # Instalación de React \[FrontEnd\]
 
 1. `npm start`
