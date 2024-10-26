@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    'djongo',
     "app",
 ]
 
@@ -68,22 +70,29 @@ TEMPLATES = [
     },
 ]
 
+#REST_FRAMEWORK = {
+#    'DEFAULT_AUTHENTICATION_CLASSES': [
+#        'rest_framework_simplejwt.authentication.JWTAuthentication',
+#    ],
+#    'DEFAULT_PERMISSION_CLASSES': [
+#        'rest_framework.permissions.IsAuthenticated',
+#    ],
+#}
+
 WSGI_APPLICATION = "EspecialEduca.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#DATABASE
-import mongoengine
-
-# Configura la conexión a MongoDB
-mongoengine.connect(
-    db='EEdatabase',           
-    host='localhost',          
-    port=27017,                
-)
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'EEdatabase',
+        'HOST': 'localhost',
+        'PORT': 27017,
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
