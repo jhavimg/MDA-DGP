@@ -64,3 +64,21 @@
 .button-17:disabled {
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
 }
+
+.search-btn,
+        .create-task-btn {
+            padding: 8px 15px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-btn {
+          background-color: #000;
+      }
+
+      .create-task-btn {
+          background-color: #1e90ff;
+          font-style: italic;
+      }

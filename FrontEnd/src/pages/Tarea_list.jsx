@@ -1,14 +1,16 @@
-import Boton from "../components/Boton";
 import Cabecera from "../components/Cabecera";
+import BuscadorTareas from "../components/BuscadorTareas";
+import TareaVer from "../components/TareaVer";
 
-function Alumno(props){
+function TareaList(props){
     return(<>
         <Cabecera nombre = "Tareas" route = "/admin"/>
-            
-        <Boton nombre = "Crear Tarea" route = "/tarea_form" />
+        <BuscadorTareas />
+        <TareaVer nombre = "Tarea de matematicas"/>
+        <TareaVer nombre = "Tarea de historia"/>
         </>
         
     );
 }
 
-export default Alumno
+export default TareaList

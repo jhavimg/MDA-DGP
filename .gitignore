@@ -1,2 +1,3 @@
 # Evitar el virtual env
 .venv/
+node_modules

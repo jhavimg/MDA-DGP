@@ -11,7 +11,7 @@ function Admin() {
     <Perfil nombre = "Admin de prueba"/>
 
     
-    <Boton  nombre = "Gestionar Alumnos" />
+    <Boton  nombre = "Gestionar Alumnos" route ="/Alumno_list"/>
     <Boton nombre = "Gestionar Tareas" route = "/tarea_list"/>
     </>
   );
