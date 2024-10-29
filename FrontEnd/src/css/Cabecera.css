@@ -3,10 +3,11 @@
     display: block;
     background-color: #1e90ff;
     color: #ffffff;
+    align-items:center;
     text-align: center;
     padding: 6px;
   }
 
-  #back-button{
-    
+  .titulo{
+    margin:0;
   }

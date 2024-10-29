@@ -66,19 +66,32 @@
 }
 
 .search-btn,
-        .create-task-btn {
-            padding: 8px 15px;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.create-task-btn {
+  padding: 8px 15px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-        .search-btn {
-          background-color: #000;
-      }
+.search-btn {
+  background-color: #000;
+}
 
-      .create-task-btn {
-          background-color: #1e90ff;
-          font-style: italic;
-      }
+.create-task-btn {
+    background-color: #1e90ff;
+    font-style: italic;
+}
+
+.back-btn{
+  background-color: #1e90ff;
+  color: white;
+  border-width: 0px;
+  font-size: 24px;
+  margin-right: 0px;
+
+  
+}
+.back-btn:hover{
+  cursor: pointer;
+}
