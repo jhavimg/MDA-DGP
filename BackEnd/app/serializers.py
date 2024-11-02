@@ -5,7 +5,7 @@ class AdministradorSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField(required=True, max_length=100)
     email = serializers.EmailField(required=True)
-    password = serializers.CharField(write_only=True, max_length=100)
+    contraseña = serializers.CharField(write_only=True, max_length=100)
     foto = serializers.ImageField(required=False)
 
     def create(self, validated_data):
@@ -17,18 +17,18 @@ class AdministradorSerializer(serializers.Serializer):
 
 class CustomTokenObtainPairSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    password = serializers.CharField(write_only=True)
+    contraseña = serializers.CharField(write_only=True)
 
     def validate(self, data):
         email = data.get("email")
-        password = data.get("password")
+        contraseña = data.get("contraseña")
 
         try:
             admin = Administrador.objects.get(email=email)
         except Administrador.DoesNotExist:
             raise serializers.ValidationError("El administrador no existe", code="invalid_admin")
 
-        if password != admin.password:
+        if contraseña != admin.contraseña:
             raise serializers.ValidationError("Contraseña incorrecta", code="invalid_password")
 
         from rest_framework_simplejwt.tokens import RefreshToken
