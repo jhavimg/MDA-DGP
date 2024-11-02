@@ -3,7 +3,7 @@ from mongoengine import Document, EmbeddedDocument, StringField, DateTimeField, 
 # Clase base Usuario con herencia habilitada
 class Usuario(Document):
     meta = {'allow_inheritance': True}  # Permite herencia en mongoengine
-    email = EmailField(required=True, unique=True, max_length=100)
+    email = EmailField(required=False, unique=True, max_length=100)
     contraseña = StringField(required=True, max_length=100)
     foto = ImageField()
 
