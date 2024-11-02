@@ -6,7 +6,7 @@ function Felicitacion(props){
         <div className ={props.className} >
             <h1>¡Genial!</h1>
             <p>Bien hecho, sigue trabajando así.</p>
-            <img src="bien.gif" alt="Muy bien"></img>
+            <img src="https://media.tenor.com/30Q2AgaXvBgAAAAC/minions-animo.gif" alt="Muy bien"></img>
         </div>   
         </>    
 

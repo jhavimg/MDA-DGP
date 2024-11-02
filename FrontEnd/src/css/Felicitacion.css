@@ -7,6 +7,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
+    align-items: center;
 }
 
 .felicitacion-hidden{
@@ -20,6 +21,6 @@
 }
 
 .felicitacion img {
-    width: 300px;
+    width: 1000px;
     height: auto;
 }
