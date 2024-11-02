@@ -21,7 +21,7 @@ class Accesibilidad(Document):
 class Alumno(Usuario):
     nickname = StringField(required=True, max_length=100)
     fechaNacimiento = DateTimeField(required=True)
-    accesibilidad = ReferenceField(Accesibilidad) 
+    accesibilidad = ListField(ReferenceField(Accesibilidad))
 
 # Clase para los pasos de una tarea (documento embebido)
 class Paso(EmbeddedDocument):
