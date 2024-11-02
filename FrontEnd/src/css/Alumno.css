@@ -1,0 +1,49 @@
+.cuerpo {
+    font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
+    background-color: #4CAF50; /* Fondo verde */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    border-radius: 16px;
+}
+
+.agenda {
+    width: 90%; /* Más grande */
+    max-width: 600px; /* Límite de tamaño */
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 40px; /* Más espacio */
+}
+
+.titulo {
+    font-size: 2em;
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 30px;
+}
+
+.dia {
+    font-size: 1.5em;
+    color: #ff4500;
+    margin-bottom: 25px;
+}
+
+.tarea {
+    background-color: #ff5733;
+    color: #ffffff;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
+}
+
+.tarea:hover{
+    cursor: pointer;
+}

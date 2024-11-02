@@ -1,0 +1,25 @@
+.felicitacion {
+    display: block; /* Oculto inicialmente */
+    background-color: #ffffff;
+    color: #155724;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
+}
+
+.felicitacion-hidden{
+    display: none;/* Oculto inicialmente */
+}
+
+.felicitacion h1 {
+    font-size: 2em;
+    color: #155724;
+    margin-bottom: 20px;
+}
+
+.felicitacion img {
+    width: 300px;
+    height: auto;
+}
