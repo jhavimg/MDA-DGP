@@ -1,29 +1,35 @@
 from rest_framework import serializers
-from .models import Administrador
+from .documents import Administrador, Usuario
 
-class AdministradorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Administrador
-        fields = ['name', 'email', 'password', 'foto']
-        extra_kwargs = {'password': {'write_only': True}}
+class AdministradorSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
+    nombre = serializers.CharField(required=True, max_length=100)
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(write_only=True, max_length=100)
+    foto = serializers.ImageField(required=False)
+
+    def create(self, validated_data):
+        return Administrador(**validated_data).save()
+
+    def update(self, instance, validated_data):
+        instance.update(**validated_data)
+        return instance.reload()
 
 class CustomTokenObtainPairSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        #from django.contrib.auth.hashers import check_password
-
         email = data.get("email")
         password = data.get("password")
 
         try:
             admin = Administrador.objects.get(email=email)
         except Administrador.DoesNotExist:
-            raise serializers.ValidationError("El administrador no existe")
+            raise serializers.ValidationError("El administrador no existe", code="invalid_admin")
 
         if password != admin.password:
-            raise serializers.ValidationError("Contraseña incorrecta")
+            raise serializers.ValidationError("Contraseña incorrecta", code="invalid_password")
 
         from rest_framework_simplejwt.tokens import RefreshToken
         refresh = RefreshToken.for_user(admin)

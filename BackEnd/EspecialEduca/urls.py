@@ -1,11 +1,9 @@
-from django.contrib import admin
+# urls.py
 from django.urls import path
-from app.views import CustomTokenObtainPairView, AdministradorList, AdministradorDetail
-from rest_framework_simplejwt.views import TokenRefreshView
+from app.views import AdministradorList, AdministradorDetail, CustomTokenObtainPairView
 
 urlpatterns = [
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/admin/', AdministradorList.as_view(), name='administrador_list'),
-    path('api/admin/<str:email>/', AdministradorDetail.as_view(), name='administrador_detail'),
+    path('api/administradores/', AdministradorList.as_view(), name='administrador-list'),
+    path('api/administradores/<str:email>/', AdministradorDetail.as_view(), name='administrador-detail'),
 ]
