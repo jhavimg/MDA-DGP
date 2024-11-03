@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .documents import Administrador, Usuario
+from .documents import *
 
 class AdministradorSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField(required=True, max_length=100)
-    email = serializers.EmailField(required=True)
+    email = serializers.EmailField(required=False, max_length=100)
     contraseña = serializers.CharField(write_only=True, max_length=100)
     foto = serializers.ImageField(required=False)
 
@@ -37,3 +37,34 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
+class AccesibilidadSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
+    nombre = serializers.CharField(required=True, max_length=150)
+    descripcion = serializers.CharField(required=True, max_length=500)
+
+class AlumnoSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
+    email = serializers.EmailField(required=True, max_length=100)
+    contraseña = serializers.CharField(write_only=True, max_length=100)
+    nickname = serializers.CharField(required=True, max_length=100)
+    fechaNacimiento = serializers.DateTimeField(required=True)
+    accesibilidad = serializers.ListField(
+        child=serializers.PrimaryKeyRelatedField(queryset=Accesibilidad.objects.all())
+    )
+
+    def create(self, validated_data):
+        return Alumno(**validated_data).save()
+
+    def update(self, instance, validated_data):
+        instance.update(**validated_data)
+        return instance.reload()
+class TareaSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
+    nombre = serializers.CharField(required=True, max_length=100)
+    descripcion = serializers.CharField(required=True, max_length=500)
+    estado = serializers.ChoiceField(choices=Tarea.ESTADOS, default='pendiente')
+    fecha = serializers.DateTimeField(required=True)
+    pasos = serializers.ListField(child=serializers.DictField())
+
+def create(self, validated_data):
+        return Tarea(**validated_data).save()

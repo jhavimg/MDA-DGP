@@ -1,9 +1,8 @@
-# documents.py
 from mongoengine import Document, EmbeddedDocument, StringField, DateTimeField, EmailField, BooleanField, EmbeddedDocumentField, ListField, ReferenceField, ImageField
 
 class Usuario(Document):
     meta = {'allow_inheritance': True}
-    email = EmailField(required=True, unique=True, max_length=100)
+    email = EmailField(required=True, unique=False, max_length=100)
     contraseña = StringField(required=True, max_length=100)
     foto = ImageField()
 
@@ -18,7 +17,7 @@ class Accesibilidad(Document):
 class Alumno(Usuario):
     nickname = StringField(required=True, max_length=100)
     fechaNacimiento = DateTimeField(required=True)
-    accesibilidad = ReferenceField(Accesibilidad)
+    accesibilidad = ListField(ReferenceField(Accesibilidad))
 
 class Paso(EmbeddedDocument):
     nombre = StringField(required=True, max_length=100)
