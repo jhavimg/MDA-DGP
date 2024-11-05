@@ -1,0 +1,21 @@
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #005A9C;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #A8D080; /* Color suave */
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

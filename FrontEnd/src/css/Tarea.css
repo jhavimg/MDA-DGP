@@ -1,0 +1,51 @@
+body{
+    align-items: center;
+}
+
+.tarea_container {
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
+}
+.Tarea_tit {
+    color: #005A9C; /* Color de títulos */
+}
+#titulo {
+    color: #A8D080; /* Color de subtítulos */
+    margin: 10px;
+}
+p{
+    margin: 10px;
+}
+label {
+    font-weight: bold;
+    color: #005A9C;
+}
+audio, video, img {
+    display: block;
+    margin: 10px 0;
+    max-width: 100%;
+}
+
+.boton-terminar {
+    font-family: 'Patrick Hand', sans-serif;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    color: #000;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.boton-terminar:focus {
+    outline: none;
+}
+
+.boton-terminar:hover {
+    background-color: #0056b3;
+}

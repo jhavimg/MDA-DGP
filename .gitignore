@@ -1,2 +1,3 @@
-# Ignorar carpetas __pycache__ que contienen archivos .pyc
-__pycache__/
+# Evitar el virtual env
+.venv/
+node_modules

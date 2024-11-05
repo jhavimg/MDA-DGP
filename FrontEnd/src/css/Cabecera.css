@@ -1,0 +1,13 @@
+.cabecera{
+    border-radius: 16px;
+    display: block;
+    background-color: #1e90ff;
+    color: #ffffff;
+    align-items:center;
+    text-align: center;
+    padding: 6px;
+  }
+
+  .titulo{
+    margin:0;
+  }

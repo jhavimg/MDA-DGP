@@ -1,0 +1,23 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 40px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-btn,
+        .create-task-btn {
+            padding: 8px 15px;
+            background-color: #1e90ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
