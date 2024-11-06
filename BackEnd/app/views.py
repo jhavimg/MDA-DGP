@@ -1,3 +1,4 @@
+import datetime
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -119,49 +120,81 @@ class AlumnoList(APIView):
             "success": False,
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
-class TareaCreateView(APIView):
-    def post(self, request, alumno_id):
-        serializer = TareaSerializer(data=request.data)
-        if serializer.is_valid():
-            tarea = serializer.save()
+class TareaAlumnoView(APIView):
+    def get(self, request, alumno_id):
+        try:
             alumno = Alumno.objects.get(id=alumno_id)
-            alumno.tareas.append(tarea)
-            alumno.save()
-            return Response({
-                "success": True,
-                "data": serializer.data
-            }, status=status.HTTP_201_CREATED)
-        return Response({
-            "success": False,
-            "message": serializer.errors
-        }, status=status.HTTP_400_BAD_REQUEST)
+        except Alumno.DoesNotExist:
+            raise Response({
+                "success": False,
+                "message": "El alumno no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        tareas = alumno.tareas
+        serializer = TareaSerializer(tareas, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 class TareaUpdateView(APIView):
-    def patch(self, request, tarea_id):
+    def post(self, request, tarea_id, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+        except Alumno.DoesNotExist:
+            raise Response({
+                "success": False,
+                "message": "El alumno no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+        
         try:
             tarea = Tarea.objects.get(id=tarea_id)
-            tarea.completada = True
-            tarea.estado = 'completada'
-            tarea.save()
-            return Response({
-                "success": True,
-                "data": "Tarea completada"
-            })
         except Tarea.DoesNotExist:
-            return Response({
+            raise Response({
                 "success": False,
                 "message": "La tarea no existe"
             }, status=status.HTTP_404_NOT_FOUND)
+        
+        # Eliminar la tarea de la lista de tareas del alumno
+        if tarea in alumno.tareas:
+            alumno.tareas.remove(tarea)
+            alumno.save()
+        
+        #tarea.estado = 'completada'
+        #tarea.save()
+
+        return Response({"message": "Tarea eliminada de la lista del alumno"}, status=status.HTTP_200_OK)
 class TareaDetail(APIView):
     def get(self, request, tarea_id):
         try:
             tarea = Tarea.objects.get(id=tarea_id)
-            serializer = TareaSerializer(tarea)
-            return Response({
-                "success": True,
-                "data": serializer.data
-            })
         except Tarea.DoesNotExist:
-            return Response({
+            raise Response({
                 "success": False,
                 "message": "La tarea no existe"
             }, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = TareaSerializer(tarea)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+class TareaList(APIView):
+    def get(self, request):
+        tareas = Tarea.objects.all()
+        serializer = TareaSerializer(tareas, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request):
+        serializer = TareaSerializer(data=request.data)
+        if serializer.is_valid():
+            tarea = serializer.save()
+            return Response(TareaSerializer(tarea).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class TareasHoyAlumnoView(APIView):
+    def get(self, request, alumno_id):
+        hoy = datetime.now().date()
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+        except Alumno.DoesNotExist:
+            raise Response({
+                "success": False,
+                "message": "El alumno no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        tareas_de_hoy = [tarea for tarea in alumno.tareas if tarea.fecha.date() == hoy]
+        
+        serializer = TareaSerializer(tareas_de_hoy, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
