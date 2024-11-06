@@ -1,6 +1,7 @@
 import "../css/TForm.css"
 import Boton from "./Boton";
 
+//Formulario para crear una tarea, se envía a la ruta /api/tareas por el método POST
 function TForm(props){
     return(
         <div className = "container">

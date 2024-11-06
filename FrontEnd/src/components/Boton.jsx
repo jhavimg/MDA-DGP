@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../css/Boton.css"
 
+//Botón que redirige a la ruta especificada en route
 function Boton(props){
     return(
         <Link to = {props.route}>

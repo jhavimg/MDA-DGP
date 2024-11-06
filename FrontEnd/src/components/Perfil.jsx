@@ -1,5 +1,6 @@
 import "../css/Perfil.css"
 
+//Componente que muestra el perfil de un usuario
 function Perfil(props){
     return(
         <div className = "perfil">

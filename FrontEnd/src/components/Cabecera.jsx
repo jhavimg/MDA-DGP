@@ -1,6 +1,7 @@
 import "../css/Cabecera.css"
 import Boton from "./Boton";
 
+//Cabecera de la página, con un botón de retroceso y un título
 function Cabecera(props){
     return(
         <div className = "cabecera">

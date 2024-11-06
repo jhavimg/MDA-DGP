@@ -7,6 +7,9 @@ from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+    """
+    Vista personalizada para obtener un par de tokens JWT.
+    """
     serializer_class = CustomTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
@@ -28,8 +31,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             "message": error_message
         }, status=status.HTTP_400_BAD_REQUEST)
 
-
 class AdministradorList(APIView):
+    """
+    Vista para listar todos los administradores.
+    """
     def get(self, request):
         admins = Administrador.objects.all()
         serializer = AdministradorSerializer(admins, many=True)
@@ -52,6 +57,9 @@ class AdministradorList(APIView):
         }, status=status.HTTP_400_BAD_REQUEST)
 
 class AdministradorDetail(APIView):
+    """
+    Vista para obtener, actualizar o eliminar un administrador.
+    """
     def get(self, request, email):
         try:
             admin = Administrador.objects.get(email=email)
@@ -100,6 +108,9 @@ class AdministradorDetail(APIView):
                 "message": "El administrador no existe"
             }, status=status.HTTP_404_NOT_FOUND)
 class AlumnoList(APIView):
+    """
+    Vista para listar todos los alumnos.
+    """
     def get(self, request):
         alumnos = Alumno.objects.all()
         serializer = AlumnoSerializer(alumnos, many=True)
@@ -121,6 +132,9 @@ class AlumnoList(APIView):
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 class TareaAlumnoView(APIView):
+    """
+    Vista para obtener las tareas de un alumno.
+    """
     def get(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
@@ -134,6 +148,9 @@ class TareaAlumnoView(APIView):
         serializer = TareaSerializer(tareas, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 class TareaUpdateView(APIView):
+    """
+    Vista para completar una tarea de un alumno.
+    """
     def post(self, request, tarea_id, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
@@ -161,6 +178,9 @@ class TareaUpdateView(APIView):
 
         return Response({"message": "Tarea eliminada de la lista del alumno"}, status=status.HTTP_200_OK)
 class TareaDetail(APIView):
+    """
+    Vista para obtener una tarea.
+    """
     def get(self, request, tarea_id):
         try:
             tarea = Tarea.objects.get(id=tarea_id)
@@ -173,6 +193,9 @@ class TareaDetail(APIView):
         serializer = TareaSerializer(tarea)
         return Response(serializer.data, status=status.HTTP_200_OK)
 class TareaList(APIView):
+    """
+    Vista para listar todas las tareas.
+    """
     def get(self, request):
         tareas = Tarea.objects.all()
         serializer = TareaSerializer(tareas, many=True)
@@ -184,6 +207,9 @@ class TareaList(APIView):
             return Response(TareaSerializer(tarea).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class TareasHoyAlumnoView(APIView):
+    """
+    Vista para obtener las tareas de un alumno que se deben realizar hoy.
+    """
     def get(self, request, alumno_id):
         hoy = datetime.now().date()
         try:

@@ -3,8 +3,10 @@ import '../css/Tarea.css'
 import Felicitacion from "./Felicitacion";
 import { useEffect } from 'react';
 
+//Componente que muestra los detalles de una tarea
 function Tarea(props){
 
+    //Función que oculta o muestra la tarea
     var oculto = false;
     function completedTask(){
         if (!oculto){
@@ -27,6 +29,7 @@ function Tarea(props){
 
     }, [oculto])
 
+    //Retorna la estructura de la tarea
     return(<>
         <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
         <Felicitacion id = "feli" className = "felicitacion-hidden"/>
