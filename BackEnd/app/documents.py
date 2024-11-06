@@ -18,6 +18,7 @@ class Alumno(Usuario):
     nickname = StringField(required=True, max_length=100)
     fechaNacimiento = DateTimeField(required=True)
     accesibilidad = ListField(ReferenceField(Accesibilidad))
+    tareas = ListField(ReferenceField('Tarea'))
 
 class Paso(EmbeddedDocument):
     nombre = StringField(required=True, max_length=100)
@@ -34,4 +35,3 @@ class Tarea(Document):
     completada = BooleanField(default=False)
     fecha = DateTimeField(required=True)
     pasos = ListField(EmbeddedDocumentField(Paso))
-    alumnos = ListField(ReferenceField(Alumno))

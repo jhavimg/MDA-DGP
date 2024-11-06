@@ -65,9 +65,6 @@ class TareaSerializer(serializers.Serializer):
     estado = serializers.ChoiceField(choices=Tarea.ESTADOS, default='pendiente')
     fecha = serializers.DateTimeField(required=True)
     pasos = serializers.ListField(child=serializers.DictField())
-    alumnos = serializers.ListField(
-        child=serializers.PrimaryKeyRelatedField(queryset=Alumno.objects.all())
-    )
 
 def create(self, validated_data):
         return Tarea(**validated_data).save()
