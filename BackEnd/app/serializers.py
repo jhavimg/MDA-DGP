@@ -59,13 +59,31 @@ class AlumnoSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.update(**validated_data)
         return instance.reload()
+    
+class PasoSerializer(serializers.Serializer):
+    nombre = serializers.CharField(required=True, max_length=100)
+    descripcion = serializers.CharField(required=False, max_length=500)
+    imagenes = serializers.ListField(child=serializers.CharField(), required=False)
+    audio = serializers.CharField(required=False)
+    video = serializers.CharField(required=False)
+
 class TareaSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField(required=True, max_length=100)
     descripcion = serializers.CharField(required=True, max_length=500)
     estado = serializers.ChoiceField(choices=Tarea.ESTADOS, default='pendiente')
     fecha = serializers.DateTimeField(required=True)
-    pasos = serializers.ListField(child=serializers.DictField())
+    pasos = PasoSerializer(many=True, required=False)
+
+    def create(self, validated_data):
+        pasos_data = validated_data.pop('pasos', [])
+        tarea = Tarea(**validated_data).save()
+        
+        for paso_data in pasos_data:
+            paso = Paso(**paso_data)
+            tarea.pasos.append(paso)
+        tarea.save()
+        return tarea
 
 def create(self, validated_data):
         return Tarea(**validated_data).save()
