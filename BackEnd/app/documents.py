@@ -34,3 +34,4 @@ class Tarea(Document):
     completada = BooleanField(default=False)
     fecha = DateTimeField(required=True)
     pasos = ListField(EmbeddedDocumentField(Paso))
+    alumnos = ListField(ReferenceField(Alumno))
