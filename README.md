@@ -12,7 +12,7 @@ Linux: `source .venv/bin/activate`
 
 4. Instalar dependencias
 
-`pip install mongoengine djangorestframework django-restframework-mongoengine djangorestframework-simplejwt pytz pillow django-cors-headers`
+`pip install mongoengine djangorestframework django-restframework-mongoengine djangorestframework-simplejwt pytz pillow`
 
 
 # Instalación de React \[FrontEnd\]
