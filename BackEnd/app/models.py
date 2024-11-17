@@ -1,4 +1,4 @@
-from mongoengine import Document, EmbeddedDocument, StringField, DateTimeField, EmailField, BooleanField, EmbeddedDocumentField, ListField, ReferenceField, ImageField
+from mongoengine import Document, EmbeddedDocument, StringField, DateTimeField, EmailField, BooleanField, EmbeddedDocumentField, ListField, ReferenceField, ImageField, IntField
 
 # Clase base Usuario con herencia habilitada
 class Usuario(Document):
@@ -11,6 +11,12 @@ class Usuario(Document):
 class Administrador(Usuario):
     nombre = StringField(required=True, max_length=100)
     apellidos = StringField(required=True, max_length=150)
+
+# Clase para la coleccion de Profesor que hereda de Usuario
+class Profesor(Usuario):
+    nombre = StringField(required=True, max_length=100)
+    apellidos = StringField(required=True, max_length=150)
+    aula = StringField(max_length=50)
 
 # Clase para la colección de Accesibilidad como documento independiente
 class Accesibilidad(Document):
@@ -29,17 +35,43 @@ class Paso(EmbeddedDocument):
     nombre = StringField(required=True, max_length=100)
     descripcion = StringField(max_length=500)
     imagenes = ListField(StringField()) 
-    audio = StringField()  
-    video = StringField()  
+    audio = ListField(StringField())  
+    video = ListField(StringField())  
 
-# Clase para la colección de Tarea, que contiene varios pasos
+# Clase base para Tarea con herencia
 class Tarea(Document):
+    meta = {'allow_inheritance': True}
     nombre = StringField(required=True, max_length=100)
     descripcion = StringField(required=True, max_length=500)
-    
+
     ESTADOS = ('pendiente', 'en progreso', 'completada')
     estado = StringField(choices=ESTADOS, default='pendiente')
-
     completada = BooleanField(default=False)
+    prioridad = StringField(required=True, max_length=50)
     fecha = DateTimeField(required=True)
-    pasos = ListField(EmbeddedDocumentField(Paso)) 
+    alumnoAsignado = ReferenceField(Alumno, required=True)
+    tipo = StringField(required=True, max_length=50)
+
+# Clase para Tarea por Pasos que hereda de Tarea
+class TareaPorPasos(Tarea):
+    pasos = ListField(EmbeddedDocumentField(Paso))
+
+# Clase para los elementos de Material
+class Material(EmbeddedDocument):
+    nombre = StringField(required=True, max_length=100)
+    cantidad = IntField(required=True)
+
+# Clase para Petición de Material que hereda de Tare
+class PeticionMaterial(Tarea):
+    materiales = ListField(EmbeddedDocumentField(Material))
+
+# Clase para los elementos de Menú
+class Menu(EmbeddedDocument):
+    idMenu = StringField(required=True, max_length=100)
+    tipo_menu = StringField(required=True, max_length=100)
+    cantidad = IntField(required=True)
+    clase = StringField(required=True, max_length=50)
+
+# Clase para Petición de Comedor que hereda de Tarea
+class PeticionComedor(Tarea):
+    menus = ListField(EmbeddedDocumentField(Menu))

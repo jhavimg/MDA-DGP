@@ -74,7 +74,7 @@ class TareaSerializer(serializers.Serializer):
     estado = serializers.ChoiceField(choices=Tarea.ESTADOS, default='pendiente')
     fecha = serializers.DateTimeField(required=True)
     pasos = PasoSerializer(many=True, required=False)
-
+    idTarea = serializers.CharField(required=True, max_length=100)
     def create(self, validated_data):
         pasos_data = validated_data.pop('pasos', [])
         tarea = Tarea(**validated_data).save()
