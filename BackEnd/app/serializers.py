@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from datetime import datetime, timedelta
 
-from .documents import *
 from .models import *
 
 """En este archivo se definen los serializadores que se utilizarán para la serialización y deserialización de los datos que se envían y reciben en las peticiones HTTP,
