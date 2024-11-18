@@ -190,3 +190,29 @@ class PeticionComedorSerializer(TareaSerializer):
         ]
         rep['alumnoAsignado'] = str(instance.alumnoAsignado.id) if instance.alumnoAsignado else None
         return rep
+# Seliarizador para los materiales
+class MaterialSerializer(serializers.Serializer):
+    nombre = serializers.CharField(required=True, max_length=100)
+    cantidad = serializers.IntegerField(required=True)
+
+class PeticionMaterialSerializer(TareaSerializer):
+    materiales = MaterialSerializer(many=True, required=True)
+
+    def create(self, validated_data):
+        materiales_data = validated_data.pop('materiales')
+        peticion_material = PeticionMaterial(**validated_data).save()
+        for material_data in materiales_data:
+            peticion_material.materiales.append(Material(**material_data))
+        peticion_material.save()
+
+        return peticion_material
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['materiales'] = [
+            {
+                'nombre': material.nombre,
+                'cantidad': material.cantidad
+            } for material in instance.materiales
+        ]
+        return rep

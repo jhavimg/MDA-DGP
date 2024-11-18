@@ -137,20 +137,41 @@ class AlumnoList(APIView):
 
 class TareaAlumnoView(APIView):
     """
-    Vista para obtener las tareas de un alumno.
+    Vista para obtener las tareas de un alumno y crear una tarea para ese alumno.
     """
     def get(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
         except Alumno.DoesNotExist:
-            raise Response({
-                "success": False,
-                "message": "El alumno no existe"
-            }, status=status.HTTP_404_NOT_FOUND)
+            return Response({"success": False, "message": "El alumno no existe"}, status=status.HTTP_404_NOT_FOUND)
         
-        tareas = alumno.tareas
-        serializer = TareaSerializer(tareas, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        tareas_serializadas = []
+        for tarea in alumno.tareas:
+            if isinstance(tarea, PeticionComedor):
+                serializer = PeticionComedorSerializer(tarea)
+            elif isinstance(tarea, TareaPorPasos):
+                serializer = TareaPorPasosSerializer(tarea)
+            else:
+                serializer = TareaSerializer(tarea)
+            tareas_serializadas.append(serializer.data)
+
+        return Response({"success": True, "data": tareas_serializadas}, status=status.HTTP_200_OK)
+
+    def post(self, request, alumno_id):
+        tipo_tarea = request.data.get('tipo', None)
+        if tipo_tarea == 'peticion_comedor':
+            serializer = PeticionComedorSerializer(data=request.data)
+        elif tipo_tarea == 'tarea_por_pasos':
+            serializer = TareaPorPasosSerializer(data=request.data)
+        else:
+            serializer = TareaSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            tarea = serializer.save(alumnoAsignado=Alumno.objects.get(id=alumno_id))
+            Alumno.objects(id=alumno_id).update_one(push__tareas=tarea)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class TareaUpdateView(APIView):
@@ -267,3 +288,168 @@ class PeticionComedorCreateView(APIView):
             "success": False,
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
+
+# Vista para petición de material
+class PeticionMaterialCreateView(APIView):
+    def post(self, request):
+        serializer = PeticionMaterialSerializer(data=request.data)
+        if serializer.is_valid():
+            peticion_material = serializer.save()
+            return Response({
+                "success": True,
+                "data": PeticionMaterialSerializer(peticion_material).data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+# Obtener las accesibilidades y agregar nuevas
+class AccesibilidadListCreateView(APIView):
+    def get(self, request):
+        accesibilidades = Accesibilidad.objects.all()
+        serializer = AccesibilidadSerializer(accesibilidades, many=True)
+        return Response({
+            "success": True,
+            "data": serializer.data
+        })
+
+    def post(self, request):
+        serializer = AccesibilidadSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "success": True,
+                "data": serializer.data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+# Vista para la lista de menús (Comandas)
+class PeticionComedorMenuView(APIView):
+    def get(self, request, peticion_id):
+        try:
+            peticion = PeticionComedor.objects.get(id=peticion_id)
+        except PeticionComedor.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "La petición de comedor no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = PeticionComedorSerializer(peticion)
+        return Response({
+            "success": True,
+            "data": serializer.data
+        })
+
+    def put(self, request, peticion_id):
+        try:
+            peticion = PeticionComedor.objects.get(id=peticion_id)
+        except PeticionComedor.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "La petición de comedor no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = PeticionComedorSerializer(peticion, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "success": True,
+                "data": serializer.data
+            })
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+class AlumnoAccesibilidadUpdateView(APIView):
+    def get(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+        except Alumno.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "El alumno no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = AccesibilidadSerializer(alumno.accesibilidad, many=True)
+        return Response({
+            "success": True,
+            "data": serializer.data
+        })
+    def put(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+        except Alumno.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "El alumno no existe"
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        accesibilidades_ids = request.data.get('accesibilidades_ids', [])
+        # Validar si las accesibilidades existen
+        accesibilidades = Accesibilidad.objects.filter(id__in=accesibilidades_ids)
+        if len(accesibilidades) != len(accesibilidades_ids):
+            return Response(
+                {
+                    "success": False,
+                    "message": "Una o más accesibilidades no existen"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        # Actualizar las accesibilidades del alumno
+        alumno.accesibilidad.set(accesibilidades)
+        alumno.save()
+
+        return Response(
+            {
+                "success": True,
+                "data": AlumnoSerializer(alumno).data
+            }
+        )
+    def patch(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+        except Alumno.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "El alumno no existe"
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        agregar = request.data.get('agregar', [])
+        quitar = request.data.get('quitar', [])
+
+        accesibilidades_agregar = Accesibilidad.objects.filter(id__in=agregar)
+        if len(accesibilidades_agregar) != len(agregar):
+            return Response(
+                {
+                    "success": False,
+                    "message": "Una o más accesibilidades para agregar no existen"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        accesibilidades_quitar = Accesibilidad.objects.filter(id__in=quitar)
+        if len(accesibilidades_quitar) != len(quitar):
+            return Response(
+                {
+                    "success": False,
+                    "message": "Una o más accesibilidades para quitar no existen"
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        alumno.accesibilidad.add(*accesibilidades_agregar)
+        alumno.accesibilidad.remove(*accesibilidades_quitar)
+        alumno.save()
+        return Response(
+            {
+                "success": True,
+                "data": AlumnoSerializer(alumno).data
+            }
+        )
