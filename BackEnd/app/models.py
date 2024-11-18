@@ -46,11 +46,10 @@ class Tarea(Document):
 
     ESTADOS = ('pendiente', 'en progreso', 'completada')
     estado = StringField(choices=ESTADOS, default='pendiente')
-    completada = BooleanField(default=False)
     prioridad = StringField(required=True, max_length=50)
     fecha = DateTimeField(required=True)
     alumnoAsignado = ReferenceField(Alumno, required=True)
-    tipo = StringField(required=True, max_length=50)
+    tipo = StringField(required=True, max_length=100)
 
 # Clase para Tarea por Pasos que hereda de Tarea
 class TareaPorPasos(Tarea):
@@ -67,10 +66,9 @@ class PeticionMaterial(Tarea):
 
 # Clase para los elementos de Menú
 class Menu(EmbeddedDocument):
-    idMenu = StringField(required=True, max_length=100)
-    tipo_menu = StringField(required=True, max_length=100)
+    nombre = StringField(required=True, max_length=100)
     cantidad = IntField(required=True)
-    clase = StringField(required=True, max_length=50)
+    aula = StringField(required=True, max_length=50)
 
 # Clase para Petición de Comedor que hereda de Tarea
 class PeticionComedor(Tarea):

@@ -107,6 +107,8 @@ class AdministradorDetail(APIView):
                 "success": False,
                 "message": "El administrador no existe"
             }, status=status.HTTP_404_NOT_FOUND)
+        
+
 class AlumnoList(APIView):
     """
     Vista para listar todos los alumnos.
@@ -131,6 +133,8 @@ class AlumnoList(APIView):
             "success": False,
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
+    
+
 class TareaAlumnoView(APIView):
     """
     Vista para obtener las tareas de un alumno.
@@ -147,6 +151,8 @@ class TareaAlumnoView(APIView):
         tareas = alumno.tareas
         serializer = TareaSerializer(tareas, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
 class TareaUpdateView(APIView):
     """
     Vista para completar una tarea de un alumno.
@@ -177,6 +183,8 @@ class TareaUpdateView(APIView):
         #tarea.save()
 
         return Response({"message": "Tarea eliminada de la lista del alumno"}, status=status.HTTP_200_OK)
+    
+
 class TareaDetail(APIView):
     """
     Vista para obtener una tarea.
@@ -192,20 +200,39 @@ class TareaDetail(APIView):
         
         serializer = TareaSerializer(tarea)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
 class TareaList(APIView):
     """
     Vista para listar todas las tareas.
     """
     def get(self, request):
+        # Recuperar todas las tareas, incluidas las subclases
         tareas = Tarea.objects.all()
-        serializer = TareaSerializer(tareas, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        tareas_serializadas = []
+        
+        # Serializar cada tarea según su tipo
+        for tarea in tareas:
+            if isinstance(tarea, PeticionComedor):  # Si es una PeticionComedor
+                serializer = PeticionComedorSerializer(tarea)
+            elif isinstance(tarea, TareaPorPasos):  # Si es una TareaPorPasos
+                serializer = TareaPorPasosSerializer(tarea)
+            else:  # Si es una Tarea genérica
+                serializer = TareaSerializer(tarea)
+            tareas_serializadas.append(serializer.data)
+
+        return Response({
+            "success": True,
+            "data": tareas_serializadas
+        }, status=status.HTTP_200_OK)
     def post(self, request):
         serializer = TareaSerializer(data=request.data)
         if serializer.is_valid():
             tarea = serializer.save()
             return Response(TareaSerializer(tarea).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
 class TareasHoyAlumnoView(APIView):
     """
     Vista para obtener las tareas de un alumno que se deben realizar hoy.
@@ -224,3 +251,19 @@ class TareasHoyAlumnoView(APIView):
         
         serializer = TareaSerializer(tareas_de_hoy, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# Vista para petición de comedor
+class PeticionComedorCreateView(APIView):
+    def post(self, request):
+        serializer = PeticionComedorSerializer(data=request.data)
+        if serializer.is_valid():
+            peticion_comedor = serializer.save()
+            return Response({
+                "success": True,
+                "data": PeticionComedorSerializer(peticion_comedor).data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
