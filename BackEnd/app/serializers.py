@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from .documents import *
 
+"""En este archivo se definen los serializadores que se utilizarán para la serialización y deserialización de los datos que se envían y reciben en las peticiones HTTP,
+es decir, se definen las clases que se encargan de convertir los datos en objetos de Python y viceversa."""
+
+# Serializador para la clase Administrador. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class AdministradorSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField(required=True, max_length=100)
@@ -16,10 +20,12 @@ class AdministradorSerializer(serializers.Serializer):
         instance.update(**validated_data)
         return instance.reload()
 
+# Serializador para la clase Profesor. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class CustomTokenObtainPairSerializer(serializers.Serializer):
     email = serializers.EmailField()
     contraseña = serializers.CharField(write_only=True)
 
+    # Método para validar los datos del serializador
     def validate(self, data):
         email = data.get("email")
         contraseña = data.get("contraseña")
@@ -32,17 +38,21 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
         if contraseña != admin.contraseña:
             raise serializers.ValidationError("Contraseña incorrecta", code="invalid_password")
 
+        # Generar el token de acceso
         from rest_framework_simplejwt.tokens import RefreshToken
         refresh = RefreshToken.for_user(admin)
         return {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
+    
+# Serializador para la clase Profesor. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class AccesibilidadSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField(required=True, max_length=150)
     descripcion = serializers.CharField(required=True, max_length=500)
 
+# Serializador para la clase Alumno. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class AlumnoSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     email = serializers.EmailField(required=True, max_length=100)
@@ -60,6 +70,7 @@ class AlumnoSerializer(serializers.Serializer):
         instance.update(**validated_data)
         return instance.reload()
     
+# Serializador para la clase Paso. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class PasoSerializer(serializers.Serializer):
     nombre = serializers.CharField(required=True, max_length=100)
     descripcion = serializers.CharField(required=False, max_length=500)
@@ -67,6 +78,7 @@ class PasoSerializer(serializers.Serializer):
     audio = serializers.CharField(required=False)
     video = serializers.CharField(required=False)
 
+# Serializador para la clase Tarea. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class TareaSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField(required=True, max_length=100)

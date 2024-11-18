@@ -1,5 +1,6 @@
 from mongoengine import Document, EmbeddedDocument, StringField, DateTimeField, EmailField, BooleanField, EmbeddedDocumentField, ListField, ReferenceField, ImageField
 
+#Este archivo contiene las clases que representan los documentos de la base de datos de MongoDB.
 class Usuario(Document):
     meta = {'allow_inheritance': True}
     email = EmailField(required=True, unique=False, max_length=100)
