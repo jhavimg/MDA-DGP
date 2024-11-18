@@ -1,5 +1,6 @@
 import "../css/Felicitacion.css"
 
+//Mensaje de felicitación
 function Felicitacion(props){
     return(<>
         <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>

@@ -7,6 +7,9 @@ from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+    """
+    Vista personalizada para obtener un par de tokens JWT.
+    """
     serializer_class = CustomTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
@@ -28,8 +31,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             "message": error_message
         }, status=status.HTTP_400_BAD_REQUEST)
 
-
 class AdministradorList(APIView):
+    """
+    Vista para listar todos los administradores.
+    """
     def get(self, request):
         admins = Administrador.objects.all()
         serializer = AdministradorSerializer(admins, many=True)
@@ -52,6 +57,9 @@ class AdministradorList(APIView):
         }, status=status.HTTP_400_BAD_REQUEST)
 
 class AdministradorDetail(APIView):
+    """
+    Vista para obtener, actualizar o eliminar un administrador.
+    """
     def get(self, request, email):
         try:
             admin = Administrador.objects.get(email=email)
@@ -102,6 +110,9 @@ class AdministradorDetail(APIView):
         
 
 class AlumnoList(APIView):
+    """
+    Vista para listar todos los alumnos.
+    """
     def get(self, request):
         alumnos = Alumno.objects.all()
         serializer = AlumnoSerializer(alumnos, many=True)
@@ -125,6 +136,9 @@ class AlumnoList(APIView):
     
 
 class TareaAlumnoView(APIView):
+    """
+    Vista para obtener las tareas de un alumno.
+    """
     def get(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
@@ -140,6 +154,9 @@ class TareaAlumnoView(APIView):
     
 
 class TareaUpdateView(APIView):
+    """
+    Vista para completar una tarea de un alumno.
+    """
     def post(self, request, tarea_id, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
@@ -169,6 +186,9 @@ class TareaUpdateView(APIView):
     
 
 class TareaDetail(APIView):
+    """
+    Vista para obtener una tarea.
+    """
     def get(self, request, tarea_id):
         try:
             tarea = Tarea.objects.get(id=tarea_id)
@@ -183,6 +203,9 @@ class TareaDetail(APIView):
     
 
 class TareaList(APIView):
+    """
+    Vista para listar todas las tareas.
+    """
     def get(self, request):
         # Recuperar todas las tareas, incluidas las subclases
         tareas = Tarea.objects.all()
@@ -211,6 +234,9 @@ class TareaList(APIView):
     
 
 class TareasHoyAlumnoView(APIView):
+    """
+    Vista para obtener las tareas de un alumno que se deben realizar hoy.
+    """
     def get(self, request, alumno_id):
         hoy = datetime.now().date()
         try:

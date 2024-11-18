@@ -1,6 +1,8 @@
 import "../css/AForm.css"
 import Boton from "./Boton";
 
+
+//Formulario para crear un alumno, se envía a la ruta /api/alumnos por el método POST
 function AForm(props){
     return(
         <div className = "container">

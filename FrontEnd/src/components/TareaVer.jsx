@@ -1,5 +1,6 @@
 import "../css/TareaVer.css"
 
+//Componente que muestra una tarea
 function TareaVer(props){
     return(<>
             <div class="task">

@@ -1,6 +1,7 @@
 import Boton from "../components/Boton";
 import "../css/BuscadorTareas.css";
 
+//Barra de búsqueda de tareas, con un campo de texto y un botón de búsqueda
 function BuscadorTareas(props){
     return(<>
     <div className = "search-bar">
