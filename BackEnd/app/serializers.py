@@ -116,7 +116,7 @@ class TareaSerializer(serializers.Serializer):
 # Serializador para tarea por pasos
 class TareaPorPasosSerializer(TareaSerializer):
     pasos = PasoSerializer(many=True, required=False)
-
+    idTarea = serializers.CharField(required=True, max_length=100)
     def create(self, validated_data):
         pasos_data = validated_data.pop('pasos', [])
         tarea = TareaPorPasos(**validated_data).save()

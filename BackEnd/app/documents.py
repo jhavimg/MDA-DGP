@@ -35,3 +35,4 @@ class Tarea(Document):
     completada = BooleanField(default=False)
     fecha = DateTimeField(required=True)
     pasos = ListField(EmbeddedDocumentField(Paso))
+    idTarea = StringField(required=True, max_length=100)
