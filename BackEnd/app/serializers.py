@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from datetime import datetime, timedelta
+from bson import ObjectId
 
 from .documents import *
 from .models import *
@@ -97,9 +98,18 @@ class AlumnoSerializer(serializers.Serializer):
 class PasoSerializer(serializers.Serializer):
     nombre = serializers.CharField(required=True, max_length=100)
     descripcion = serializers.CharField(required=False, max_length=500)
-    imagenes = serializers.ListField(child=serializers.CharField(), required=False)
-    audio = serializers.CharField(required=False)
-    video = serializers.CharField(required=False)
+    imagenes = serializers.ListField(
+        child=serializers.CharField(),
+        required=False, 
+    )
+    audio = serializers.ListField(
+        child=serializers.CharField(),
+        required=False,  
+    )
+    video = serializers.ListField(
+        child=serializers.CharField(),
+        required=False, 
+    )
 
 # Serializador para la clase Tarea. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class TareaSerializer(serializers.Serializer):
@@ -127,14 +137,31 @@ class TareaSerializer(serializers.Serializer):
 # Serializador para tarea por pasos
 class TareaPorPasosSerializer(TareaSerializer):
     pasos = PasoSerializer(many=True, required=False)
-    idTarea = serializers.CharField(required=True, max_length=100)
+        
     def create(self, validated_data):
         pasos_data = validated_data.pop('pasos', [])
-        tarea = TareaPorPasos(**validated_data).save()
+        alumno = validated_data.get('alumnoAsignado')
+
+        # Asignar el tipo de tarea
+        validated_data['tipo'] = 'tarea por pasos'
+        
+        # Crear la tarea por pasos
+        tarea_por_pasos = TareaPorPasos(**validated_data).save()
+
+        # Añadir los pasos a la tarea
         for paso_data in pasos_data:
-            tarea.pasos.append(Paso(**paso_data))
-        tarea.save()
-        return tarea
+            tarea_por_pasos.pasos.append(Paso(**paso_data))
+        tarea_por_pasos.save()
+
+        print("Tarea ID:", tarea_por_pasos.id, type(tarea_por_pasos.id))
+        print("Alumno Tareas Antes de Guardar:", alumno.tareas)
+
+        
+        # Asociar la tarea con el alumno
+        if alumno:
+            alumno.update(push__tareas=tarea_por_pasos.id)
+            
+        return tarea_por_pasos
 
 # Serializador para el menú
 class MenuSerializer(serializers.Serializer):
@@ -150,9 +177,8 @@ class PeticionComedorSerializer(TareaSerializer):
         menus_data = validated_data.pop('menus')
         alumno = validated_data.get('alumnoAsignado')
         
-        # Asegurarse de que 'tipo' esté presente en validated_data
         if 'tipo' not in validated_data:
-            validated_data['tipo'] = "petición comedor"  # Valor predeterminado
+            validated_data['tipo'] = "petición comedor"  
         
         peticion_comedor = PeticionComedor(**validated_data).save()
         
@@ -161,8 +187,7 @@ class PeticionComedorSerializer(TareaSerializer):
         peticion_comedor.save()
 
         if alumno:
-            alumno.tareas.append(peticion_comedor.id)  # Agregar el ObjectId de la tarea
-            alumno.save()
+            alumno.update(push__tareas=peticion_comedor.id)
         
         return peticion_comedor
 

@@ -13,4 +13,5 @@ urlpatterns = [
     path('api/tareas/<str:tarea_id>/', TareaDetail.as_view(), name='tarea-detail'),
     path('api/tareas/', TareaList.as_view(), name='tarea-list'),
     path('api/peticiones_comedor/', PeticionComedorCreateView.as_view(), name='peticion-comedor-create'),
+    path('api/tareas_por_pasos/', TareaPorPasosCreateView.as_view(), name='tarea-por-pasos-create'),
 ]
