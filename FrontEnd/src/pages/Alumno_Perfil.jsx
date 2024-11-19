@@ -33,11 +33,13 @@ useEffect(()=>{
   return (
     <>
     <Cabecera nombre = "Alumno" route = "/alumno_list"/>
+    <div>
     <Perfil nombre = {alumno.nombre} foto = {alumno.foto}/>
-
-    <Accesibilidad />
-       
     <Boton  nombre = "Seguimiento" route ="/seguimiento"/>
+    </div>
+    <Accesibilidad />
+    <Boton nombre = "Guardar" />   
+    
     </>
   );
 }

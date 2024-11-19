@@ -1,30 +1,24 @@
+import { useEffect } from 'react';
 import MenuComp from '../components/MenuComp';
 import '../css/Alumno_Comandas.css'
 
 function AlumnoComandas(props){
 
-    let selectedNumber = null;
+    var menus;
+    var comanda = "";
+
+    useEffect(()=>{menus = [0, 0, 0, 0];
+    }, []);
     
     function selectNumber(number) {
-        if (selectedNumber !== null) {
-            var element = document.querySelector(`.number-box.selected`);
-            element.classList.remove('selected');
-        }
-        selectedNumber = number;
-        element = document.querySelector(`.number-box`);
-        console.log(element);
-        element.classList.add('selected');
+        menus[number-1]+=1    
     }
 
     function submitSelection() {
-        if (selectedNumber !== null) {
-            alert(` ${selectedNumber} `);
-            // Aquí puedes añadir la lógica para enviar esta información a un servidor, si es necesario
-            selectedNumber = null;
-            document.querySelector(`.number-box.selected`).classList.remove('selected');
-        } else {
-            alert("Por favor, selecciona un número antes de continuar.");
+        for (let i = 0; i < menus.length; i++){
+            comanda+=`Menus de tipo ${i+1}: ${menus[i]}\n`
         }
+        console.log(comanda);
     }
     return(<>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
@@ -32,8 +26,11 @@ function AlumnoComandas(props){
             <div className="menu-container">
                 <h1>MENÚS</h1>
             <div className="numbers-grid">
-                <MenuComp className = "number-box-4" nombre = "4" onClickAlto = {()=>{selectNumber(4)}}/>
-                <MenuComp className = "number-box-1" nombre = "1" onClickAlto = {()=>{selectNumber()}}/>
+                <MenuComp  nombre = "1" onClickAlto = {()=>{selectNumber(1)}}/>
+                <MenuComp  nombre = "2" onClickAlto = {()=>{selectNumber(2)}}/>
+                <MenuComp  nombre = "3" onClickAlto = {()=>{selectNumber(3)}}/>
+                <MenuComp  nombre = "4" onClickAlto = {()=>{selectNumber(4)}}/>
+                
                 
             </div>
                 <button className="done-button" onClick={submitSelection}>Hecho ✔</button>
