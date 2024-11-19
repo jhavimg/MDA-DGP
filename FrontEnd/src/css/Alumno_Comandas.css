@@ -1,0 +1,62 @@
+.cuerpo_comandas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+.menu-container {
+    text-align: center;
+    width: 500px;
+    background-color: #b4e397;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+.numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.number-box {
+    background-color: white;
+    border: 2px solid #ddd;
+    padding: 20px;
+    font-size: 1.5em;
+    color: #333;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+}
+.number-box.selected {
+    border-color: #ff9800;
+    background-color: #fff7e6;
+}
+.number-box .number {
+    font-size: 2em;
+    font-weight: bold;
+}
+.number-box .text {
+    font-size: 1em;
+    color: #555;
+}
+.done-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.done-button:hover {
+    background-color: #45a049;
+}

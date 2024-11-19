@@ -1,11 +1,10 @@
 
 import AForm from "../components/AForm"
-import Boton from "../components/Boton";
 import Cabecera from "../components/Cabecera";
 
-function Alumnoform(props){
+function Alumnoform(){
     return(<>
-        <Cabecera nombre = "Crear Alumno" route = "/Alumno_list"/>
+        <Cabecera nombre = "Crear Alumno" route = "/alumno_list"/>
             
         <AForm/>
         </>

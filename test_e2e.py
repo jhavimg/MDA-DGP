@@ -8,7 +8,7 @@ driver = webdriver.Chrome()  # Asegúrate de tener el driver de Chrome instalado
 
 try:
     # Visitar la página de creación de alumno
-    driver.get('http://localhost:3000/Alumno_form')
+    driver.get('http://localhost:3000/alumno_form')
 
     # Llenar el formulario de creación de alumno
     driver.find_element(By.NAME, 'nombre').send_keys('Juan')
@@ -44,7 +44,7 @@ try:
     time.sleep(5)
 
     # Verificar que el alumno aparece en la lista
-    driver.get('http://localhost:3000/Alumno_list')
+    driver.get('http://localhost:3000/alumno_list')
     time.sleep(5)  # Esperar a que la página se cargue completamente
 
     assert 'Juan Pérez' in driver.page_source

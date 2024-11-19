@@ -1,0 +1,78 @@
+.cuerpo_agenda {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    padding: 16px;
+    text-align: center;
+    background-color: #e8e8e8;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #5da365;
+}
+
+.back-button {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    text-align: center;
+}
+
+.day {
+    padding: 12px;
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.task {
+    padding: 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+}
+
+.task.done {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.task.not-done {
+    background-color: #f8d7da;
+    color: #721c24;
+}

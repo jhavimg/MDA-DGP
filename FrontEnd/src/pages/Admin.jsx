@@ -1,6 +1,5 @@
 import '../css/Admin.css'
 import Boton from '../components/Boton';
-import Main from '../components/Main';
 import Perfil from '../components/Perfil';
 import Cabecera from '../components/Cabecera';
 import { useState, useEffect } from 'react';
@@ -9,6 +8,18 @@ function Admin() {
 
   const [admin, setAdmin] = useState({});
 
+  async function getAdmin(){
+    let promise = await fetch("https://especialeduca.jmarin.dev/api/administradores");
+    let response = await promise.json();
+    setAdmin(response);
+    console.log(admin);
+}
+/*
+useEffect(()=>{
+    getAdmin();
+    
+}, [])
+*/
   useEffect(() => {
     setAdmin({
       nombre : "Alonso Macías",
@@ -24,7 +35,7 @@ function Admin() {
     <Perfil nombre = {admin.nombre} foto = {admin.foto}/>
 
     
-    <Boton  nombre = "Gestionar Alumnos" route ="/Alumno_list"/>
+    <Boton  nombre = "Gestionar Alumnos" route ="/alumno_list"/>
     <Boton nombre = "Gestionar Tareas" route = "/tarea_list"/>
     </>
   );

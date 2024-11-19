@@ -3,7 +3,7 @@ import Buscador from "../components/Buscador";
 import TareaVer from "../components/TareaVer";
 import { useEffect, useState } from "react";
 
-function TareaList(){
+function PedirMaterial(){
 
     const [tareas, setTareas] = useState([]);
     
@@ -19,8 +19,8 @@ function TareaList(){
         
     }, [])
     return(<>
-        <Cabecera nombre = "Tareas" route = "/admin"/>
-        <Buscador route = "/Tarea_form"/>
+        <Cabecera nombre = "Pedir Material" route = "/profesor"/>
+        <Buscador />
         <TareaVer nombre = "Hacer Inventario"/>
         <TareaVer nombre = "Reponer material"/>
         <TareaVer nombre = "Tomar Comandas"/>
@@ -34,4 +34,4 @@ function TareaList(){
     );
 }
 
-export default TareaList
+export default PedirMaterial

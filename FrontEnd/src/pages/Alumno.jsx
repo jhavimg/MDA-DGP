@@ -9,6 +9,7 @@ function Alumno(props){
             <div class="titulo">Tareas de Hoy</div> 
             <div class="dia">Lunes</div>
                 <Boton className = "tarea" nombre = "Coger Materiales" route = "/tarea_detail" />
+                <Boton className = "tarea" nombre = "Tomar Comandas" route = "/clases_comandas" />
                 <Boton className = "tarea" nombre = "Poner Microondas" route = "/tarea_detail" />   
             </div>
         </div>

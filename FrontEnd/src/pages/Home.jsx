@@ -6,6 +6,7 @@ function Home(props){
         <Cabecera nombre = "Home"/>
             
         <Boton nombre = "Administrador" route = "/admin" />
+        <Boton nombre = "Profesor" route = "/profesor" />
         <Boton nombre = "Alumno" route = "/alumno" />
         </>
         
