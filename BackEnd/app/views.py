@@ -5,6 +5,8 @@ from rest_framework import status
 from .models import Administrador
 from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.parsers import MultiPartParser, FormParser
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     """
@@ -139,6 +141,7 @@ class TareaAlumnoView(APIView):
     """
     Vista para obtener las tareas de un alumno y crear una tarea para ese alumno.
     """
+    parser_classes = (MultiPartParser, FormParser)
     def get(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
