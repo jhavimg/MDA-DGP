@@ -1,8 +1,11 @@
 # urls.py
 from django.urls import path
 from app.views import *
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
+    path('api/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/administradores/', AdministradorList.as_view(), name='administrador-list'),
     path('api/administradores/<str:email>/', AdministradorDetail.as_view(), name='administrador-detail'),

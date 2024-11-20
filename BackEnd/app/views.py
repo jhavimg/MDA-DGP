@@ -6,6 +6,7 @@ from .models import Administrador
 from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.parsers import MultiPartParser, FormParser
+from drf_spectacular.utils import extend_schema
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -37,6 +38,11 @@ class AdministradorList(APIView):
     """
     Vista para listar todos los administradores.
     """
+    @extend_schema(
+        summary="Listar y crear administradores.",
+        description="Vista para listar todos los administradores y crear nuevos.",
+        responses={200: dict, 201: dict, 400: dict},
+    )
     def get(self, request):
         admins = Administrador.objects.all()
         serializer = AdministradorSerializer(admins, many=True)
@@ -62,6 +68,11 @@ class AdministradorDetail(APIView):
     """
     Vista para obtener, actualizar o eliminar un administrador.
     """
+    @extend_schema(
+        summary="Obtener, actualizar o eliminar un administrador.",
+        description="Vista para obtener, actualizar o eliminar un administrador específico.",
+        responses={200: dict, 204: dict, 404: dict, 400: dict},
+    )
     def get(self, request, email):
         try:
             admin = Administrador.objects.get(email=email)
@@ -115,6 +126,11 @@ class AlumnoList(APIView):
     """
     Vista para listar todos los alumnos.
     """
+    @extend_schema(
+        summary="Listar y crear alumnos.",
+        description="Vista para listar todos los alumnos y crear nuevos.",
+        responses={200: dict, 201: dict, 400: dict},
+    )
     def get(self, request):
         alumnos = Alumno.objects.all()
         serializer = AlumnoSerializer(alumnos, many=True)
@@ -142,6 +158,11 @@ class TareaAlumnoView(APIView):
     Vista para obtener las tareas de un alumno y crear una tarea para ese alumno.
     """
     parser_classes = (MultiPartParser, FormParser)
+    @extend_schema(
+        summary="Obtener y crear tareas de un alumno.",
+        description="Vista para obtener las tareas de un alumno y crear una nueva tarea para ese alumno.",
+        responses={200: dict, 201: dict, 404: dict, 400: dict},
+    )
     def get(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
@@ -181,6 +202,11 @@ class TareaUpdateView(APIView):
     """
     Vista para completar una tarea de un alumno.
     """
+    @extend_schema(
+        summary="Completar una tarea de un alumno.",
+        description="Vista para completar una tarea de un alumno.",
+        responses={200: dict, 404: dict},
+    )
     def post(self, request, tarea_id, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
@@ -213,6 +239,11 @@ class TareaDetail(APIView):
     """
     Vista para obtener una tarea.
     """
+    @extend_schema(
+        summary="Ver información de una tarea.",
+        description="Ver información detallada de una tarea.",
+        responses={200: dict, 400: dict},
+    )
     def get(self, request, tarea_id):
         try:
             tarea = Tarea.objects.get(id=tarea_id)
@@ -230,6 +261,11 @@ class TareaList(APIView):
     """
     Vista para listar todas las tareas.
     """
+    @extend_schema(
+        summary="Listar y crear tareas.",
+        description="Vista para listar todas las tareas y crear nuevas.",
+        responses={200: dict, 201: dict, 400: dict},
+    )
     def get(self, request):
         # Recuperar todas las tareas, incluidas las subclases
         tareas = Tarea.objects.all()
@@ -261,6 +297,11 @@ class TareasHoyAlumnoView(APIView):
     """
     Vista para obtener las tareas de un alumno que se deben realizar hoy.
     """
+    @extend_schema(
+        summary="Obtener las tareas de hoy de un alumno.",
+        description="Vista para obtener las tareas de un alumno que se deben realizar hoy.",
+        responses={200: dict, 404: dict},
+    )
     def get(self, request, alumno_id):
         hoy = datetime.now().date()
         try:
@@ -279,6 +320,11 @@ class TareasHoyAlumnoView(APIView):
 
 # Vista para petición de comedor
 class PeticionComedorCreateView(APIView):
+    @extend_schema(
+        summary="Crear una petición de comedor.",
+        description="Vista para crear una nueva petición de comedor.",
+        responses={201: dict, 400: dict},
+    )
     def post(self, request):
         serializer = PeticionComedorSerializer(data=request.data)
         if serializer.is_valid():
@@ -294,6 +340,11 @@ class PeticionComedorCreateView(APIView):
 
 # Vista para petición de material
 class PeticionMaterialCreateView(APIView):
+    @extend_schema(
+        summary="Crear una petición de material.",
+        description="Vista para crear una nueva petición de material.",
+        responses={201: dict, 400: dict},
+    )
     def post(self, request):
         serializer = PeticionMaterialSerializer(data=request.data)
         if serializer.is_valid():
@@ -308,6 +359,11 @@ class PeticionMaterialCreateView(APIView):
         }, status=status.HTTP_400_BAD_REQUEST)
 # Obtener las accesibilidades y agregar nuevas
 class AccesibilidadListCreateView(APIView):
+    @extend_schema(
+        summary="Listar y crear accesibilidades.",
+        description="Vista para listar todas las accesibilidades y crear nuevas.",
+        responses={200: dict, 201: dict, 400: dict},
+    )
     def get(self, request):
         accesibilidades = Accesibilidad.objects.all()
         serializer = AccesibilidadSerializer(accesibilidades, many=True)
@@ -330,6 +386,11 @@ class AccesibilidadListCreateView(APIView):
         }, status=status.HTTP_400_BAD_REQUEST)
 # Vista para la lista de menús (Comandas)
 class PeticionComedorMenuView(APIView):
+    @extend_schema(
+        summary="Obtener y actualizar el menú de una petición de comedor.",
+        description="Vista para obtener y actualizar el menú (comandas) de una petición de comedor.",
+        responses={200: dict, 404: dict, 400: dict},
+    )
     def get(self, request, peticion_id):
         try:
             peticion = PeticionComedor.objects.get(id=peticion_id)
@@ -366,6 +427,11 @@ class PeticionComedorMenuView(APIView):
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 class AlumnoAccesibilidadUpdateView(APIView):
+    @extend_schema(
+        summary="Obtener y actualizar las accesibilidades de un alumno.",
+        description="Vista para obtener y actualizar las accesibilidades de un alumno.",
+        responses={200: dict, 404: dict, 400: dict},
+    )
     def get(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)

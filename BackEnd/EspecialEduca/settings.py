@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_mongoengine",
     "corsheaders",
+    "drf_spectacular",
     "app",
 ]
 
@@ -82,6 +83,19 @@ TEMPLATES = [
         'rest_framework.permissions.IsAuthenticated',
     ],
 }'''
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Especial Educa API',
+    'DESCRIPTION': 'Documentación de la API de Especial Educa',
+    'SECURITY': [],
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 WSGI_APPLICATION = "EspecialEduca.wsgi.application"
 
