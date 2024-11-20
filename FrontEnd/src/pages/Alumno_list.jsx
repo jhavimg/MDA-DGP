@@ -3,36 +3,44 @@ import Buscador from "../components/Buscador";
 import TareaVer from "../components/TareaVer";
 import { useEffect, useState } from "react";
 
-function AlumnoList(){
-
+function AlumnoList() {
     const [alumnos, setAlumnos] = useState([]);
+    const [loading, setLoading] = useState(true); // Estado para controlar la carga
 
-    async function getAlumnos(){
-        let promise = await fetch("https://especialeduca.jmarin.dev/api/alumnos");
-        let response = await promise.json();
-        setAlumnos(response.success);
-        console.log(response.data);
+    useEffect(() => {
+        const getAlumnos = async () => {
+            try {
+                const promise = await fetch("https://especialeduca.jmarin.dev/api/alumnos");
+                const response = await promise.json();
+                if (response.success) {
+                    setAlumnos(response.data);
+                } else {
+                    console.error("Error al procesar alumnos:", response.message);
+                }
+            } catch (error) {
+                console.error("Error al procesar los alumnos:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        getAlumnos();
+    }, []);
+
+
+    if (loading) {
+        return <div>Cargando alumnos...</div>;
     }
 
-/*    useEffect(()=>{
-        getAlumnos();
-        
-    }, [])
-*/
-    return(<>
-        <Cabecera nombre = "Alumnos" route = "/admin"/>
-        <Buscador route = "/alumno_form"/>
-        <TareaVer nombre = "Alumno1" route = "alumno_perfil"/>
-        <TareaVer nombre = "Alumno2"/>
-        <TareaVer nombre = "Alumno3"/>
-        
-        {alumnos.map(alumno=>
-            <TareaVer nombre = {alumno.nombre} />
-        )
-        }
+    return (
+        <>
+            <Cabecera nombre="Alumnos" route="/admin" />
+            <Buscador route="/alumno_form" />
+            {alumnos.map(alumno => (
+                <TareaVer key={alumno.id} nombre={alumno.nickname} route={`/alumno_perfil/${alumno.id}`} /> // Agrega key y usa nickname
+            ))}
         </>
-        
     );
 }
 
-export default AlumnoList
+export default AlumnoList;
