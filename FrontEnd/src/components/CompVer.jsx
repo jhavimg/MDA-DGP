@@ -1,7 +1,7 @@
-import "../css/TareaVer.css"
+import "../css/CompVer.css"
 
 //Componente que muestra una tarea
-function TareaVer(props){
+function CompVer(props){
     return(<>
             <div class="task">
                 <a href = {props.route}>{props.nombre} </a>
@@ -11,4 +11,4 @@ function TareaVer(props){
     );
 }
 
-export default TareaVer
+export default CompVer

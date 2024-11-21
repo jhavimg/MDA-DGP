@@ -19,6 +19,7 @@ function AlumnoComandas(props){
             comanda+=`Menus de tipo ${i+1}: ${menus[i]}\n`
         }
         console.log(comanda);
+        comanda = "";
     }
     return(<>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>

@@ -13,7 +13,6 @@ function Profesor() {
     let promise = await fetch("https://especialeduca.jmarin.dev/api/profesores");
     let response = await promise.json();
     setProfe(response);
-    console.log(profe);
 }
 /*
 useEffect(()=>{

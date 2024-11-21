@@ -7,13 +7,14 @@ import Accesibilidad from '../components/Accesibilidad';
 
 function AlumnoPerfil() {
 
+
+///////////////////////////////////////FALTA GET//////////////////////////////////////////////////////////7
   const [alumno, setAlumno] = useState({});
 
   async function getAlumno(){
     let promise = await fetch("https://especialeduca.jmarin.dev/api/alumnos");
     let response = await promise.json();
-    setAlumno(response);
-    console.log(alumno);
+    setAlumno(response.data);
 }
 /*
 useEffect(()=>{

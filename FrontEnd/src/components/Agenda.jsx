@@ -8,8 +8,7 @@ function Agenda() {
   async function getTareas(){
     let promise = await fetch("https://especialeduca.jmarin.dev/api/alumnos");
     let response = await promise.json();
-    setTareas(response);
-    console.log(tareas);
+    setTareas(response.data);
 }
 /*
 useEffect(()=>{

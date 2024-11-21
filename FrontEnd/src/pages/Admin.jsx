@@ -9,25 +9,15 @@ function Admin() {
   const [admin, setAdmin] = useState({});
 
   async function getAdmin(){
-    let promise = await fetch("https://especialeduca.jmarin.dev/api/administradores");
+    let promise = await fetch("https://especialeduca.jmarin.dev/api/administradores/cmiller@example.com");
     let response = await promise.json();
-    setAdmin(response);
-    console.log(admin);
+    setAdmin(response.data);
 }
-/*
-useEffect(()=>{
-    getAdmin();
-    
-}, [])
-*/
-  useEffect(() => {
-    setAdmin({
-      nombre : "Alonso Macías",
-      foto : "https://pbs.twimg.com/profile_images/1665732637011460097/_HijfwBd_400x400.jpg"
-    });
-  }, []);
-  
 
+  useEffect(()=>{
+      getAdmin();
+      
+  }, []);
 
   return (
     <>

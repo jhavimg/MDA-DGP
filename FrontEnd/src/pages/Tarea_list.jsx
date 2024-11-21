@@ -1,6 +1,6 @@
 import Cabecera from "../components/Cabecera";
 import Buscador from "../components/Buscador";
-import TareaVer from "../components/TareaVer";
+import CompVer from "../components/CompVer";
 import { useEffect, useState } from "react";
 
 function TareaList(){
@@ -11,8 +11,7 @@ function TareaList(){
     async function getTareas(){
         let promise = await fetch("https://especialeduca.jmarin.dev/api/tareas");
         let response = await promise.json();
-        setTareas(response);
-        console.log(tareas);
+        setTareas(response.data);
     }
     useEffect(()=>{
         getTareas();
@@ -21,12 +20,12 @@ function TareaList(){
     return(<>
         <Cabecera nombre = "Tareas" route = "/admin"/>
         <Buscador route = "/Tarea_form"/>
-        <TareaVer nombre = "Hacer Inventario"/>
-        <TareaVer nombre = "Reponer material"/>
-        <TareaVer nombre = "Tomar Comandas"/>
+        <CompVer nombre = "Hacer Inventario"/>
+        <CompVer nombre = "Reponer material"/>
+        <CompVer nombre = "Tomar Comandas"/>
         
         {tareas.map(tarea=>
-            <TareaVer nombre = {tarea.nombre} />
+            <CompVer nombre = {tarea.nombre} route = "/tarea_detail"/>
         )
         }
         </>
