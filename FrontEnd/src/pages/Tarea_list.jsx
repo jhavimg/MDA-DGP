@@ -7,8 +7,7 @@ function TareaList() {
     const [tareas, setTareas] = useState([]);
     const [loading, setLoading] = useState(true); // Estado para controlar la carga
 
-    useEffect(() => {
-        const getTareas = async () => {
+    async function getTareas(){
             try {
                 const response = await fetch("https://especialeduca.jmarin.dev/api/tareas");
                 if (!response.ok) {
@@ -29,7 +28,8 @@ function TareaList() {
                 setLoading(false);
             }
         };
-
+    
+    useEffect(() => {
         getTareas();
     }, []);
 
@@ -46,7 +46,7 @@ function TareaList() {
             <Cabecera nombre="Tareas" route="/admin" />
             <Buscador route="/Tarea_form" />
             {tareas.map((tarea) => (
-                <TareaVer key={tarea.id} nombre={tarea.nombre} />
+                <CompVer key={tarea.id} nombre={tarea.nombre} />
             ))}
         </>
     );
