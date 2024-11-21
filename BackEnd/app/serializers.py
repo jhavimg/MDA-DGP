@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from datetime import datetime, timedelta
-
+from .storage import StaticStorage
+from django.conf import settings
 from .models import *
 
 """En este archivo se definen los serializadores que se utilizarán para la serialización y deserialización de los datos que se envían y reciben en las peticiones HTTP,
@@ -96,9 +97,18 @@ class AlumnoSerializer(serializers.Serializer):
 class PasoSerializer(serializers.Serializer):
     nombre = serializers.CharField(required=True, max_length=100)
     descripcion = serializers.CharField(required=False, max_length=500)
-    imagenes = serializers.ListField(child=serializers.CharField(), required=False)
-    audio = serializers.CharField(required=False)
-    video = serializers.CharField(required=False)
+    imagenes = serializers.ListField(
+        child=serializers.FileField(),
+        required=False
+    )
+    audio = serializers.ListField(
+        child=serializers.FileField(),
+        required=False
+    )
+    video = serializers.ListField(
+        child=serializers.FileField(),
+        required=False
+    )
 
 # Serializador para la clase Tarea. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class TareaSerializer(serializers.Serializer):
@@ -126,11 +136,41 @@ class TareaSerializer(serializers.Serializer):
 # Serializador para tarea por pasos
 class TareaPorPasosSerializer(TareaSerializer):
     pasos = PasoSerializer(many=True, required=False)
+
     def create(self, validated_data):
-        pasos_data = validated_data.pop('pasos', [])
-        tarea = TareaPorPasos(**validated_data).save()
+        pasos_data = self.context['request'].data.get('pasos', [])
+        tarea = TareaPorPasos(**validated_data)
+        tarea.save()
         for paso_data in pasos_data:
-            tarea.pasos.append(Paso(**paso_data))
+            imagenes_files = paso_data.get('imagenes', [])
+            audio_files = paso_data.get('audio', [])
+            video_files = paso_data.get('video', [])
+
+            storage = StaticStorage()
+
+            imagenes_paths = []
+            for file in imagenes_files:
+                filename = storage.save(file.name, file)
+                imagenes_paths.append(storage.url(filename))
+
+            audio_paths = []
+            for file in audio_files:
+                filename = storage.save(file.name, file)
+                audio_paths.append(storage.url(filename))
+
+            video_paths = []
+            for file in video_files:
+                filename = storage.save(file.name, file)
+                video_paths.append(storage.url(filename))
+
+            paso = Paso(
+                nombre=paso_data.get('nombre'),
+                descripcion=paso_data.get('descripcion'),
+                imagenes=imagenes_paths,
+                audio=audio_paths,
+                video=video_paths
+            )
+            tarea.pasos.append(paso)
         tarea.save()
         return tarea
 

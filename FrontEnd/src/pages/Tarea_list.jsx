@@ -3,34 +3,53 @@ import Buscador from "../components/Buscador";
 import CompVer from "../components/CompVer";
 import { useEffect, useState } from "react";
 
-function TareaList(){
-
+function TareaList() {
     const [tareas, setTareas] = useState([]);
-    
+    const [loading, setLoading] = useState(true); // Estado para controlar la carga
 
-    async function getTareas(){
-        let promise = await fetch("https://especialeduca.jmarin.dev/api/tareas");
-        let response = await promise.json();
-        setTareas(response.data);
-    }
-    useEffect(()=>{
+    useEffect(() => {
+        const getTareas = async () => {
+            try {
+                const response = await fetch("https://especialeduca.jmarin.dev/api/tareas");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    setTareas(data.data);
+                } else {
+                    console.error("Error fetching data:", data.message || "Unknown error");
+                    setTareas([]);
+                }
+            } catch (error) {
+                console.error("Error fetching tareas:", error);
+                setTareas([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         getTareas();
-        
-    }, [])
-    return(<>
-        <Cabecera nombre = "Tareas" route = "/admin"/>
-        <Buscador route = "/Tarea_form"/>
-        <CompVer nombre = "Hacer Inventario"/>
-        <CompVer nombre = "Reponer material"/>
-        <CompVer nombre = "Tomar Comandas"/>
-        
-        {tareas.map(tarea=>
-            <CompVer nombre = {tarea.nombre} route = "/tarea_detail"/>
-        )
-        }
+    }, []);
+
+    if (loading) {
+        return <div>Cargando tareas...</div>;
+    }
+
+    if (tareas.length === 0 && !loading) {
+        return <div>No hay tareas disponibles.</div>;
+    }
+
+    return (
+        <>
+            <Cabecera nombre="Tareas" route="/admin" />
+            <Buscador route="/Tarea_form" />
+            {tareas.map((tarea) => (
+                <TareaVer key={tarea.id} nombre={tarea.nombre} />
+            ))}
         </>
-        
     );
 }
 
-export default TareaList
+export default TareaList;

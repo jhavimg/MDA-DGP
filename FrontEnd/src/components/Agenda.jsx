@@ -1,6 +1,7 @@
 import '../css/Agenda.css'
 import { useState, useEffect } from 'react';
 
+// Función que muestra la agenda de la semana
 function Agenda() {
 
   const [tareas, setTareas] = useState({});

@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_mongoengine",
     "corsheaders",
+    "drf_spectacular",
     "app",
 ]
 
 MIDDLEWARE = [
+    #CORS
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -81,6 +83,19 @@ TEMPLATES = [
         'rest_framework.permissions.IsAuthenticated',
     ],
 }'''
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Especial Educa API',
+    'DESCRIPTION': 'Documentación de la API de Especial Educa',
+    'SECURITY': [],
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 WSGI_APPLICATION = "EspecialEduca.wsgi.application"
 
@@ -136,4 +151,19 @@ STATIC_ROOT = "staticfiles/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SECURE_CROSS_ORIGIN_OPENER_POLICY = "unsafe-none"
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
