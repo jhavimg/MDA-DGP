@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 function AlumnoList() {
     const [alumnos, setAlumnos] = useState([]);
-    const [loading, setLoading] = useState(true); // Estado para controlar la carga
+    const [loading, setLoading] = useState(true);
 
     async function getAlumnos(){
         try {
