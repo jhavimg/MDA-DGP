@@ -37,7 +37,7 @@ function AlumnoList() {
     }
 
     if (alumnos.length === 0 && !loading) {
-        return <div>No hay tareas disponibles.</div>;
+        return <div>No hay alumnos disponibles.</div>;
     }
 
     return(<>
