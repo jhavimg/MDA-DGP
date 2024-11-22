@@ -12,7 +12,7 @@ Linux: `source .venv/bin/activate`
 
 4. Instalar dependencias
 
-`pip install -r requirements.txt
+`pip install -r ./requirements.txt
 `
 
 
