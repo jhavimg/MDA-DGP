@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/administradores/', AdministradorList.as_view(), name='administrador-list'),
     path('api/administradores/<str:email>/', AdministradorDetail.as_view(), name='administrador-detail'),
     path('api/alumnos/', AlumnoList.as_view(), name='alumno-list'),
+    path('api/alumnos/<str:alumno_id>/', AlumnoDetail.as_view(), name='alumno-detail'),
     path('api/alumnos/<str:alumno_id>/tareas/', TareaAlumnoView.as_view(), name='alumno-lista-tareas'),
     path('api/alumnos/<str:tarea_id>/tareas/completar', TareaUpdateView.as_view(), name='tarea-completar'),
     path('api/alumnos/<str:alumno_id>/tareas/hoy/', TareasHoyAlumnoView.as_view(), name='tareas-hoy-alumno'),

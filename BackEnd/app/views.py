@@ -127,6 +127,57 @@ class AdministradorDetail(APIView):
     description="Vista para listar todos los alumnos y crear nuevos.",
     responses={200: dict, 201: dict, 400: dict},
 )
+class AlumnoDetail(APIView):
+    """
+    Vista para obtener, actualizar o eliminar un alumno.
+    """
+    def get(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+            serializer = AlumnoSerializer(alumno)
+            return Response({
+                "success": True,
+                "data": serializer.data
+            })
+        except Alumno.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "El alumno no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+            serializer = AlumnoSerializer(alumno, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({
+                    "success": True,
+                    "data": serializer.data
+                })
+            return Response({
+                "success": False,
+                "message": serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
+        except Alumno.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "El alumno no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+            alumno.delete()
+            return Response({
+                "success": True,
+                "data": []
+            }, status=status.HTTP_204_NO_CONTENT)
+        except Alumno.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "El alumno no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
 class AlumnoList(APIView):
     """
     Vista para listar todos los alumnos.
