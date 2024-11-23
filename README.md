@@ -1,20 +1,18 @@
 # Instalación servidor de Django \[BackEnd\]
+
 1. Crear entorno virtual
-`python -m venv .venv`
-2. Entrar en el entorno virtual
+   
+`python -m venv .venv` o `python3 -m venv .venv`
+
+3. Entrar en el entorno virtual
 
 Windows: `.venv\Scripts\activate`
+
 Linux: `source .venv/bin/activate`
 
-3. Instalar Django
+3. Instalar dependencias
 
-`pip install django`
-
-4. Instalar dependencias
-
-`pip install mongoengine djangorestframework django-rest-framework-mongoengine djangorestframework-simplejwt pytz pillow drf-spectacular
-`
-
+`pip install -r requirements.txt`
 
 # Instalación de React \[FrontEnd\]
 
