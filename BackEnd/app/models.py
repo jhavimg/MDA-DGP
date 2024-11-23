@@ -9,13 +9,11 @@ class Usuario(Document):
 
 # Clase para la colección de Administrador que hereda de Usuario
 class Administrador(Usuario):
-    nombre = StringField(required=True, max_length=100)
-    apellidos = StringField(required=True, max_length=150)
+    nombre = StringField(required=True, max_length=150)
 
 # Clase para la coleccion de Profesor que hereda de Usuario
 class Profesor(Usuario):
-    nombre = StringField(required=True, max_length=100)
-    apellidos = StringField(required=True, max_length=150)
+    nombre = StringField(required=True, max_length=150)
     aula = StringField(max_length=50)
 
 # Clase para la colección de Accesibilidad como documento independiente
