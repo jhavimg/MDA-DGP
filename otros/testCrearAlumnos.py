@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.alert import Alert
 import time
 import os
 
@@ -11,13 +12,10 @@ try:
     driver.get('http://localhost:3000/alumno_form')
 
     # Llenar el formulario de creación de alumno
-    driver.find_element(By.NAME, 'nombre').send_keys('Juan')
-    driver.find_element(By.NAME, 'apellidos').send_keys('Pérez')
-    driver.find_element(By.NAME, 'fecha_nacimiento').send_keys('01-01-2001')
-
-    # Usar una ruta relativa para la imagen
-    image_path = os.path.join(os.path.dirname(__file__), 'test_image.jpg')
-    driver.find_element(By.NAME, 'foto').send_keys(image_path)
+    driver.find_element(By.NAME, 'email').send_keys('email1@gmail.com')
+    driver.find_element(By.NAME, 'contraseña').send_keys('contraseña')
+    driver.find_element(By.NAME, 'nickname').send_keys('nickname')
+    driver.find_element(By.NAME, 'fechaNacimiento').send_keys('01-01-2001')
 
     # Llenar los campos de accesibilidad
     driver.find_element(By.CSS_SELECTOR, 'input[name="saturacion"][value="baja"]').click()
@@ -36,18 +34,17 @@ try:
     driver.find_element(By.CSS_SELECTOR, 'input[name="navegacion"][value="teclado"]').click()
     driver.find_element(By.CSS_SELECTOR, 'input[name="navegacion"][value="pulsador"]').click()
 
-    time.sleep(5)
+  
     # Enviar el formulario
-    driver.find_element(By.TAG_NAME, 'form').submit()
-
-    # Esperar a que la página se recargue
-    time.sleep(5)
-
+    driver.find_element(By.XPATH, '//a[@href="/alumno_form"]/button[@class="button-17"]').click()
+    time.sleep(2)
+    driver.quit()
+    driver = webdriver.Chrome()
     # Verificar que el alumno aparece en la lista
     driver.get('http://localhost:3000/alumno_list')
     time.sleep(5)  # Esperar a que la página se cargue completamente
 
-    assert 'Juan Pérez' in driver.page_source
+    assert 'nickname' in driver.page_source
 
 finally:
     driver.quit()
