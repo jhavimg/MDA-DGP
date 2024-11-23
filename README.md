@@ -12,6 +12,8 @@ Linux: `source .venv/bin/activate`
 
 3. Instalar dependencias
 
+`pip install django`
+
 `pip install -r requirements.txt`
 
 # Instalación de React \[FrontEnd\]
