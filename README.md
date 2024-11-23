@@ -4,7 +4,7 @@
    
 `python -m venv .venv` o `python3 -m venv .venv`
 
-3. Entrar en el entorno virtual
+2. Entrar en el entorno virtual
 
 Windows: `.venv\Scripts\activate`
 
