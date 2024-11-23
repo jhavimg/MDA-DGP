@@ -1,7 +1,8 @@
 import Cabecera from "../components/Cabecera";
 import Buscador from "../components/Buscador";
-import CompVer from "../components/CompVer";
+import TareaVer from "../components/TareaVer";
 import { useEffect, useState } from "react";
+
 
 function TareaList() {
     const [tareas, setTareas] = useState([]);
@@ -40,13 +41,13 @@ function TareaList() {
     if (tareas.length === 0 && !loading) {
         return <div>No hay tareas disponibles.</div>;
     }
-
+   
     return (
         <>
             <Cabecera nombre="Tareas" route="/admin" />
             <Buscador route="/Tarea_form" />
-            {tareas.map((tarea) => (
-                <CompVer key={tarea.id} nombre={tarea.nombre} />
+             {tareas.map((tarea) => (
+                <TareaVer key={tarea.id} nombre={tarea.nombre}/>
             ))}
         </>
     );

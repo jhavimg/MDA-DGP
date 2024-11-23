@@ -22,7 +22,7 @@ const Main = () => {
       <Route exact path='/' element={<Home/>}></Route>
       <Route exact path='/admin' element={<Admin/>}></Route>
       <Route exact path='/tarea_list' element={<TareaList/>}></Route>
-      <Route exact path='/tarea_form' element={<Tarea_form/>}></Route>
+      <Route exact path='/Tarea_form' element={<Tarea_form/>}></Route>
       <Route exact path='/tarea_detail' element={<Tarea_detail/>}></Route>
       <Route exact path='/seguimiento' element={<Seguimiento/>}></Route>
       <Route exact path='/pedir_material' element={<Pedir_Material/>}></Route>

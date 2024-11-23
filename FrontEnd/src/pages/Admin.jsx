@@ -9,7 +9,8 @@ function Admin() {
   const [admin, setAdmin] = useState({});
 
   async function getAdmin(){
-    let promise = await fetch("https://especialeduca.jmarin.dev/api/administradores/cmiller@example.com");
+    const api_jesus = "https://especialeduca.jmarin.dev/";
+    let promise = await fetch(`${api_jesus}/api/administradores/cmiller@example.com`);
     let response = await promise.json();
     setAdmin(response.data);
 }

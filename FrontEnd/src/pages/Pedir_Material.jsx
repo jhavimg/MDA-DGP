@@ -1,6 +1,6 @@
 import Cabecera from "../components/Cabecera";
 import Buscador from "../components/Buscador";
-import CompVer from "../components/CompVer";
+import TareaVer from "../components/TareaVer";
 import { useEffect, useState } from "react";
 
 function PedirMaterial(){
@@ -21,12 +21,12 @@ function PedirMaterial(){
     return(<>
         <Cabecera nombre = "Pedir Material" route = "/profesor"/>
         <Buscador />
-        <CompVer nombre = "Hacer Inventario"/>
-        <CompVer nombre = "Reponer material"/>
-        <CompVer nombre = "Tomar Comandas"/>
+        <TareaVer nombre = "Hacer Inventario"/>
+        <TareaVer nombre = "Reponer material"/>
+        <TareaVer nombre = "Tomar Comandas"/>
         
         {tareas.map(tarea=>
-            <CompVer nombre = {tarea.nombre} />
+            <TareaVer nombre = {tarea.nombre} />
         )
         }
         </>
