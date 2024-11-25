@@ -11,12 +11,12 @@ function AlumnoPerfil() {
   const [alumno, setAlumno] = useState({});
   const [loading, setLoading] = useState(true);
 
-
+  const URL_IMAGEN_POR_DEFECTO =  "https://pbs.twimg.com/profile_images/1665732637011460097/_HijfwBd_400x400.jpg";
   ///////////////////////////////////////FALTA GET//////////////////////////////////////////////////////////7
 
   async function getAlumno() {
     try {
-      const response = await fetch(`https://especialeduca.jmarin.dev/api/alumnos/${id}`);
+      const response = await fetch(`http://localhost:8000/api/alumnos/${id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -42,7 +42,7 @@ function AlumnoPerfil() {
     <>
       <Cabecera nombre="Alumno" route="/alumno_list" />
       <div>
-        <Perfil nombre={alumno.nickname} foto={alumno.foto || "URL_IMAGEN_POR_DEFECTO"} />
+        <Perfil nombre={alumno.nickname} foto={alumno.foto || URL_IMAGEN_POR_DEFECTO} fechaNacimiento={alumno.fechaNacimiento}/>
         <Boton nombre="Seguimiento" route="/seguimiento" />
       </div>
       <Accesibilidad />

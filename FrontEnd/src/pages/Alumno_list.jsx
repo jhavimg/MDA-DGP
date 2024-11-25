@@ -9,7 +9,7 @@ function AlumnoList() {
 
     async function getAlumnos(){
         try {
-            const response = await fetch("https://especialeduca.jmarin.dev/api/alumnos/");
+            const response = await fetch("http://localhost:8000/api/alumnos/");
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -37,7 +37,13 @@ function AlumnoList() {
     }
 
     if (alumnos.length === 0 && !loading) {
-        return <div>No hay alumnos disponibles.</div>;
+        return (
+            <>
+                <Cabecera nombre = "Alumnos" route = "/admin"/>
+                <Buscador route = "/alumno_form"/>
+                <div>No hay alumnos disponibles.</div>
+            </>
+        );
     }
 
     return(<>

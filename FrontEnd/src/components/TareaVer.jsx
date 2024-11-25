@@ -3,28 +3,43 @@ import Boton from "./Boton";
 import Modal from "./Modal";
 import { Link } from "react-router-dom"; // Importamos Link para la navegación interna
 
-// Componente que muestra una tarea
 function TareaVer(props) {
-    function handleDelete() {
-        console.log("Eliminar tarea:", props.id);
+    async function handleDelete(close) {
+        try {
+            const response = await fetch(`http://localhost:8000/api/tareas/${props.id}/eliminar/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.ok) {
+                console.log("Tarea eliminada exitosamente:", props.id);
+                props.actualizarTareas(); // Llama a la función para actualizar las tareas en el padre
+                close(); // Cierra el modal
+            } else {
+                const errorData = await response.json();
+                console.error("Error al eliminar la tarea:", errorData);
+                alert("No se pudo eliminar la tarea. Verifique los detalles.");
+            }
+        } catch (error) {
+            console.error("Error al eliminar la tarea:", error);
+            alert("Ocurrió un error al eliminar la tarea.");
+        }
     }
 
     return (
         <>
             <div className="task">
-                {/* Enlace interno para ir al detalle de la tarea */}
                 <Link to={`/tarea_detail/${props.id}`} className="task-link">
                     {props.nombre}
                 </Link>
                 <div className="botones">
-                    {/* Botón para modificar la tarea */}
                     <Boton nombre="Modificar Tarea" route="/Tarea_form" />
-                    {/* Modal para acciones adicionales */}
-                    {<Modal onClickAlto={handleDelete}/>}
+                    {<Modal onClickAlto={(close) => handleDelete(close)} />} {/* Pasa close al handler */}
                 </div>
             </div>
         </>
     );
 }
-
 export default TareaVer;

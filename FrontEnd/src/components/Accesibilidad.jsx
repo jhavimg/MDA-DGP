@@ -4,7 +4,7 @@ import "../css/AForm.css"
 function Accesibilidad(){
     return(
         <div className="section">
-                <h3>Accesibilidad:</h3>
+                <h2>Accesibilidad:</h2>
 
                 <div className="section">
                     <h4>Saturación:</h4>

@@ -11,13 +11,12 @@
 }
 
 .agenda {
-    width: 90%; /* Más grande */
-    max-width: 600px; /* Límite de tamaño */
-    text-align: center;
+    width: 90%;
+    max-width: 600px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 40px; /* Más espacio */
+    padding: 30px;
 }
 
 .titulo {
@@ -33,11 +32,20 @@
     margin-bottom: 25px;
 }
 
+.listado-tareas{
+    display: flex;
+    flex-wrap:wrap;
+    gap: 10px;
+    justify-content:space-evenly;
+}
+
 .tarea {
+    flex: 1 1 calc(25% - 20px);
+    box-sizing: border-box;
+    
     background-color: #ff5733;
     color: #ffffff;
     padding: 20px;
-    margin: 15px 0;
     border-radius: 10px;
     font-weight: bold;
     font-size: 1.2em;

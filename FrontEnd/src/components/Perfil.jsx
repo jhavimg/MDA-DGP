@@ -7,6 +7,7 @@ function Perfil(props){
             <img alt = "foto" className = "foto-perfil" src = {props.foto}/>
             <br/>
             <h2>Nombre: {props.nombre}</h2>
+            <h3>Fecha nacimiento: {props.fechaNacimiento}</h3>
         </div>
         
     );

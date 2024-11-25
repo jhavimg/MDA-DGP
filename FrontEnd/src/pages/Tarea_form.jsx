@@ -5,7 +5,7 @@ import Cabecera from "../components/Cabecera";
 
 function Tareaform(props){
     return(<>
-        <Cabecera nombre = "Crear Tarea" route = "/tarea_list"/>
+        <Cabecera nombre = "Crear Tarea Por Pasos" route = "/tarea_list"/>
             
         <TForm/>
         </>

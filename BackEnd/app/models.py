@@ -32,9 +32,9 @@ class Alumno(Usuario):
 class Paso(EmbeddedDocument):
     nombre = StringField(required=True, max_length=100)
     descripcion = StringField(max_length=500)
-    imagenes = ListField(StringField()) 
-    audio = ListField(StringField())  
-    video = ListField(StringField())  
+    imagenes = ListField(StringField(), required = False) 
+    audio = ListField(StringField(), required = False)  
+    video = ListField(StringField(), required = False)  
 
 # Clase base para Tarea con herencia
 class Tarea(Document):

@@ -7,7 +7,7 @@ function Modal(props) {
         <Popup
             trigger={
                 <button className="boton-eliminar">
-                    <i className="fas fa-trash-alt"></i> {/* Ícono de papelera */}
+                    <i className="fas fa-trash-alt"></i>
                 </button>
             }
             modal
@@ -18,8 +18,8 @@ function Modal(props) {
                     <div className="header">¿Desea Eliminar Esta Tarea?</div>
 
                     <div className="actions">
-                      <Boton nombre = "Aceptar" onClickAlto = {props.onClickAlto}/>
-                      <Boton nombre = "Atrás" onClickAlto = {close}/>
+                        <Boton nombre="Aceptar" onClickAlto={() => props.onClickAlto(close)} />
+                        <Boton nombre="Atrás" onClickAlto={close} />
                     </div>
                 </div>
             )}

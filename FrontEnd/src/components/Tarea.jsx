@@ -10,7 +10,7 @@ function Tarea(props){
     console.log(props.ident);
 
     async function getTarea(){
-        let promise = await fetch(`https://especialeduca.jmarin.dev/api/tareas/${props.ident}/`);
+        let promise = await fetch(`http://localhost:8000/api/tareas/${props.ident}/`);
         let response = await promise.json();
         setTarea(response);
     }
@@ -56,6 +56,9 @@ function Tarea(props){
             <p><strong>Fecha límite:</strong> <span id="fecha_limite">{tarea.fecha}</span></p>
             <p><strong>Descripción:</strong></p>
             <p id="descripcion">{tarea.descripcion}</p>
+            <p><strong>Estado de la tarea: </strong> <span>{tarea.estado}</span></p>
+            <p><strong>Prioridad: </strong><span>{tarea.prioridad}</span></p>
+            <p><strong>Alumno asignado:</strong>{tarea.alumnoAsignado}</p>
 
             <h3>Archivos Multimedia:</h3>
             <div id="archivos">
