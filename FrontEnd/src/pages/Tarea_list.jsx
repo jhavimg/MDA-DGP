@@ -10,7 +10,7 @@ function TareaList() {
 
     async function getTareas(){
             try {
-                const response = await fetch("https://especialeduca.jmarin.dev/api/tareas");
+                const response = await fetch("http://localhost:8000/api/tareas/");
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -47,7 +47,7 @@ function TareaList() {
             <Cabecera nombre="Tareas" route="/admin" />
             <Buscador route="/Tarea_form" />
              {tareas.map((tarea) => (
-                <TareaVer key={tarea.id} nombre={tarea.nombre}/>
+                <TareaVer key={tarea.id} id={tarea.id} nombre={tarea.nombre}/>
             ))}
         </>
     );

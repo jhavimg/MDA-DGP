@@ -1,22 +1,28 @@
-import "../css/CompVer.css"
+import "../css/CompVer.css";
 import Boton from "./Boton";
 import Modal from "./Modal";
-//Componente que muestra una tarea
-function TareaVer(props){
-    function handleDelete(){
-        console.log("jajajaj");
+import { Link } from "react-router-dom"; // Importamos Link para la navegación interna
+
+// Componente que muestra una tarea
+function TareaVer(props) {
+    function handleDelete() {
+        console.log("Eliminar tarea:", props.id);
     }
-    return(<>
+
+    return (
+        <>
             <div className="task">
-                <a href = {props.route}>
-                    {props.nombre} 
-                </a>
-                <Boton nombre = "Modificar Tarea" route = "/Tarea_form"/>
-                <Modal onClickAlto = {handleDelete}/>
+                {/* Enlace interno para ir al detalle de la tarea */}
+                <Link to={`/tarea_detail/${props.id}`} className="task-link">
+                    {props.nombre}
+                </Link>
+                {/* Botón para modificar la tarea */}
+                <Boton nombre="Modificar Tarea" route="/Tarea_form" />
+                {/* Modal para acciones adicionales */}
+                <Modal onClickAlto={handleDelete} />
             </div>
         </>
-        
     );
 }
 
-export default TareaVer
+export default TareaVer;

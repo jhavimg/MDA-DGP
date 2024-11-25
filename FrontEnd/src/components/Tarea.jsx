@@ -7,17 +7,20 @@ import { useState, useEffect } from 'react';
 function Tarea(props){
 
     const [tarea, setTarea] = useState({});
+    console.log(props.ident);
 
     async function getTarea(){
-        let promise = await fetch(`https://especialeduca.jmarin.dev/api/tareas/${props.ident}`);
+        let promise = await fetch(`http://localhost:8000/api/tareas/${props.ident}/`);
         let response = await promise.json();
-        setTarea(response.data);
+        setTarea(response);
     }
 
     useEffect(()=>{
         getTarea();
         
     }, []);
+
+    console.log(tarea);
 
     //Función que oculta o muestra la tarea
     var oculto = false;
@@ -49,7 +52,7 @@ function Tarea(props){
         <div className = "tarea_container">
             <h1 className = "Tarea_tit">Detalles de la Tarea</h1>
             
-            <h2 id="titulo">Título: <span> {tarea.titulo}</span></h2>
+            <h2 id="titulo">Título: <span> {tarea.nombre}</span></h2>
             <p><strong>Fecha límite:</strong> <span id="fecha_limite">{tarea.fecha}</span></p>
             <p><strong>Descripción:</strong></p>
             <p id="descripcion">{tarea.descripcion}</p>
