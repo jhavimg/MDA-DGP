@@ -16,7 +16,7 @@ function AlumnoPerfil() {
 
   async function getAlumno() {
     try {
-      const response = await fetch(`http://localhost:8000/api/alumnos/${id}`);
+      const response = await fetch(`https://especialeduca.jmarin.dev/api/alumnos/${id}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
