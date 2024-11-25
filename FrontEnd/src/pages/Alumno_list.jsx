@@ -9,7 +9,7 @@ function AlumnoList() {
 
     async function getAlumnos(){
         try {
-            const response = await fetch("http://localhost:8000/api/alumnos/");
+            const response = await fetch("https://especialeduca.jmarin.dev/api/alumnos/");
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"; // Importamos Link para la navegación 
 function TareaVer(props) {
     async function handleDelete(close) {
         try {
-            const response = await fetch(`http://localhost:8000/api/tareas/${props.id}/eliminar/`, {
+            const response = await fetch(`https://especialeduca.jmarin.dev/api/tareas/${props.id}/eliminar/`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
