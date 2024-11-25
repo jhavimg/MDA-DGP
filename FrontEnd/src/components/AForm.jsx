@@ -100,6 +100,7 @@ function AForm(props) {
             <form id="studentForm" onSubmit={handleSubmit}>
                 <label htmlFor="email">Correo Electrónico:</label>
                 <input
+                    className="input-form"
                     type="email"
                     id="email"
                     name="email"
@@ -110,6 +111,7 @@ function AForm(props) {
 
                 <label htmlFor="contraseña">Contraseña:</label>
                 <input
+                    className="input-form"
                     type="password"
                     id="contraseña"
                     name="contraseña"
@@ -120,6 +122,7 @@ function AForm(props) {
 
                 <label htmlFor="nickname">Nickname:</label>
                 <input
+                    className="input-form"
                     type="text"
                     id="nickname"
                     name="nickname"
@@ -130,6 +133,7 @@ function AForm(props) {
 
                 <label htmlFor="fechaNacimiento">Fecha de nacimiento:</label>
                 <input
+                    className="input-form"
                     type="date"
                     id="fechaNacimiento"
                     name="fechaNacimiento"

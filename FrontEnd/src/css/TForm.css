@@ -3,7 +3,7 @@ label {
     margin-bottom: 5px;
     color: #005A9C;
 }
-input, select, textarea {
+.input-form, select, textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;

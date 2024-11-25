@@ -27,7 +27,7 @@ const Main = () => {
       <Route exact path='/seguimiento' element={<Seguimiento/>}></Route>
       <Route exact path='/pedir_material' element={<Pedir_Material/>}></Route>
       <Route exact path='/alumno' element={<Alumno/>}></Route>
-      <Route exact path='/alumno_perfil' element={<AlumnoPerfil/>}></Route>
+      <Route exact path='/alumno_perfil/:id' element={<AlumnoPerfil />} />
       <Route exact path='/alumno_list' element={<AlumnoList/>}></Route>
       <Route exact path='/alumno_form' element={<AlumnoForm/>}></Route>
       <Route exact path='/clases_comandas' element={<ClasesComandas/>}></Route>

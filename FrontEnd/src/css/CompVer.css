@@ -13,3 +13,39 @@
 .task h3 {
     margin: 0;
 }
+
+.task-link{
+    width: 70%;
+}
+
+.botones{
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+
+.boton-eliminar {
+    background-color: #ff4d4d; 
+    color: white; 
+    border: none; 
+    border-radius: 50%; 
+    width: 55px; 
+    height: 55px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.boton-eliminar:hover {
+    background-color: #e60000; 
+    transform: scale(1.1); 
+}
+
+.boton-eliminar i {
+    font-size: 20px; /* Tamaño del ícono */
+}

@@ -46,12 +46,12 @@ class Tarea(Document):
     estado = StringField(choices=ESTADOS, default='pendiente')
     prioridad = StringField(required=True, max_length=50)
     fecha = DateTimeField(required=True)
-    alumnoAsignado = ReferenceField(Alumno, required=True)
+    alumnoAsignado = ReferenceField(Alumno, required=False, null=True)
     tipo = StringField(required=True, max_length=100)
 
 # Clase para Tarea por Pasos que hereda de Tarea
 class TareaPorPasos(Tarea):
-    pasos = ListField(EmbeddedDocumentField(Paso))
+    pasos = ListField(EmbeddedDocumentField(Paso), required=False)
 
 # Clase para los elementos de Material
 class Material(EmbeddedDocument):

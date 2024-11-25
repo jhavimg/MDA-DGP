@@ -5,7 +5,7 @@
     margin: 40px;
 }
 
-.search-bar input {
+.search-bar .input-buscador {
     flex: 1;
     padding: 8px;
     border: 1px solid #ccc;

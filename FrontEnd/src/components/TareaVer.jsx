@@ -16,10 +16,12 @@ function TareaVer(props) {
                 <Link to={`/tarea_detail/${props.id}`} className="task-link">
                     {props.nombre}
                 </Link>
-                {/* Botón para modificar la tarea */}
-                <Boton nombre="Modificar Tarea" route="/Tarea_form" />
-                {/* Modal para acciones adicionales */}
-                <Modal onClickAlto={handleDelete} />
+                <div className="botones">
+                    {/* Botón para modificar la tarea */}
+                    <Boton nombre="Modificar Tarea" route="/Tarea_form" />
+                    {/* Modal para acciones adicionales */}
+                    {<Modal onClickAlto={handleDelete}/>}
+                </div>
             </div>
         </>
     );

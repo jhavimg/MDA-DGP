@@ -117,7 +117,7 @@ class TareaSerializer(serializers.Serializer):
     estado = serializers.ChoiceField(choices=Tarea.ESTADOS, default='pendiente')
     fecha = serializers.DateTimeField(required=True)
     prioridad = serializers.CharField(required=True, max_length=50)
-    alumnoAsignado = serializers.PrimaryKeyRelatedField(queryset = Alumno.objects)
+    alumnoAsignado = serializers.PrimaryKeyRelatedField(queryset = Alumno.objects, allow_null=True, required=False)
 
     def create(self, validated_data):
         return Tarea(**validated_data).save()
