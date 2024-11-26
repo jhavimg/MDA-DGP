@@ -1,12 +1,22 @@
 import "../css/Comp.css"
+import { useState, useEffect } from "react";
 
 //Componente que muestra una tarea
-function MenuComp(props){
+function MenuComp({alt, image, cant, onClickSub, onClickAdd}){
+
+
+
+    
 
     return(<>
-           <button className="number-box" onClick={props.onClickAlto}>
-                {props.nombre}
-            </button>
+           <div className="number-box">
+                <img src= {require("../images/menu.png")} alt = {alt}/>
+                <div className="quantity-controls">
+                    <button onClick={onClickSub}>-</button>
+                    <span className="quantity">{cant}</span>
+                    <button onClick={onClickAdd}>+</button>
+                </div>
+            </div>
         </>
         
     );

@@ -18,20 +18,9 @@ function PedirMaterial(){
         getTareas();
         
     }, [])
-    return(<>
-        <Cabecera nombre = "Pedir Material" route = "/profesor"/>
-        <Buscador />
-        <TareaVer nombre = "Hacer Inventario"/>
-        <TareaVer nombre = "Reponer material"/>
-        <TareaVer nombre = "Tomar Comandas"/>
-        
-        {tareas.map(tarea=>
-            <TareaVer nombre = {tarea.nombre} />
-        )
-        }
-        </>
-        
-    );
+    return(
+        <div>Coming soon!</div>
+        );
 }
 
 export default PedirMaterial
