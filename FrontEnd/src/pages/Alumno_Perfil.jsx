@@ -43,8 +43,11 @@ function AlumnoPerfil() {
       <Cabecera nombre="Alumno" route="/alumno_list" />
       <div>
         <Perfil nombre={alumno.nickname} foto={alumno.foto || URL_IMAGEN_POR_DEFECTO} fechaNacimiento={alumno.fechaNacimiento}/>
+        <br/>
         <Boton nombre="Seguimiento" route="/seguimiento" />
+        
       </div>
+      <br/>
       <Accesibilidad />
       <Boton nombre="Guardar" />
     </>

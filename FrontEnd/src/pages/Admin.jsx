@@ -11,10 +11,11 @@ function Admin() {
   const URL_IMAGEN_POR_DEFECTO =  "https://pbs.twimg.com/profile_images/1665732637011460097/_HijfwBd_400x400.jpg";
 
   async function getAdmin(){
-    const api_jesus = "https://especialeduca.jmarin.dev/";
+    const api_jesus = "https://especialeduca.jmarin.dev";
     let promise = await fetch(`${api_jesus}/api/administradores/cmiller@example.com`);
     let response = await promise.json();
     setAdmin(response.data);
+    console.log(admin);
 }
 
   useEffect(()=>{
@@ -26,10 +27,11 @@ function Admin() {
     <>
     <Cabecera nombre = "Administrador" route = "/"/>
     <Perfil nombre = {admin.nombre} foto = {admin.foto || URL_IMAGEN_POR_DEFECTO}/>
-
-    
+    <br/>
+    <div>
     <Boton  nombre = "Gestionar Alumnos" route ="/alumno_list"/>
     <Boton nombre = "Gestionar Tareas" route = "/tarea_list"/>
+    </div>
     </>
   );
 }

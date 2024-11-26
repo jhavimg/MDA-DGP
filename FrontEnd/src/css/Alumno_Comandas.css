@@ -1,4 +1,5 @@
 .cuerpo_comandas {
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +20,7 @@ h1 {
     font-size: 2em;
     color: #333;
     margin-bottom: 20px;
+    font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
 }
 .numbers-grid {
     display: grid;

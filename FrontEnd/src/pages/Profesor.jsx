@@ -33,8 +33,7 @@ useEffect(()=>{
     <>
     <Cabecera nombre = "Profesor" route = "/"/>
     <Perfil nombre = {profe.nombre} foto = {profe.foto}/>
-
-    
+    <br/>
     <Boton  nombre = "Pedir Material" route ="/Pedir_material"/>
     </>
   );
