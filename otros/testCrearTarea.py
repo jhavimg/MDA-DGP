@@ -32,14 +32,16 @@ try:
     # Enviar el formulario
     driver.find_element(By.XPATH, '//*[@id="root"]/div[2]/form/a/button').click ()
 
-    # Esperar a que la página se recargue
-    time.sleep(5)
+    time.sleep(2)
 
+    driver.quit()
+    driver = webdriver.Chrome()
+    
     # Verificar que la tarea aparece en la lista
     driver.get('http://localhost:3000/Tarea_list')
     time.sleep(5)  # Esperar a que la página se cargue completamente
 
-    assert 'Tarea de Matemáticas' in driver.page_source
-
+    assert 'Tarea de Prueba' in driver.page_source
+    print('La tarea se creó correctamente')
 finally:
     driver.quit()

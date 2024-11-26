@@ -11,7 +11,7 @@ try:
     driver.get('http://localhost:3000/Tarea_form')
 
     # Llenar el formulario de creación de tarea
-    driver.find_element(By.NAME, 'titulo').send_keys('Tarea de Prueba')
+    driver.find_element(By.NAME, 'titulo').send_keys('Tarea de Prueba por pasos')
     driver.find_element(By.NAME, 'fecha_limite').send_keys('20-12-2021')
     driver.find_element(By.NAME, 'descripcion').send_keys('Resolver los ejercicios del libro.')
 
@@ -41,12 +41,12 @@ try:
 
     driver.quit()
     driver = webdriver.Chrome()
-    
+
     # Verificar que la tarea aparece en la lista
     driver.get('http://localhost:3000/Tarea_list')
     time.sleep(5)  # Esperar a que la página se cargue completamente
 
-    assert 'Tarea de Prueba' in driver.page_source
+    assert 'Tarea de Prueba por pasos' in driver.page_source
     print('La tarea se creó correctamente')
 finally:
     driver.quit()
