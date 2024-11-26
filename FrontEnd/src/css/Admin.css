@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+.botones-admin{
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 35px;
+}
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
 .botones{
   margin:80px;
 }

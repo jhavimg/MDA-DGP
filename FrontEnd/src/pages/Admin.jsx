@@ -28,7 +28,7 @@ function Admin() {
     <Cabecera nombre = "Administrador" route = "/"/>
     <Perfil nombre = {admin.nombre} foto = {admin.foto || URL_IMAGEN_POR_DEFECTO}/>
     <br/>
-    <div>
+    <div className='botones-admin'>
     <Boton  nombre = "Gestionar Alumnos" route ="/alumno_list"/>
     <Boton nombre = "Gestionar Tareas" route = "/tarea_list"/>
     </div>
