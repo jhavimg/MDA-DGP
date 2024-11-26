@@ -3,11 +3,12 @@ import Buscador from "../components/Buscador";
 import TareaVer from "../components/TareaVer";
 import { useEffect, useState } from "react";
 
-
+// Lista de tareas
 function TareaList() {
     const [tareas, setTareas] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Función para obtener las tareas
     async function getTareas() {
         try {
             const response = await fetch("https://especialeduca.jmarin.dev/api/tareas/");

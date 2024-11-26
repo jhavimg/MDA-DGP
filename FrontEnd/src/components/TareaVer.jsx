@@ -3,6 +3,7 @@ import Boton from "./Boton";
 import Modal from "./Modal";
 import { Link } from "react-router-dom"; // Importamos Link para la navegación interna
 
+// Componente que muestra una tarea en la lista de tareas
 function TareaVer(props) {
     async function handleDelete(close) {
         try {

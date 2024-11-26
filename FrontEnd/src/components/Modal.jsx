@@ -2,6 +2,7 @@ import Popup from "reactjs-popup";
 import Boton from './Boton';
 import "reactjs-popup/dist/index.css";
 
+// Función que crea un popup para confirmar la eliminación de una tarea
 function Modal(props) {
     return (
         <Popup

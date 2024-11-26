@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/TForm.css";
 import Boton from "./Boton";
 
+// Componente para el formulario de creación de tareas
 function TForm(props) {
     const [pasos, setPasos] = useState([]);
     const [alumnos, setAlumnos] = useState([]); // Estado para almacenar la lista de alumnos
@@ -49,6 +50,7 @@ function TForm(props) {
         setPasos(nuevosPasos);
     };
 
+    // Función para enviar los datos del formulario al servidor
     const manejarSubmit = async () => {
         const nombre = document.getElementById("titulo").value;
         const descripcion = document.getElementById("descripcion").value;
