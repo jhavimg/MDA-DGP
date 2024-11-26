@@ -375,6 +375,57 @@ class TareasHoyAlumnoView(APIView):
     description="Vista para crear una nueva petición de comedor.",
     responses={201: dict, 400: dict},
 )
+
+class TareaPorPasosCreateView(APIView):
+    """
+    Vista para manejar la creación de tareas por pasos.
+    """
+    def post(self, request):
+        serializer = TareaPorPasosSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            tarea_por_pasos = serializer.save()
+            return Response({
+                "success": True,
+                "data": TareaPorPasosSerializer(tarea_por_pasos).data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+@extend_schema(
+    summary="Eliminar una tarea por su ID.",
+    description="Vista para eliminar una tarea específica utilizando su ID. También elimina la tarea del listado de tareas del alumno asignado.",
+    responses={204: dict, 404: dict},
+)
+class TareaDeleteView(APIView):
+    """
+    Vista para eliminar una tarea específica por su ID.
+    """
+    def delete(self, request, tarea_id):
+        try:
+            # Buscar la tarea
+            tarea = Tarea.objects.get(id=tarea_id)
+            
+            # Verificar si la tarea tiene un alumno asignado
+            if tarea.alumnoAsignado:
+                alumno = tarea.alumnoAsignado
+                # Eliminar la tarea del listado de tareas del alumno
+                alumno.update(pull__tareas=tarea)
+            
+            # Eliminar la tarea de la base de datos
+            tarea.delete()
+            return Response({
+                "success": True,
+                "message": "La tarea ha sido eliminada exitosamente."
+            }, status=status.HTTP_204_NO_CONTENT)
+        
+        except Tarea.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "La tarea no existe."
+            }, status=status.HTTP_404_NOT_FOUND)
+
 class PeticionComedorCreateView(APIView):
     def post(self, request):
         serializer = PeticionComedorSerializer(data=request.data)

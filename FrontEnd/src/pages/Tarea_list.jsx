@@ -6,30 +6,30 @@ import { useEffect, useState } from "react";
 
 function TareaList() {
     const [tareas, setTareas] = useState([]);
-    const [loading, setLoading] = useState(true); // Estado para controlar la carga
+    const [loading, setLoading] = useState(true);
 
-    async function getTareas(){
-            try {
-                const response = await fetch("https://especialeduca.jmarin.dev/api/tareas/");
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-
-                if (data.success && data.data) {
-                    setTareas(data.data);
-                } else {
-                    console.error("Error fetching data:", data.message || "Unknown error");
-                    setTareas([]);
-                }
-            } catch (error) {
-                console.error("Error fetching tareas:", error);
-                setTareas([]);
-            } finally {
-                setLoading(false);
+    async function getTareas() {
+        try {
+            const response = await fetch("https://especialeduca.jmarin.dev/api/tareas/");
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        };
-    
+            const data = await response.json();
+
+            if (data.success && data.data) {
+                setTareas(data.data);
+            } else {
+                console.error("Error fetching data:", data.message || "Unknown error");
+                setTareas([]);
+            }
+        } catch (error) {
+            console.error("Error fetching tareas:", error);
+            setTareas([]);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
         getTareas();
     }, []);
@@ -39,15 +39,26 @@ function TareaList() {
     }
 
     if (tareas.length === 0 && !loading) {
-        return <div>No hay tareas disponibles.</div>;
+        return (
+            <>
+                <Cabecera nombre="Tareas" route="/admin" />
+                <Buscador route="/Tarea_form" />
+                <div>No hay tareas disponibles.</div>
+            </>
+        );
     }
-   
+
     return (
         <>
             <Cabecera nombre="Tareas" route="/admin" />
             <Buscador route="/Tarea_form" />
-             {tareas.map((tarea) => (
-                <TareaVer key={tarea.id} id={tarea.id} nombre={tarea.nombre}/>
+            {tareas.map(tarea => (
+                <TareaVer
+                    key={tarea.id}
+                    id={tarea.id}
+                    nombre={tarea.nombre}
+                    actualizarTareas={getTareas} // Pasa la función para actualizar las tareas
+                />
             ))}
         </>
     );

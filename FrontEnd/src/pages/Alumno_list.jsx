@@ -37,7 +37,13 @@ function AlumnoList() {
     }
 
     if (alumnos.length === 0 && !loading) {
-        return <div>No hay alumnos disponibles.</div>;
+        return (
+            <>
+                <Cabecera nombre = "Alumnos" route = "/admin"/>
+                <Buscador route = "/alumno_form"/>
+                <div>No hay alumnos disponibles.</div>
+            </>
+        );
     }
 
     return(<>

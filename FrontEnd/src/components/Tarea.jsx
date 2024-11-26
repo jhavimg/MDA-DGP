@@ -56,6 +56,9 @@ function Tarea(props){
             <p><strong>Fecha límite:</strong> <span id="fecha_limite">{tarea.fecha}</span></p>
             <p><strong>Descripción:</strong></p>
             <p id="descripcion">{tarea.descripcion}</p>
+            <p><strong>Estado de la tarea: </strong> <span>{tarea.estado}</span></p>
+            <p><strong>Prioridad: </strong><span>{tarea.prioridad}</span></p>
+            <p><strong>Alumno asignado:</strong>{tarea.alumnoAsignado}</p>
 
             <h3>Archivos Multimedia:</h3>
             <div id="archivos">

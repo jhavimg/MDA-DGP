@@ -12,9 +12,10 @@ try:
     driver.get('http://localhost:3000/alumno_form')
 
     # Llenar el formulario de creación de alumno
-    driver.find_element(By.NAME, 'email').send_keys('email1@gmail.com')
+    #Cada vez que se desee probar hay que cambiar el email y el nombre
+    driver.find_element(By.NAME, 'email').send_keys('email101@gmail.com')
     driver.find_element(By.NAME, 'contraseña').send_keys('contraseña')
-    driver.find_element(By.NAME, 'nickname').send_keys('nickname')
+    driver.find_element(By.NAME, 'nickname').send_keys('nickname101')
     driver.find_element(By.NAME, 'fechaNacimiento').send_keys('01-01-2001')
 
     # Llenar los campos de accesibilidad
@@ -45,6 +46,7 @@ try:
     time.sleep(5)  # Esperar a que la página se cargue completamente
 
     assert 'nickname' in driver.page_source
+    print('El alumno se creó correctamente')
 
 finally:
     driver.quit()

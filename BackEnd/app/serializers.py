@@ -98,15 +98,18 @@ class PasoSerializer(serializers.Serializer):
     descripcion = serializers.CharField(required=False, max_length=500)
     imagenes = serializers.ListField(
         child=serializers.FileField(),
-        required=False
+        required=False, 
+        allow_empty=True,
     )
     audio = serializers.ListField(
         child=serializers.FileField(),
-        required=False
+        required=False,
+        allow_empty=True,
     )
     video = serializers.ListField(
         child=serializers.FileField(),
-        required=False
+        required=False,
+        allow_empty=True,
     )
 
 # Serializador para la clase Tarea. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
@@ -137,15 +140,21 @@ class TareaPorPasosSerializer(TareaSerializer):
     pasos = PasoSerializer(many=True, required=False)
 
     def create(self, validated_data):
-        pasos_data = self.context['request'].data.get('pasos', [])
+        validated_data['tipo'] = "tarea_por_pasos"
+        pasos_data = validated_data.pop('pasos', [])  
         tarea = TareaPorPasos(**validated_data)
         tarea.save()
+
+        alumno = validated_data.get('alumnoAsignado')
+        if alumno:
+            alumno.update(push__tareas=tarea.id)  
+
+        storage = StaticStorage()  
+
         for paso_data in pasos_data:
             imagenes_files = paso_data.get('imagenes', [])
             audio_files = paso_data.get('audio', [])
             video_files = paso_data.get('video', [])
-
-            storage = StaticStorage()
 
             imagenes_paths = []
             for file in imagenes_files:
@@ -169,8 +178,9 @@ class TareaPorPasosSerializer(TareaSerializer):
                 audio=audio_paths,
                 video=video_paths
             )
-            tarea.pasos.append(paso)
-        tarea.save()
+            tarea.pasos.append(paso)  
+
+        tarea.save()  
         return tarea
 
 # Serializador para el menú
@@ -182,14 +192,13 @@ class MenuSerializer(serializers.Serializer):
 # Serializador para la petición de comedor
 class PeticionComedorSerializer(TareaSerializer):
     menus = MenuSerializer(many=True, required=True)
-
+    
     def create(self, validated_data):
         menus_data = validated_data.pop('menus')
         alumno = validated_data.get('alumnoAsignado')
         
-        # Asegurarse de que 'tipo' esté presente en validated_data
         if 'tipo' not in validated_data:
-            validated_data['tipo'] = "petición comedor"  # Valor predeterminado
+            validated_data['tipo'] = "petición comedor"  
         
         peticion_comedor = PeticionComedor(**validated_data).save()
         

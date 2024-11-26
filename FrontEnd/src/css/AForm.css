@@ -1,11 +1,20 @@
 .section {
-    margin-bottom: 20px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .section h3, .section h4 {
     color: #005A9C;
     font-size: 1.2em;
     margin-bottom: 10px;
 }
+
+.section h4{
+    border-bottom: 2px solid black;
+}
+
 .radio-group, .checkbox-group {
     display: flex;
     flex-direction: row;

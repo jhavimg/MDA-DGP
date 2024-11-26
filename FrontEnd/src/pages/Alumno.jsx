@@ -23,13 +23,14 @@ function Alumno(props){
             <div class="agenda">
             <div class="titulo">Tareas de Hoy</div> 
             <div class="dia">Lunes</div>
-                <Boton className = "tarea" nombre = "Coger Materiales" route = "/tarea_detail" />
-                <Boton className = "tarea" nombre = "Tomar Comandas" route = "/clases_comandas" />
-                
-                {tareas.map(tarea=>
-                    <Boton className = "tarea" nombre = {tarea.nombre} ident = {tarea.id} route = "/tarea_detail" />
-        )
-        }   
+                <div className="listado-tareas">
+                    <Boton className = "tarea" nombre = "Coger Materiales" route = "/tarea_detail" />
+                    <Boton className = "tarea" nombre = "Tomar Comandas" route = "/clases_comandas" />
+                    
+                    {tareas.map(tarea=>
+                        <Boton className = "tarea" nombre = {tarea.nombre} ident = {tarea.id} route = "/tarea_detail" />
+                    )}
+                </div>   
             </div>
         </div>
         </>

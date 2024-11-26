@@ -70,7 +70,7 @@ function AForm(props) {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:8000/api/alumnos/", {
+            const response = await fetch("https://especialeduca.jmarin.dev/api/alumnos/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
