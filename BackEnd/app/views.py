@@ -258,32 +258,34 @@ class TareaUpdateView(APIView):
     """
     Vista para completar una tarea de un alumno.
     """
-    def post(self, request, tarea_id, alumno_id):
-        try:
-            alumno = Alumno.objects.get(id=alumno_id)
-        except Alumno.DoesNotExist:
-            raise Response({
-                "success": False,
-                "message": "El alumno no existe"
-            }, status=status.HTTP_404_NOT_FOUND)
-        
+    def post(self, request, tarea_id):
+        """
+        Actualiza los datos de la tarea o la marca como completada.
+        """
         try:
             tarea = Tarea.objects.get(id=tarea_id)
         except Tarea.DoesNotExist:
-            raise Response({
+            return Response({
                 "success": False,
                 "message": "La tarea no existe"
             }, status=status.HTTP_404_NOT_FOUND)
-        
-        # Eliminar la tarea de la lista de tareas del alumno
-        if tarea in alumno.tareas:
-            alumno.tareas.remove(tarea)
-            alumno.save()
-        
-        #tarea.estado = 'completada'
-        #tarea.save()
 
-        return Response({"message": "Tarea eliminada de la lista del alumno"}, status=status.HTTP_200_OK)
+        # Validar si se incluye "completada" y marcarla como completada
+        if "completada" in request.data and request.data["completada"]:
+            request.data["estado"] = "completada"
+
+        serializer = TareaSerializer(tarea, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "success": True,
+                "data": serializer.data
+            }, status=status.HTTP_200_OK)
+
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
     
 
 @extend_schema(

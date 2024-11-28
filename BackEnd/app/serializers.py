@@ -182,6 +182,16 @@ class TareaPorPasosSerializer(TareaSerializer):
 
         tarea.save()  
         return tarea
+    
+    def update(self, instance, validated_data):
+        if not validated_data:
+            raise serializers.ValidationError("No hay datos para actualizar.")
+        
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        
+        instance.save()
+        return instance
 
 # Serializador para el menú
 class MenuSerializer(serializers.Serializer):
