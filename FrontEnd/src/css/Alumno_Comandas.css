@@ -10,12 +10,13 @@
 }
 .menu-container {
     text-align: center;
-    width: 500px;
+    inline-size: 70%;
     background-color: #b4e397;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
 h1 {
     font-size: 2em;
     color: #333;
