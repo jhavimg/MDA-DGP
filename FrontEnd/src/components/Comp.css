@@ -9,11 +9,9 @@
     position: relative;
 }
 
-.number-box .img-menu{
+.number-box img{
     aspect-ratio: 16 / 9;
-    inline-size: 100%;
-    block-size: 75%;
-    margin: 0;
+    width: 100%;
 }
 
 .number-box.selected {
@@ -38,21 +36,14 @@
     gap: 15px;
     justify-content: center;
     align-items: center;
-
-    margin-top: 10px;
 }
 
 .quantity-controls button{
     inline-size: 30%;
     block-size: 100%;
-    aspect-ratio: 1 / 1;
 
-    font-size:xx-large;
+    font-size:larger;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background-color: rgb(15, 100, 15);
-    border-radius: 20px;
-    color: white;
 }

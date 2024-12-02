@@ -18,15 +18,17 @@
 }
 
 h1 {
+    inline-size: 90%;
     font-size: 2em;
     color: #333;
     margin-bottom: 20px;
     font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
+    text-align: center;
 }
 .numbers-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 30px;
 }
 .number-box {
     background-color: white;
@@ -51,10 +53,13 @@ h1 {
     color: #555;
 }
 .done-button {
+    aspect-ratio: 16 / 9;
+    block-size: 80px;
+
     margin-top: 20px;
     padding: 10px 20px;
-    font-size: 1.2em;
-    background-color: #4caf50;
+    font-size: 1.5em;
+    background-color: rgb(15, 100, 15);
     color: white;
     border: none;
     border-radius: 5px;
@@ -62,4 +67,39 @@ h1 {
 }
 .done-button:hover {
     background-color: #45a049;
+}
+
+.cabecera-peticion{
+    inline-size: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.boton-volver-atras{
+    align-self: flex-start;
+    
+    block-size: 100%;
+    inline-size: 20%;
+    min-inline-size: fit-content;
+    padding: 15px;
+
+    font-size: large;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 150);
+    cursor: pointer;
+}
+
+.boton-volver-atras:hover{
+    background-color: rgb(255, 255, 0);
+}
+
+.aula-box{
+    background-color: white;
+    block-size: 3.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

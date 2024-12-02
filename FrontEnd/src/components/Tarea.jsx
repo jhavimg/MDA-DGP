@@ -11,7 +11,7 @@ function Tarea(props) {
     const [oculto, setOculto] = useState(false); // Estado para controlar si la tarea está oculta
 
     async function getTarea() {
-        let promise = await fetch(`https://especialeduca.jmarin.dev/api/tareas/${props.ident}/`);
+        let promise = await fetch(`http://localhost:8000/api/tareas/${props.ident}/`);
         let response = await promise.json();
         setTarea(response);
     }

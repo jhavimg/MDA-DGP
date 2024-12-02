@@ -1,0 +1,41 @@
+.pc-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.pc-form .form-group {
+    margin-bottom: 15px;
+}
+
+.pc-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.pc-form input,
+.pc-form select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pc-form .submit-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pc-form .submit-button:hover {
+    background-color: #0056b3;
+}

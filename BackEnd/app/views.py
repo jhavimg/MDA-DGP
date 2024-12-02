@@ -511,6 +511,9 @@ class PeticionComedorMenuView(APIView):
         })
 
     def put(self, request, peticion_id):
+        """
+        Actualizar los menús de una petición de comedor sumando los nuevos menús a los existentes.
+        """
         try:
             peticion = PeticionComedor.objects.get(id=peticion_id)
         except PeticionComedor.DoesNotExist:
@@ -519,17 +522,42 @@ class PeticionComedorMenuView(APIView):
                 "message": "La petición de comedor no existe"
             }, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = PeticionComedorSerializer(peticion, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
+        menus_data = request.data.get('menus', None)
+        if menus_data is None:
+            return Response({
+                "success": False,
+                "message": "El campo 'menus' es requerido para actualizar los menús."
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Crear un diccionario para fusionar menús existentes con los nuevos
+            menu_dict = {f"{menu.nombre}-{menu.aula}": menu for menu in peticion.menus}
+
+            for new_menu in menus_data:
+                key = f"{new_menu['nombre']}-{new_menu['aula']}"
+                if key in menu_dict:
+                    # Si el menú ya existe, suma las cantidades
+                    menu_dict[key].cantidad += new_menu['cantidad']
+                else:
+                    # Si el menú no existe, añade un nuevo menú
+                    menu_dict[key] = Menu(**new_menu)
+
+            # Actualizar la lista de menús en la petición
+            peticion.menus = list(menu_dict.values())
+            peticion.save()
+
             return Response({
                 "success": True,
-                "data": serializer.data
-            })
-        return Response({
-            "success": False,
-            "message": serializer.errors
-        }, status=status.HTTP_400_BAD_REQUEST)
+                "data": PeticionComedorSerializer(peticion).data
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({
+                "success": False,
+                "message": f"Error al actualizar los menús: {str(e)}"
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
 @extend_schema(
     summary="Obtener y actualizar las accesibilidades de un alumno.",
     description="Vista para obtener y actualizar las accesibilidades de un alumno.",

@@ -223,17 +223,39 @@ class PeticionComedorSerializer(TareaSerializer):
         return peticion_comedor
 
     def validate(self, data):
-        alumno = data.get('alumnoAsignado')
-        fecha = data.get('fecha').date()  # Obtenemos solo la parte de la fecha
-        
-        start_of_day = datetime.combine(fecha, datetime.min.time())
-        end_of_day = datetime.combine(fecha, datetime.max.time())
-        
-        if PeticionComedor.objects.filter(alumnoAsignado=alumno, fecha__gte=start_of_day, fecha__lte=end_of_day).count() > 0:
-            raise serializers.ValidationError("Ya existe una petición de comedor para este alumno en la fecha seleccionada.")
-        
+        alumno = data.get('alumnoAsignado', None)
+        fecha = data.get('fecha', None)
+
+        if fecha is not None:
+            fecha = fecha.date()  # Obtener solo la parte de la fecha
+            start_of_day = datetime.combine(fecha, datetime.min.time())
+            end_of_day = datetime.combine(fecha, datetime.max.time())
+
+            if alumno and PeticionComedor.objects.filter(
+                alumnoAsignado=alumno,
+                fecha__gte=start_of_day,
+                fecha__lte=end_of_day
+            ).count() > 0:
+                raise serializers.ValidationError(
+                    "Ya existe una petición de comedor para este alumno en la fecha seleccionada."
+                )
+
+        # Si no se proporciona la fecha, permitimos la validación sin errores
         return data
     
+    def update(self, instance, validated_data):
+        # Actualizar menús
+        menus_data = validated_data.pop('menus', None)
+        if menus_data:
+            instance.menus = [Menu(**menu_data) for menu_data in menus_data]
+
+        # Actualizar otros campos
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        
+        instance.save()
+        return instance
+
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         # Convertir el ObjectId a string

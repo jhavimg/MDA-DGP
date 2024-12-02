@@ -15,6 +15,7 @@ import AlumnoForm from "../pages/AlumnoForm";
 import AlumnoComandas from "../pages/Alumno_Comandas";
 import ClasesComandas from "../pages/Clases_Comandas";
 import Profesor from '../pages/Profesor';
+import PeticionComandasForm from '../pages/PeticionComandasForm';
 
 const Main = () => {
   return (
@@ -33,8 +34,8 @@ const Main = () => {
       <Route exact path='/clases_comandas' element={<ClasesComandas/>}></Route>
       <Route exact path='/alumno_comandas' element={<AlumnoComandas/>}></Route>
       <Route exact path='/profesor' element={<Profesor/>}></Route>
-      
-      
+      <Route path="/crear-peticion-comedor" element={<PeticionComandasForm />} />
+      <Route path="/alumno_comandas/:tareaId" element={<AlumnoComandas />} />
     </Routes>
   );
 }

@@ -1,14 +1,12 @@
+import { Link } from "react-router-dom";
 import "../css/Comp.css"
 
-//Componente que muestra una tarea
-function ClaseComp(props){
-    return(<>
-           <a className="number-box" href = {props.route}>
-                {props.nombre}
-            </a>
-        </>
-        
+function ClaseComp({ nombre, route }) {
+    return (
+        <Link className="enlace-clase" to={route} state={{ aula: nombre }}>
+            <div className="aula-box">{nombre}</div>
+        </Link>
     );
 }
 
-export default ClaseComp
+export default ClaseComp;

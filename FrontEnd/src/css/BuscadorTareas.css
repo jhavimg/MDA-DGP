@@ -1,15 +1,31 @@
 .search-bar {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 10px;
     margin: 40px;
 }
 
+.botones-buscador{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.buscador{
+    inline-size: 100%;
+}
+
 .search-bar .input-buscador {
     flex: 1;
+    inline-size: 90%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.search-btn{
+    inline-size: 8%;
 }
 
 .search-btn,
