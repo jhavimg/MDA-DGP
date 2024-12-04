@@ -463,9 +463,9 @@ class PeticionMaterialCreateView(APIView):
         }, status=status.HTTP_400_BAD_REQUEST)
 # Obtener las accesibilidades y agregar nuevas
 @extend_schema(
-    summary="Listar y crear accesibilidades.",
-    description="Vista para listar todas las accesibilidades y crear nuevas.",
-    responses={200: dict, 201: dict, 400: dict},
+    summary="Obtener, actualizar y eliminar una accesibilidad.",
+    description="Vista para obtener, actualizar y eliminar una accesibilidad específica.",
+    responses={200: dict, 204: dict, 404: dict, 400: dict},
 )
 class AccesibilidadListCreateView(APIView):
     def get(self, request):
@@ -488,6 +488,23 @@ class AccesibilidadListCreateView(APIView):
             "success": False,
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, accesibilidad_id):
+        try:
+            accesibilidad = Accesibilidad.objects.get(id=accesibilidad_id)
+
+            # Remove the accessibility from all related Alumnos
+            Alumno.objects.filter(accesibilidad=accesibilidad).update(pull__accesibilidad=accesibilidad)
+
+            accesibilidad.delete()
+            return Response({
+                "success": True,
+                "message": "La accesibilidad se ha eliminado correctamente"
+            }, status=status.HTTP_204_NO_CONTENT)
+        except Accesibilidad.DoesNotExist:
+            return Response({
+                "success": False,
+                "message": "La accesibilidad no existe"
+            }, status=status.HTTP_404_NOT_FOUND)
 # Vista para la lista de menús (Comandas)
 @extend_schema(
     summary="Obtener y actualizar el menú de una petición de comedor.",
