@@ -20,6 +20,7 @@ urlpatterns = [
     path('api/alumnos/<str:alumno_id>/accesibilidades/', AlumnoAccesibilidadUpdateView.as_view(), name='alumno-accesibilidad'),
     path('api/peticiones_material/', PeticionMaterialCreateView.as_view(), name='peticion-material-create'),
     path('api/accesibilidades/', AccesibilidadListCreateView.as_view(), name='accesibilidad-list-create'),
+    path('api/accesibilidades/<int:accesibilidad_id>/', AccesibilidadDetailView.as_view(), name='accesibilidad-detail'),
     path('api/peticiones_comedor/<str:peticion_id>/menus/', PeticionComedorMenuView.as_view(), name='peticion-comedor-menus'),
     path('api/tareas_por_pasos/', TareaPorPasosCreateView.as_view(), name='tarea-por-pasos-create'),
     path('api/tareas/<str:tarea_id>/eliminar/', TareaDeleteView.as_view(), name='tarea-delete'),

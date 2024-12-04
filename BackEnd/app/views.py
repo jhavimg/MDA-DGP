@@ -489,18 +489,6 @@ class AccesibilidadListCreateView(APIView):
             "success": False,
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
-    def delete(self, request, accesibilidad_id):
-        accesibilidad = get_object_or_404(Accesibilidad, id=accesibilidad_id)
-
-        alumnos_relacionados = Alumno.objects.filter(accesibilidad=accesibilidad)
-        for alumno in alumnos_relacionados:
-            alumno.accesibilidad.remove(accesibilidad)
-
-        accesibilidad.delete()
-        return Response({
-            "success": True,
-            "message": "La accesibilidad se ha eliminado correctamente"
-        }, status=status.HTTP_204_NO_CONTENT)
     
 # Vista para la lista de menús (Comandas)
 @extend_schema(
@@ -571,6 +559,41 @@ class PeticionComedorMenuView(APIView):
                 "message": f"Error al actualizar los menús: {str(e)}"
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
+@extend_schema(
+    summary="Obtener, actualizar y eliminar una accesibilidad.",
+    description="Vista para obtener, actualizar y eliminar una accesibilidad específica.",
+    responses={200: dict, 204: dict, 404: dict, 400: dict},
+)
+class AccesibilidadDetailView(APIView):
+    def get_object(self, accesibilidad_id):
+        try:
+            return Accesibilidad.objects.get(id=accesibilidad_id)
+        except Accesibilidad.DoesNotExist:
+            return None
+
+    def get(self, request, accesibilidad_id):
+        accesibilidad = self.get_object(accesibilidad_id)
+        if accesibilidad is None:
+            return Response({"success": False, "message": "La accesibilidad no existe"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = AccesibilidadSerializer(accesibilidad)
+        return Response({"success": True, "data": serializer.data})
+
+    def put(self, request, accesibilidad_id):
+        accesibilidad = self.get_object(accesibilidad_id)
+        if accesibilidad is None:
+            return Response({"success": False, "message": "La accesibilidad no existe"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = AccesibilidadSerializer(accesibilidad, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": True, "data": serializer.data})
+        return Response({"success": False, "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, accesibilidad_id):
+        accesibilidad = self.get_object(accesibilidad_id)
+        if accesibilidad is None:
+            return Response({"success": False, "message": "La accesibilidad no existe"}, status=status.HTTP_404_NOT_FOUND)
+        accesibilidad.delete()
+        return Response({"success": True, "message": "Accesibilidad eliminada"}, status=status.HTTP_204_NO_CONTENT)
     
 @extend_schema(
     summary="Obtener y actualizar las accesibilidades de un alumno.",
