@@ -7,6 +7,7 @@ from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.parsers import MultiPartParser, FormParser
 from drf_spectacular.utils import extend_schema
+from django.shortcuts import get_object_or_404
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -489,22 +490,18 @@ class AccesibilidadListCreateView(APIView):
             "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
     def delete(self, request, accesibilidad_id):
-        try:
-            accesibilidad = Accesibilidad.objects.get(id=accesibilidad_id)
+        accesibilidad = get_object_or_404(Accesibilidad, id=accesibilidad_id)
 
-            # Remove the accessibility from all related Alumnos
-            Alumno.objects.filter(accesibilidad=accesibilidad).update(pull__accesibilidad=accesibilidad)
+        alumnos_relacionados = Alumno.objects.filter(accesibilidad=accesibilidad)
+        for alumno in alumnos_relacionados:
+            alumno.accesibilidad.remove(accesibilidad)
 
-            accesibilidad.delete()
-            return Response({
-                "success": True,
-                "message": "La accesibilidad se ha eliminado correctamente"
-            }, status=status.HTTP_204_NO_CONTENT)
-        except Accesibilidad.DoesNotExist:
-            return Response({
-                "success": False,
-                "message": "La accesibilidad no existe"
-            }, status=status.HTTP_404_NOT_FOUND)
+        accesibilidad.delete()
+        return Response({
+            "success": True,
+            "message": "La accesibilidad se ha eliminado correctamente"
+        }, status=status.HTTP_204_NO_CONTENT)
+    
 # Vista para la lista de menús (Comandas)
 @extend_schema(
     summary="Obtener y actualizar el menú de una petición de comedor.",
