@@ -340,10 +340,17 @@ class TareaList(APIView):
             "data": tareas_serializadas
         }, status=status.HTTP_200_OK)
     def post(self, request):
-        serializer = TareaSerializer(data=request.data)
+        tipo_tarea = request.data.get('tipo')
+        if tipo_tarea == 'tarea por pasos':
+            serializer = TareaPorPasosSerializer(data=request.data)
+        elif tipo_tarea == 'petición comedor':
+            serializer = PeticionComedorSerializer(data=request.data)
+        else:
+            serializer = TareaSerializer(data=request.data)
+
         if serializer.is_valid():
             tarea = serializer.save()
-            return Response(TareaSerializer(tarea).data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
@@ -371,6 +378,24 @@ class TareasHoyAlumnoView(APIView):
         serializer = TareaSerializer(tareas_de_hoy, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class TareaPorPasosCreateView(APIView):
+    """
+    Vista para manejar la creación de tareas por pasos.
+    """
+    def post(self, request):
+        serializer = TareaPorPasosSerializer(data=request.data)
+        if serializer.is_valid():
+            tarea_por_pasos = serializer.save()
+            return Response({
+                "success": True,
+                "data": TareaPorPasosSerializer(tarea_por_pasos).data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
 
 # Vista para petición de comedor
 @extend_schema(

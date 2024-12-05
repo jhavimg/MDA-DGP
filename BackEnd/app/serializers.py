@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from datetime import datetime, timedelta
+from bson import ObjectId
+
+from .documents import *
 from .storage import StaticStorage
 from django.conf import settings
 from .models import *
@@ -96,21 +99,9 @@ class AlumnoSerializer(serializers.Serializer):
 class PasoSerializer(serializers.Serializer):
     nombre = serializers.CharField(required=True, max_length=100)
     descripcion = serializers.CharField(required=False, max_length=500)
-    imagenes = serializers.ListField(
-        child=serializers.FileField(),
-        required=False, 
-        allow_empty=True,
-    )
-    audio = serializers.ListField(
-        child=serializers.FileField(),
-        required=False,
-        allow_empty=True,
-    )
-    video = serializers.ListField(
-        child=serializers.FileField(),
-        required=False,
-        allow_empty=True,
-    )
+    imagenes = serializers.ListField(child=serializers.CharField(), required=False)
+    audio = serializers.CharField(required=False)
+    video = serializers.CharField(required=False)
 
 # Serializador para la clase Tarea. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class TareaSerializer(serializers.Serializer):
@@ -138,60 +129,14 @@ class TareaSerializer(serializers.Serializer):
 # Serializador para tarea por pasos
 class TareaPorPasosSerializer(TareaSerializer):
     pasos = PasoSerializer(many=True, required=False)
-
+    idTarea = serializers.CharField(required=True, max_length=100)
     def create(self, validated_data):
-        validated_data['tipo'] = "tarea_por_pasos"
-        pasos_data = validated_data.pop('pasos', [])  
-        tarea = TareaPorPasos(**validated_data)
-        tarea.save()
-
-        alumno = validated_data.get('alumnoAsignado')
-        if alumno:
-            alumno.update(push__tareas=tarea.id)  
-
-        storage = StaticStorage()  
-
+        pasos_data = validated_data.pop('pasos', [])
+        tarea = TareaPorPasos(**validated_data).save()
         for paso_data in pasos_data:
-            imagenes_files = paso_data.get('imagenes', [])
-            audio_files = paso_data.get('audio', [])
-            video_files = paso_data.get('video', [])
-
-            imagenes_paths = []
-            for file in imagenes_files:
-                filename = storage.save(file.name, file)
-                imagenes_paths.append(storage.url(filename))
-
-            audio_paths = []
-            for file in audio_files:
-                filename = storage.save(file.name, file)
-                audio_paths.append(storage.url(filename))
-
-            video_paths = []
-            for file in video_files:
-                filename = storage.save(file.name, file)
-                video_paths.append(storage.url(filename))
-
-            paso = Paso(
-                nombre=paso_data.get('nombre'),
-                descripcion=paso_data.get('descripcion'),
-                imagenes=imagenes_paths,
-                audio=audio_paths,
-                video=video_paths
-            )
-            tarea.pasos.append(paso)  
-
-        tarea.save()  
+            tarea.pasos.append(Paso(**paso_data))
+        tarea.save()
         return tarea
-    
-    def update(self, instance, validated_data):
-        if not validated_data:
-            raise serializers.ValidationError("No hay datos para actualizar.")
-        
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        
-        instance.save()
-        return instance
 
 # Serializador para el menú
 class MenuSerializer(serializers.Serializer):
@@ -217,8 +162,7 @@ class PeticionComedorSerializer(TareaSerializer):
         peticion_comedor.save()
 
         if alumno:
-            alumno.tareas.append(peticion_comedor.id)  # Agregar el ObjectId de la tarea
-            alumno.save()
+            alumno.update(push__tareas=peticion_comedor.id)
         
         return peticion_comedor
 

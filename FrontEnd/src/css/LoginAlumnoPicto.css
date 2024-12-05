@@ -1,0 +1,94 @@
+.body3 {
+    font-family: 'Patrick Hand', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    text-transform: uppercase;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #4caf50;
+    margin-bottom: 40px;
+}
+
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.animal-grid button {
+    background-color: white;
+    border: 3px solid #4caf50;
+    border-radius: 15px;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animal-grid button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.animal-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.btn-container {
+    margin-top: 20px;
+}
+
+.btn-secondary {
+    font-family: 'Patrick Hand', Arial, sans-serif;
+    text-transform: uppercase;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #d32f2f;
+}

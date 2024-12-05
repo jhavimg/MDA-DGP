@@ -1,0 +1,133 @@
+.body {
+    font-family: 'Patrick Hand', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6ffe6;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #4caf50;
+    padding: 15px 30px; /* Reducido */
+    color: white;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    padding: 15px; /* Reducido */
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    font-size: 2.5rem; /* Reducido */
+}
+
+.login-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: white;
+    color: #4caf50;
+    padding: 8px 16px; /* Reducido */
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem; /* Reducido */
+}
+
+.login-button:hover {
+    background-color: #e6ffe6;
+}
+
+main h2 {
+    margin-top: 20px;
+    font-size: 2.5rem; /* Reducido */
+}
+
+#photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 20px 0; /* Reducido */
+}
+
+.photo-page {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Reducido */
+}
+
+.photo-page.active {
+    display: flex;
+}
+
+.photo-card {
+    display: inline-block;
+    text-decoration: none;
+    color: #333;
+    border: 2px solid #ccc;
+    padding: 15px; /* Reducido */
+    border-radius: 10px;
+    width: 180px; /* Reducido */
+    text-align: center;
+    background-color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1.2rem; /* Reducido */
+}
+
+.photo-card:hover {
+    transform: scale(1.05); /* Reducido */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Reducido */
+}
+
+.photo-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.photo-card p {
+    margin: 8px 0 0; /* Reducido */
+    font-weight: bold;
+    font-size: 1rem; /* Reducido */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Reducido */
+    margin-top: 20px; /* Reducido */
+}
+
+.arrow {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Reducido */
+    border-radius: 10px;
+    font-size: 1.5rem; /* Reducido */
+    cursor: pointer;
+}
+
+.arrow:hover {
+    background-color: #3e8e41;
+}
+
+#page-indicator {
+    font-size: 1.5rem; /* Reducido */
+    font-weight: bold;
+}

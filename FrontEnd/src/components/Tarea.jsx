@@ -1,14 +1,12 @@
 import Boton from "./Boton";
 import '../css/Tarea.css';
 import Felicitacion from "./Felicitacion";
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 //Componente que muestra los detalles de una tarea
 function Tarea(props) {
 
     const [tarea, setTarea] = useState({});
-    const [felicitacionVisible, setFelicitacionVisible] = useState(false); // Estado para controlar la visibilidad de la felicitación
-    const [oculto, setOculto] = useState(false); // Estado para controlar si la tarea está oculta
 
     async function getTarea() {
         let promise = await fetch(`http://localhost:8000/api/tareas/${props.ident}/`);
@@ -19,6 +17,27 @@ function Tarea(props) {
     useEffect(() => {
         getTarea();
     }, []);
+
+    var oculto = false;
+    function completedTask(){
+        if (!oculto){
+            document.querySelector(".tarea_container").style.display = "none";
+            const element = document.querySelector(".felicitacion-hidden");
+            element.classList.remove("felicitacion-hidden");
+            element.classList.add("felicitacion");
+            
+        }
+            
+        else{
+            document.querySelector(".tarea_container").style.display = "block";
+            const element = document.querySelector(".felicitacion");
+            element.classList.remove("felicitacion");
+            element.classList.add("felicitacion-hidden");
+        }
+        oculto = !oculto;
+    }
+    useEffect(()=>{
+    }, [oculto])
 
     async function completedTask() {
         try {
@@ -34,8 +53,6 @@ function Tarea(props) {
             if (response.ok) {
                 const updatedTarea = await response.json();
                 setTarea(updatedTarea.data); // Actualiza el estado de la tarea
-                setOculto(true); // Oculta los detalles de la tarea
-                setFelicitacionVisible(true); // Muestra la felicitación
             } else {
                 console.error("Error al marcar la tarea como completada.");
             }
@@ -48,8 +65,8 @@ function Tarea(props) {
     return (
         <>
             <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
-            {felicitacionVisible && <Felicitacion id="feli" className="felicitacion" />}
-            {!oculto && (
+            <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
+            <Felicitacion id = "feli" className = "felicitacion-hidden"/>
                 <div className="tarea_container">
                     <h1 className="Tarea_tit">Detalles de la Tarea</h1>
 
@@ -68,7 +85,6 @@ function Tarea(props) {
 
                     <Boton className="boton-terminar" nombre="Terminar Tarea" onClickAlto={completedTask} />
                 </div>
-            )}
         </>
     );
 }

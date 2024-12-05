@@ -32,7 +32,7 @@ class Alumno(Usuario):
 class Paso(EmbeddedDocument):
     nombre = StringField(required=True, max_length=100)
     descripcion = StringField(max_length=500)
-    imagenes = ListField(StringField(), required = False) 
+    imagenes = ListField(StringField(), required=False) 
     audio = ListField(StringField(), required = False)  
     video = ListField(StringField(), required = False)  
 

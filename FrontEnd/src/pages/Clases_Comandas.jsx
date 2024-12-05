@@ -81,7 +81,6 @@ function ClasesComandas(props) {
                     body: JSON.stringify({ completada: true }),
                 }
             );
-
             if (response.ok) {
                 const updatedTarea = await response.json();
                 setTarea(updatedTarea.data); // Actualiza el estado de la tarea
