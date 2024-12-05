@@ -15,12 +15,9 @@ import AlumnoComandas from "../pages/Alumno_Comandas";
 import ClasesComandas from "../pages/Clases_Comandas";
 import Profesor from '../pages/Profesor';
 import PeticionComandasForm from '../pages/PeticionComandasForm';
-<<<<<<< HEAD
-=======
 import LoginMain from "../pages/LoginMain";
 import LoginAlumnoTexto from "../pages/LoginAlumnoTexto"
 import LoginAlumnoPicto from "../pages/LoginAlumnoPicto"
->>>>>>> master
 
 const Main = () => {
   return (
