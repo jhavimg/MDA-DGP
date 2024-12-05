@@ -1,7 +1,7 @@
 import Boton from "./Boton";
 import '../css/Tarea.css'
 import Felicitacion from "./Felicitacion";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 //Componente que muestra los detalles de una tarea
 function Tarea(props) {
