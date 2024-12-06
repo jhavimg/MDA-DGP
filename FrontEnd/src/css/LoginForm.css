@@ -1,0 +1,87 @@
+.body_login_form {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+}
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+.container h1 {
+    font-family: Arial, sans-serif;
+    font-size: 2.5rem;
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+.input-group label {
+    font-size: 1.2rem;
+    color: #333;
+}
+.pictogramas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.pictogramas img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.pictogramas img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.pictogramas img.selected {
+    border: 3px solid #4caf50;
+}
+button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-family: Arial, sans-serif;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #3e8e41;
+}
+.volver {
+    margin-top: 20px;
+    display: inline-block;
+    font-size: 1rem;
+    color: #d90000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.volver:hover {
+    color: #a10000;
+}
+#upload-pictogram {
+    margin-top: 10px;
+}

@@ -1,10 +1,15 @@
-import "../css/LoginAlumnoTexto.css"
+import PerfilAlumno from "../components/PerfilAlumno";
+import "../css/LoginAlumno.css"
 import { useParams } from 'react-router-dom';
+import LoginContra from "../components/LoginContra";
+import LoginPicto from "../components/LoginPicto";
 
 
-function LoginAlumnoTexto(){
-
-    const {user} = useParams();
+function LoginAlumno(props){
+    //FALTA BBDD Y LÓGICA JS(En Login Contra y Picto!!!)
+    //FALTA ELIMINAR PAGINA PICTO (NO HACER AUN QUE QUEDAN FUNCIONES QUE IMPLEMENTAR)
+    //FALTA FILTRAR PICTO O CONTRA
+    const {user, picto} = useParams();
 
     // Asociar foto y nombre con el usuario
     const users = {
@@ -16,7 +21,7 @@ function LoginAlumnoTexto(){
         "Luisa": { name: "Luisa", photo: "luisa.jpg", password: "pqrst" }
     };
 
-    if (user && users[user]) {
+    /*if (user && users[user]) {
         document.getElementById('student-name').textContent = users[user].name;
         document.getElementById('profile-pic').src = users[user].photo;
     } else {
@@ -36,22 +41,19 @@ function LoginAlumnoTexto(){
         } else {
             alert("Usuario o contraseña incorrectos. Intenta nuevamente.");
         }
-    });
+    });*/
+
+    function submit(){
+        console.log("jajajaj");
+    }
 
     return(<>
     <div className = "body2">
         <div className="container">
-            <img src="" alt="Foto del alumno" className="profile-pic" id="profile-pic"/>
-            <h1 id="student-name">Nombre del alumno</h1>
+            <PerfilAlumno nombre = {user} foto = "" />
 
-                <div className="form-group">
-                    <label for="contraseña">Contraseña:</label>
-                    <input type="password" id="contraseña" name="contraseña" required/>
-                </div>
-                <div className="btn-container">
-                    <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
-                    <button type="button" className="btn btn-secondary" onclick="">No soy yo</button>
-                </div>
+            <LoginContra/>
+            <LoginPicto/>
         </div>
     </div>
     </>
@@ -59,4 +61,4 @@ function LoginAlumnoTexto(){
     );
 }
 
-export default LoginAlumnoTexto
+export default LoginAlumno

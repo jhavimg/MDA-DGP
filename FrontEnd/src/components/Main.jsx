@@ -16,15 +16,15 @@ import ClasesComandas from "../pages/Clases_Comandas";
 import Profesor from '../pages/Profesor';
 import PeticionComandasForm from '../pages/PeticionComandasForm';
 import LoginMain from "../pages/LoginMain";
-import LoginAlumnoTexto from "../pages/LoginAlumnoTexto"
-import LoginAlumnoPicto from "../pages/LoginAlumnoPicto"
+import LoginAlumno from "../pages/LoginAlumno"
+import LoginForm from '../pages/LoginForm';
 
 const Main = () => {
   return (
     <Routes> {/* The Switch decides which component to show based on the current URL.*/}
-      <Route exact path='/login' element={<LoginMain/>}></Route>
-      <Route exact path='/login_alumno_texto/:user' element={<LoginAlumnoTexto/>}></Route>
-      <Route exact path='/login_alumno_picto/:user' element={<LoginAlumnoPicto/>}></Route>
+      <Route exact path='/' element={<LoginMain/>}></Route>
+      <Route exact path='/login_alumno/:user/:type' element={<LoginAlumno/>}></Route>
+      <Route exact path='/login_form/:id' element={<LoginForm/>}></Route>
       <Route exact path='/admin' element={<Admin/>}></Route>
       <Route exact path='/tarea_list' element={<TareaList/>}></Route>
       <Route exact path='/Tarea_form' element={<Tarea_form/>}></Route>

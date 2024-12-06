@@ -95,3 +95,33 @@
 .back-btn:hover{
   cursor: pointer;
 }
+
+.btn {
+  font-family: 'Patrick Hand', Arial, sans-serif;
+  text-transform: uppercase;
+  width: 48%;
+  padding: 15px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #3e8e41;
+}
+
+.btn-secondary {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #d32f2f;
+}
