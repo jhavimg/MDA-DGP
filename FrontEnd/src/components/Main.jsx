@@ -18,6 +18,7 @@ import PeticionComandasForm from '../pages/PeticionComandasForm';
 import LoginMain from "../pages/LoginMain";
 import LoginAlumno from "../pages/LoginAlumno"
 import LoginForm from '../pages/LoginForm';
+import LoginAdmin from '../pages/LoginAdmin';
 
 const Main = () => {
   return (
@@ -25,6 +26,7 @@ const Main = () => {
       <Route exact path='/' element={<LoginMain/>}></Route>
       <Route exact path='/login_alumno/:user/:type' element={<LoginAlumno/>}></Route>
       <Route exact path='/login_form/:id' element={<LoginForm/>}></Route>
+      <Route exact path='/login_admin' element={<LoginAdmin/>}></Route>
       <Route exact path='/admin' element={<Admin/>}></Route>
       <Route exact path='/tarea_list' element={<TareaList/>}></Route>
       <Route exact path='/Tarea_form' element={<Tarea_form/>}></Route>
