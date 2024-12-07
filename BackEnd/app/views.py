@@ -689,12 +689,10 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Add accesibilidades
         for accesibilidad in accesibilidades_agregar:
             if accesibilidad not in alumno.accesibilidad:
                 alumno.accesibilidad.append(accesibilidad)
 
-        # Remove accesibilidades
         alumno.accesibilidad = [acc for acc in alumno.accesibilidad if acc not in accesibilidades_quitar]
 
         alumno.save()
