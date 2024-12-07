@@ -2,7 +2,6 @@ from rest_framework import serializers
 from datetime import datetime, timedelta
 from bson import ObjectId
 
-from .documents import *
 from .storage import StaticStorage
 from django.conf import settings
 from .models import *
