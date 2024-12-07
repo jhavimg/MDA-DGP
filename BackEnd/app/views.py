@@ -638,10 +638,12 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         
-        # Obtener las accesibilidades del alumno
-        accesibilidades = alumno.accesibilidad.all()  # Asumiendo ManyToManyField
+        # Obtener las accesibilidades del alumno (es una lista de documentos)
+        accesibilidades = alumno.accesibilidad  # No necesitas llamar a .all()
+
+        # Serializar las accesibilidades
         accesibilidades_serializadas = AccesibilidadSerializer(accesibilidades, many=True)
-        
+
         return Response(
             {
                 "success": True,
