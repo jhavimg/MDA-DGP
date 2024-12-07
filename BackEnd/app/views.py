@@ -626,6 +626,24 @@ class AccesibilidadDetailView(APIView):
     responses={200: dict, 404: dict, 400: dict},
 )
 class AlumnoAccesibilidadUpdateView(APIView):
+    def get(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+        except Alumno.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "El alumno no existe"
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = AlumnoSerializer(alumno)
+        return Response(
+            {
+                "success": True,
+                "data": serializer.data
+            }
+        )
     def put(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
