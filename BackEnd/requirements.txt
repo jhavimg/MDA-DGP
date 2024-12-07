@@ -26,3 +26,4 @@ sqlparse==0.5.2
 typing-extensions==4.12.2
 uritemplate==4.1.1
 zipp==3.20.2
+blinker
