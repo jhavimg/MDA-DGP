@@ -662,7 +662,7 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
-        accesibilidades_ids = request.data.get('accesibilidades_ids', [])
+        accesibilidades_ids = request.data.get('accesibilidades', [])
         # Validar si las accesibilidades existen
         accesibilidades = Accesibilidad.objects.filter(id__in=accesibilidades_ids)
         if len(accesibilidades) != len(accesibilidades_ids):
