@@ -637,12 +637,17 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
-        serializer = AlumnoSerializer(alumno)
+        
+        # Obtener las accesibilidades del alumno
+        accesibilidades = alumno.accesibilidad.all()  # Asumiendo ManyToManyField
+        accesibilidades_serializadas = AccesibilidadSerializer(accesibilidades, many=True)
+        
         return Response(
             {
                 "success": True,
-                "data": serializer.data
-            }
+                "data": accesibilidades_serializadas.data
+            },
+            status=status.HTTP_200_OK
         )
     def put(self, request, alumno_id):
         try:
