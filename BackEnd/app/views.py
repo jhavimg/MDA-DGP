@@ -626,20 +626,6 @@ class AccesibilidadDetailView(APIView):
     responses={200: dict, 404: dict, 400: dict},
 )
 class AlumnoAccesibilidadUpdateView(APIView):
-    def get(self, request, alumno_id):
-        try:
-            alumno = Alumno.objects.get(id=alumno_id)
-        except Alumno.DoesNotExist:
-            return Response({
-                "success": False,
-                "message": "El alumno no existe"
-            }, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = AccesibilidadSerializer(alumno.accesibilidad, many=True)
-        return Response({
-            "success": True,
-            "data": serializer.data
-        })
     def put(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
@@ -651,7 +637,6 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
-
         accesibilidades_ids = request.data.get('accesibilidades_ids', [])
         # Validar si las accesibilidades existen
         accesibilidades = Accesibilidad.objects.filter(id__in=accesibilidades_ids)
@@ -664,9 +649,8 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         # Actualizar las accesibilidades del alumno
-        alumno.accesibilidad.set(accesibilidades)
+        alumno.accesibilidad = list(accesibilidades)
         alumno.save()
-
         return Response(
             {
                 "success": True,
@@ -684,12 +668,10 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
-
-        agregar = request.data.get('agregar', [])
-        quitar = request.data.get('quitar', [])
-
-        accesibilidades_agregar = Accesibilidad.objects.filter(id__in=agregar)
-        if len(accesibilidades_agregar) != len(agregar):
+        agregar_ids = request.data.get('agregar', [])
+        quitar_ids = request.data.get('quitar', [])
+        accesibilidades_agregar = Accesibilidad.objects.filter(id__in=agregar_ids)
+        if len(accesibilidades_agregar) != len(agregar_ids):
             return Response(
                 {
                     "success": False,
@@ -697,9 +679,8 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
-
-        accesibilidades_quitar = Accesibilidad.objects.filter(id__in=quitar)
-        if len(accesibilidades_quitar) != len(quitar):
+        accesibilidades_quitar = Accesibilidad.objects.filter(id__in=quitar_ids)
+        if len(accesibilidades_quitar) != len(quitar_ids):
             return Response(
                 {
                     "success": False,
@@ -707,8 +688,15 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
-        alumno.accesibilidad.add(*accesibilidades_agregar)
-        alumno.accesibilidad.remove(*accesibilidades_quitar)
+
+        # Add accesibilidades
+        for accesibilidad in accesibilidades_agregar:
+            if accesibilidad not in alumno.accesibilidad:
+                alumno.accesibilidad.append(accesibilidad)
+
+        # Remove accesibilidades
+        alumno.accesibilidad = [acc for acc in alumno.accesibilidad if acc not in accesibilidades_quitar]
+
         alumno.save()
         return Response(
             {
