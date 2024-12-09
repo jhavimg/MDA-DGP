@@ -98,7 +98,7 @@ function AlumnoPerfil() {
       </div>
       <br />
       <Accesibilidad initialAccesibilidades={accesibilidadesAlumno} onAccesibilidadesChange={handleAccesibilidadesChange} />
-      <button nombre="Guardar" onClick={guardarAccesibilidades} />
+      <button nombre="Guardar" onClick={guardarAccesibilidades} >Guardar</button>
     </>
   );
 }
