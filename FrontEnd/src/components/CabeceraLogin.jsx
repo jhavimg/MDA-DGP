@@ -4,7 +4,7 @@ function LoginCabecera(props){
     return(
         <>
             <h1>Especial Educa</h1>
-            <a href={props.route} className="login-button">Login administrador/profesor</a>
+            <a href="/login_admin" className="login-button">Login administrador/profesor</a>
         </>
     );
 }

@@ -97,12 +97,12 @@ function LoginForm(props){
                 </div>
                 <input type="file" id="upload-pictogram" accept="image/*" onchange={()=>addUploadedPictogram()}/>
             </div>
-            <div id="text-password" style="display: none;">
+            <div id="text-password">
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" placeholder="Escribe la contraseña"/>
             </div>
             <button onclick={saveSettings}>Guardar</button>
-            <a href="/" className="volver">Volver</a>
+            <a href={`/alumno_perfil/${id}`} className="volver">Volver</a>
         </div>
     </div>
     </>
