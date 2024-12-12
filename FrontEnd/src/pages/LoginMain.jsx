@@ -44,15 +44,14 @@ function LoginMain(){
                     <LoginItem route = "login_alumno/Ana/contra" nombre = "Ana" />
                     <LoginItem route = "login_alumno/Pedro/picto" nombre = "Pedro" />
                     <LoginItem route = "login_alumno/Luisa/contra" nombre = "Luisa" />
-                    
                 </div>
                 <div className="photo-page" id="page-1">
-                <LoginItem route = "login_alumno/Javier/contra" nombre = "Javier" />
-                <LoginItem route = "login_alumno/Sofia/picto" nombre = "Sofia" />
-                <LoginItem route = "login_alumno/Alberto/picto" nombre = "Alberto" />
-                <LoginItem route = "login_alumno/Carla/contra" nombre = "Carla" />
-                <LoginItem route = "login_alumno/Lucas/picto" nombre = "Lucas" />
-                <LoginItem route = "login_alumno/Marta/contra" nombre = "Marta" />
+                    <LoginItem route = "login_alumno/Javier/contra" nombre = "Javier" />
+                    <LoginItem route = "login_alumno/Sofia/picto" nombre = "Sofia" />
+                    <LoginItem route = "login_alumno/Alberto/picto" nombre = "Alberto" />
+                    <LoginItem route = "login_alumno/Carla/contra" nombre = "Carla" />
+                    <LoginItem route = "login_alumno/Lucas/picto" nombre = "Lucas" />
+                    <LoginItem route = "login_alumno/Marta/contra" nombre = "Marta" />
                 </div>
             </div>
             <div className="pagination">

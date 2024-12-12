@@ -11,7 +11,7 @@ function TareaList() {
     // Función para obtener las tareas
     async function getTareas() {
         try {
-            const response = await fetch("http://localhost:8000/api/tareas/");
+            const response = await fetch("https://especialeduca.jmarin.dev/api/tareas/");
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

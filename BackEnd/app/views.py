@@ -220,7 +220,7 @@ class TareaAlumnoView(APIView):
             alumno = Alumno.objects.get(id=alumno_id)
         except Alumno.DoesNotExist:
             return Response({"success": False, "message": "El alumno no existe"}, status=status.HTTP_404_NOT_FOUND)
-        
+
         tareas_serializadas = []
         for tarea in alumno.tareas:
             if isinstance(tarea, PeticionComedor):
@@ -241,12 +241,12 @@ class TareaAlumnoView(APIView):
             serializer = TareaPorPasosSerializer(data=request.data)
         else:
             serializer = TareaSerializer(data=request.data)
-        
+
         if serializer.is_valid():
             tarea = serializer.save(alumnoAsignado=Alumno.objects.get(id=alumno_id))
             Alumno.objects(id=alumno_id).update_one(push__tareas=tarea)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 

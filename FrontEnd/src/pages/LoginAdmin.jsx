@@ -37,7 +37,7 @@ function LoginAdmin() {
             localStorage.setItem("refreshToken", data.data.refresh);
             localStorage.setItem("adminId", data.data.id);
             localStorage.setItem("adminNombre", data.data.nombre);
-            localStorage.setItem("adminEmail", email); // Corregido: guardar email
+            localStorage.setItem("adminEmail", email);
     
             navigate("/admin");
         } catch (err) {
