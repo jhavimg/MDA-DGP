@@ -16,7 +16,7 @@
 }
 
 .radio-group, .checkbox-group {
-    display: flex;
+    display: block;
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
