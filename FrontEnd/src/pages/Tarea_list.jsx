@@ -43,7 +43,7 @@ function TareaList() {
         return (
             <>
                 <Cabecera nombre="Tareas" route="/admin" />
-                <Buscador route="/Tarea_form" />
+                <Buscador tarea = {true}  />
                 <div>No hay tareas disponibles.</div>
             </>
         );
@@ -52,7 +52,7 @@ function TareaList() {
     return (
         <>
             <Cabecera nombre="Tareas" route="/admin" />
-            <Buscador route="/Tarea_form" />
+            <Buscador tarea = {true} />
             {tareas.map(tarea => (
                 <TareaVer
                     key={tarea.id}
