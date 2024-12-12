@@ -9,7 +9,7 @@ function Admin() {
   const URL_IMAGEN_POR_DEFECTO = "https://pbs.twimg.com/profile_images/1665732637011460097/_HijfwBd_400x400.jpg";
 
   async function getAdmin() {
-    const api_jesus = "https://especialeduca.jmarin.dev";
+    const api_jesus = "https://especialeduca.jmarin.dev/api/";
     const email = localStorage.getItem("adminEmail"); // Obtén el email desde localStorage
 
     if (!email) {
