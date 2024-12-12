@@ -125,3 +125,18 @@
 .btn-secondary:hover {
   background-color: #d32f2f;
 }
+
+.arrow {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 15px 30px; /* Reducido */
+  border-radius: 10px;
+  font-size: 1.5rem; /* Reducido */
+  cursor: pointer;
+}
+
+.arrow:hover {
+  background-color: #3e8e41;
+}
+
