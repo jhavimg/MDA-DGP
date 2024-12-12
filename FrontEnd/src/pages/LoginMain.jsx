@@ -32,7 +32,7 @@ function LoginMain(){
     updateGallery();
     return(<>
     <div className = "body">
-        <div className="container">
+        <div className="container-login">
         <LoginCabecera className = "header" route = "" />
         <main>
             <h2>Elige tu foto</h2>

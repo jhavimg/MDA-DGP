@@ -18,7 +18,7 @@ function Admin() {
     }
 
     try {
-        const promise = await fetch(`http://localhost:8000/api/administradores/${email}`);
+        const promise = await fetch(`${api_jesus}/administradores/${email}`);
         const response = await promise.json();
 
         if (response.success) {

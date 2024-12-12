@@ -7,8 +7,8 @@
     text-transform: uppercase;
 }
 
-.container {
-    width: 80%;
+.container-login {
+    inline-size: 70%;
     margin: 0 auto;
     text-align: center;
 }
@@ -23,12 +23,10 @@ header {
     position: relative;
 }
 
-header h1 {
-    margin: 0;
+.container-login h1 {
     padding: 15px; /* Reducido */
-    border-radius: 10px;
     text-align: center;
-    width: fit-content;
+    inline-size: 100%;
     font-size: 2.5rem; /* Reducido */
 }
 
@@ -52,6 +50,7 @@ header h1 {
 main h2 {
     margin-top: 20px;
     font-size: 2.5rem; /* Reducido */
+    text-align: center;
 }
 
 #photo-gallery {
@@ -63,8 +62,9 @@ main h2 {
 
 .photo-page {
     display: none;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     gap: 20px; /* Reducido */
 }
 
@@ -73,6 +73,7 @@ main h2 {
 }
 
 .photo-card {
+    flex: 1 1 calc(30% - 20px);
     display: inline-block;
     text-decoration: none;
     color: #333;
