@@ -40,7 +40,7 @@ function AlumnoList() {
         return (
             <>
                 <Cabecera nombre = "Alumnos" route = "/admin"/>
-                <Buscador route = "/alumno_form"/>
+                <Buscador  tarea = {false} />
                 <div>No hay alumnos disponibles.</div>
             </>
         );
@@ -48,7 +48,7 @@ function AlumnoList() {
 
     return(<>
         <Cabecera nombre = "Alumnos" route = "/admin"/>
-        <Buscador route = "/alumno_form"/>
+        <Buscador tarea = {false}/>
         
         {alumnos.map(alumno=>
             <AlumnoVer 

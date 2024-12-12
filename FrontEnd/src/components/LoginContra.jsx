@@ -9,8 +9,9 @@ function LoginContra(props){
     function submit(){
         var value = document.getElementById('contraseña').value;
         if (value === props.user.password){
-            alert("¡Bienvenido! :D")
-            navigate("/alumno");
+            navigate("/");
+            alert("¡Bienvenido! :D");
+            
         }
         else{
             alert("¡Inténtalo de nuevo! :)")

@@ -39,7 +39,7 @@ function LoginMain(){
                     <LoginItem route = "login_alumno/Juan/contra" nombre = "Juan" />
                     <LoginItem route = "login_alumno/Ana/contra" nombre = "Ana" />
                     <LoginItem route = "login_alumno/Pedro/contra" ontranombre = "Pedro" />
-                    <LoginItem route = "login_alumno/Luisa/c" nombre = "Luisa" />
+                    <LoginItem route = "login_alumno/Luisa/contra" nombre = "Luisa" />
                     
                 </div>
                 <div className="photo-page">

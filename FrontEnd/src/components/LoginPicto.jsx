@@ -5,7 +5,7 @@ import Boton from "./Boton";
 function LoginPicto(props){
 
     function checkAnimal(){
-        console.log("jajjajajaj");
+        console.log("TODO");
     }
     
     if (props.salir ==="picto"){

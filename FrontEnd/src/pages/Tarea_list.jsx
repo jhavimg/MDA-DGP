@@ -11,7 +11,7 @@ function TareaList() {
     // Función para obtener las tareas
     async function getTareas() {
         try {
-            const response = await fetch("http://localhost:8000/api/tareas/");
+            const response = await fetch("https://especialeduca.jmarin.dev/api/tareas/");
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -43,7 +43,7 @@ function TareaList() {
         return (
             <>
                 <Cabecera nombre="Tareas" route="/admin" />
-                <Buscador route="/Tarea_form" />
+                <Buscador tarea = {true}  />
                 <div>No hay tareas disponibles.</div>
             </>
         );
@@ -52,7 +52,7 @@ function TareaList() {
     return (
         <>
             <Cabecera nombre="Tareas" route="/admin" />
-            <Buscador route="/Tarea_form" />
+            <Buscador tarea = {true} />
             {tareas.map(tarea => (
                 <TareaVer
                     key={tarea.id}
