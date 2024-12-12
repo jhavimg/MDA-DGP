@@ -1,35 +1,31 @@
 import "../css/LoginMain.css"
 import LoginCabecera from "../components/CabeceraLogin";
 import LoginItem from "../components/LoginItem";
+import { useEffect } from "react";
+import Boton from "../components/Boton";
 
 
 function LoginMain(){
-    //FALTA BBDD Y LÓGICA BOTONES 
+    //FALTA BBDD, CSS Y LÓGICA BOTONES 
 
-    let currentPage = 0;
-    const pages = document.querySelectorAll(".photo-page");
+    let more = false;  
 
-    function updateGallery() {
-        pages.forEach((page, index) => {
-            page.classList.toggle("active", index === currentPage);
-        });
-    }
-
-    function pageLess() {
-        if (currentPage > 0) {
-            currentPage--;
-            updateGallery();
+    useEffect(()=>{
+        const pages = document.querySelectorAll(".photo-page");
+        function updateGallery() {
+            console.log(pages[0].classList);
+            /*if (!more){
+                pages[0].classList.add("active");
+                pages[1].classList.remove("active")         
+            }
+            else{
+                pages[0].classList.remove("active");
+                pages[1].classList.add("active")  
+            }*/
         }
-    };
-
-    function pageMore() {
-        if (currentPage < pages.length - 1) {
-            currentPage++;
-            updateGallery();
-        }
-    };
-
-    updateGallery();
+        updateGallery();
+    }, [more]);
+    
     return(<>
     <div className = "body">
         <div className="container-login">
@@ -37,27 +33,27 @@ function LoginMain(){
         <main>
             <h2>Elige tu foto</h2>
             <div id="photo-gallery">
-                <div className="photo-page active" id="page-0">
-                    <LoginItem route = "login_alumno/Carlos/picto" nombre = "Carlos" />
+                <div className="photo-page active">
+                    <LoginItem route = "login_alumno/Carlos/contra" nombre = "Carlos" />
                     <LoginItem route = "login_alumno/Maria/contra" nombre = "Maria" />
-                    <LoginItem route = "login_alumno/Juan/picto" nombre = "Juan" />
+                    <LoginItem route = "login_alumno/Juan/contra" nombre = "Juan" />
                     <LoginItem route = "login_alumno/Ana/contra" nombre = "Ana" />
-                    <LoginItem route = "login_alumno/Pedro/picto" nombre = "Pedro" />
-                    <LoginItem route = "login_alumno/Luisa/contra" nombre = "Luisa" />
+                    <LoginItem route = "login_alumno/Pedro/contra" ontranombre = "Pedro" />
+                    <LoginItem route = "login_alumno/Luisa/c" nombre = "Luisa" />
+                    
                 </div>
-                <div className="photo-page" id="page-1">
-                    <LoginItem route = "login_alumno/Javier/contra" nombre = "Javier" />
-                    <LoginItem route = "login_alumno/Sofia/picto" nombre = "Sofia" />
-                    <LoginItem route = "login_alumno/Alberto/picto" nombre = "Alberto" />
-                    <LoginItem route = "login_alumno/Carla/contra" nombre = "Carla" />
-                    <LoginItem route = "login_alumno/Lucas/picto" nombre = "Lucas" />
-                    <LoginItem route = "login_alumno/Marta/contra" nombre = "Marta" />
+                <div className="photo-page">
+                <LoginItem route = "login_alumno/Javier/contra" nombre = "Javier" />
+                <LoginItem route = "login_alumno/Sofia/picto" nombre = "Sofia" />
+                <LoginItem route = "login_alumno/Alberto/picto" nombre = "Alberto" />
+                <LoginItem route = "login_alumno/Carla/contra" nombre = "Carla" />
+                <LoginItem route = "login_alumno/Lucas/picto" nombre = "Lucas" />
+                <LoginItem route = "login_alumno/Marta/contra" nombre = "Marta" />
                 </div>
             </div>
             <div className="pagination">
-                <button id="prev-btn" className="arrow" onClick = {pageLess}>⟵</button>
-                <span id="page-indicator">Página: {currentPage}</span>
-                <button id="next-btn" className="arrow" onClick = {pageMore}>⟶</button>
+                <Boton nombre = "⟵" className="arrow" onClickAlto = {more = false}/>
+                <Boton nombre = "⟶" className="arrow" onClickAlto = {more = true}/>
             </div>
         </main>
     </div>

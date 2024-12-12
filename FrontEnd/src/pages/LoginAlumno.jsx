@@ -9,7 +9,8 @@ function LoginAlumno(props){
     //FALTA BBDD Y LÓGICA JS(En Login Contra y Picto!!!)
     //FALTA ELIMINAR PAGINA PICTO (NO HACER AUN QUE QUEDAN FUNCIONES QUE IMPLEMENTAR)
     //FALTA FILTRAR PICTO O CONTRA
-    const {user, picto} = useParams();
+    //FALTA BBDD METER ID DEL ALUMNO
+    const {user, type} = useParams();
 
     // Asociar foto y nombre con el usuario
     const users = {
@@ -43,17 +44,13 @@ function LoginAlumno(props){
         }
     });*/
 
-    function submit(){
-        console.log("jajajaj");
-    }
-
     return(<>
     <div className = "body2">
         <div className="container">
             <PerfilAlumno nombre = {user} foto = "" />
 
-            <LoginContra/>
-            <LoginPicto/>
+            <LoginContra user = {users[user]} salir = {type}/>
+            <LoginPicto user = {users[user]} salir = {type}/>
         </div>
     </div>
     </>
