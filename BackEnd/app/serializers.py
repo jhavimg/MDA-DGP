@@ -98,9 +98,21 @@ class AlumnoSerializer(serializers.Serializer):
 class PasoSerializer(serializers.Serializer):
     nombre = serializers.CharField(required=True, max_length=100)
     descripcion = serializers.CharField(required=False, max_length=500)
-    imagenes = serializers.ListField(child=serializers.CharField(), required=False)
-    audio = serializers.CharField(required=False)
-    video = serializers.CharField(required=False)
+    imagenes = serializers.ListField(
+        child=serializers.FileField(),
+        required=False, 
+        allow_empty=True,
+    )
+    audio = serializers.ListField(
+        child=serializers.FileField(),
+        required=False,
+        allow_empty=True,
+    )
+    video = serializers.ListField(
+        child=serializers.FileField(),
+        required=False,
+        allow_empty=True,
+    )
 
 # Serializador para la clase Tarea. Se define un serializador que hereda de la clase Serializer de Django Rest Framework.
 class TareaSerializer(serializers.Serializer):
@@ -128,10 +140,15 @@ class TareaSerializer(serializers.Serializer):
 # Serializador para tarea por pasos
 class TareaPorPasosSerializer(TareaSerializer):
     pasos = PasoSerializer(many=True, required=False)
-    idTarea = serializers.CharField(required=True, max_length=100)
     def create(self, validated_data):
         pasos_data = validated_data.pop('pasos', [])
+        # Asegurar que el campo 'tipo' esté presente
+        validated_data['tipo'] = 'tarea_por_pasos'
+        
+        # Crear la instancia de TareaPorPasos
         tarea = TareaPorPasos(**validated_data).save()
+        
+        # Agregar los pasos
         for paso_data in pasos_data:
             tarea.pasos.append(Paso(**paso_data))
         tarea.save()
