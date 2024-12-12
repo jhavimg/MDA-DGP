@@ -727,3 +727,32 @@ class AlumnoAccesibilidadUpdateView(APIView):
                 "data": AlumnoSerializer(alumno).data
             }
         )
+    
+@extend_schema(
+summary="Inicio de sesión para administradores",
+description="Permite a un administrador autenticarse y obtener un token de acceso JWT.",
+responses={
+    200: dict,
+    400: dict,
+},
+)
+class AdministradorLoginView(APIView):
+    def post(self, request):
+        serializer = CustomTokenObtainPairSerializer(data=request.data)
+        if serializer.is_valid():
+            tokens = serializer.validated_data
+            email = request.data.get("email")
+            admin = Administrador.objects.get(email=email)
+            return Response({
+                "success": True,
+                "data": {
+                    "id": str(admin.id),
+                    "nombre": admin.nombre,
+                    "access": tokens['access'],
+                    "refresh": tokens['refresh']
+                }
+            }, status=status.HTTP_200_OK)
+        return Response({
+            "success": False,
+            "message": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
