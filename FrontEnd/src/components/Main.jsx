@@ -31,7 +31,7 @@ const Main = () => {
       <Route exact path='/tarea_list' element={<TareaList/>}></Route>
       <Route exact path='/Tarea_form' element={<Tarea_form/>}></Route>
       <Route exact path='/tarea_detail/:id' element={<Tarea_detail/>}></Route>
-      <Route exact path='/seguimiento' element={<Seguimiento/>}></Route>
+      <Route exact path='/seguimiento/:id' element={<Seguimiento/>}></Route>
       <Route exact path='/pedir_material' element={<Pedir_Material/>}></Route>
       <Route exact path='/alumno' element={<Alumno/>}></Route>
       <Route exact path='/alumno_perfil/:id' element={<AlumnoPerfil />} />
