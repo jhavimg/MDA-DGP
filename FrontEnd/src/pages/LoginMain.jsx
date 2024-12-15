@@ -17,7 +17,7 @@ import marta from "../images/marta.jpg"
 import pedro from "../images/pedro.jpg"
 import sofia from "../images/sofia.jpg"
 function LoginMain(){
-    //FALTA BBDD, CSS Y LÓGICA BOTONES 
+    //CSS
 
     let more = false;  
 
