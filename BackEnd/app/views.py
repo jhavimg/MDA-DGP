@@ -439,11 +439,11 @@ class TareaPorPasosCreateView(APIView):
         if serializer.is_valid():
             tarea_por_pasos = serializer.save()
 
-            alumno_id = request.data.get('alumno_id')
+            alumno_id = request.data.get('alumnoAsignado')
             if not alumno_id:
                 return Response({
                     "success": False,
-                    "message": "El campo 'alumno_id' es obligatorio."
+                    "message": "El campo 'alumnoAsignado' es obligatorio."
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             try:
