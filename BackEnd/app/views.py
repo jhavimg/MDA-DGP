@@ -7,6 +7,7 @@ from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.parsers import MultiPartParser, FormParser
 from drf_spectacular.utils import extend_schema
+from rest_framework.exceptions import NotFound
 from django.shortcuts import get_object_or_404
 
 
@@ -437,6 +438,21 @@ class TareaPorPasosCreateView(APIView):
         serializer = TareaPorPasosSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             tarea_por_pasos = serializer.save()
+
+            alumno_id = request.data.get('alumno_id')
+            if not alumno_id:
+                return Response({
+                    "success": False,
+                    "message": "El campo 'alumno_id' es obligatorio."
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            try:
+                alumno = Alumno.objects.get(id=alumno_id)
+            except Alumno.DoesNotExist:
+                raise NotFound(detail="Alumno no encontrado.")
+
+            alumno.tareas.append(tarea_por_pasos)
+            alumno.save()
             return Response({
                 "success": True,
                 "data": TareaPorPasosSerializer(tarea_por_pasos).data
