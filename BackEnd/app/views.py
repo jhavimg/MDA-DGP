@@ -211,18 +211,15 @@ class AlumnoList(APIView):
     responses={200: dict, 201: dict, 404: dict, 400: dict},
 )
 class TareaAlumnoView(APIView):
-    """
-    Vista para obtener las tareas de un alumno y crear una tarea para ese alumno.
-    """
-    parser_classes = (MultiPartParser, FormParser)
     def get(self, request, alumno_id):
         try:
             alumno = Alumno.objects.get(id=alumno_id)
         except Alumno.DoesNotExist:
             return Response({"success": False, "message": "El alumno no existe"}, status=status.HTTP_404_NOT_FOUND)
+        tareas_asignadas = [tarea for tarea in alumno.tareas if tarea.alumnoAsignado == alumno]
 
         tareas_serializadas = []
-        for tarea in alumno.tareas:
+        for tarea in tareas_asignadas:
             if isinstance(tarea, PeticionComedor):
                 serializer = PeticionComedorSerializer(tarea)
             elif isinstance(tarea, TareaPorPasos):
@@ -233,22 +230,6 @@ class TareaAlumnoView(APIView):
 
         return Response({"success": True, "data": tareas_serializadas}, status=status.HTTP_200_OK)
 
-    def post(self, request, alumno_id):
-        tipo_tarea = request.data.get('tipo', None)
-        if tipo_tarea == 'peticion_comedor':
-            serializer = PeticionComedorSerializer(data=request.data)
-        elif tipo_tarea == 'tarea_por_pasos':
-            serializer = TareaPorPasosSerializer(data=request.data)
-        else:
-            serializer = TareaSerializer(data=request.data)
-
-        if serializer.is_valid():
-            tarea = serializer.save(alumnoAsignado=Alumno.objects.get(id=alumno_id))
-            Alumno.objects(id=alumno_id).update_one(push__tareas=tarea)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
 @extend_schema(
     summary="Completar una tarea de un alumno.",
@@ -361,23 +342,67 @@ class TareaList(APIView):
 )
 class TareasHoyAlumnoView(APIView):
     """
-    Vista para obtener las tareas de un alumno que se deben realizar hoy.
+    Vista para obtener las tareas del día actual asignadas a un alumno.
     """
     def get(self, request, alumno_id):
-        hoy = datetime.now().date()
         try:
             alumno = Alumno.objects.get(id=alumno_id)
         except Alumno.DoesNotExist:
-            raise Response({
-                "success": False,
-                "message": "El alumno no existe"
-            }, status=status.HTTP_404_NOT_FOUND)
-        
-        tareas_de_hoy = [tarea for tarea in alumno.tareas if tarea.fecha.date() == hoy]
-        
-        serializer = TareaSerializer(tareas_de_hoy, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response({"success": False, "message": "El alumno no existe"}, status=status.HTTP_404_NOT_FOUND)
 
+        hoy = datetime.now().date()
+        tareas_hoy = [tarea for tarea in alumno.tareas if tarea.fecha.date() == hoy]
+
+        tareas_serializadas = []
+        for tarea in tareas_hoy:
+            if isinstance(tarea, PeticionComedor):
+                serializer = PeticionComedorSerializer(tarea)
+            elif isinstance(tarea, TareaPorPasos):
+                serializer = TareaPorPasosSerializer(tarea)
+            else:
+                serializer = TareaSerializer(tarea)
+            tareas_serializadas.append(serializer.data)
+
+        return Response({"success": True, "data": tareas_serializadas}, status=status.HTTP_200_OK)
+@extend_schema(
+        summary="Obtener las tareas de la semana de un alumno.",
+        description="Devuelve las tareas de un alumno programadas para realizarse entre lunes y domingo de la semana actual.",
+        responses={
+            200: dict,
+            404: dict,
+        },
+    )
+
+class TareasSemanaAlumnoView(APIView):
+    """
+    Vista para obtener las tareas de la semana actual asignadas a un alumno.
+    """
+    def get(self, request, alumno_id):
+        try:
+            alumno = Alumno.objects.get(id=alumno_id)
+        except Alumno.DoesNotExist:
+            return Response({"success": False, "message": "El alumno no existe"}, status=status.HTTP_404_NOT_FOUND)
+
+        hoy = datetime.now().date()
+        inicio_semana = hoy - timedelta(days=hoy.weekday())  # Lunes de la semana actual
+        fin_semana = inicio_semana + timedelta(days=6)  # Domingo de la semana actual
+
+        tareas_semana = [
+            tarea for tarea in alumno.tareas
+            if inicio_semana <= tarea.fecha.date() <= fin_semana
+        ]
+
+        tareas_serializadas = []
+        for tarea in tareas_semana:
+            if isinstance(tarea, PeticionComedor):
+                serializer = PeticionComedorSerializer(tarea)
+            elif isinstance(tarea, TareaPorPasos):
+                serializer = TareaPorPasosSerializer(tarea)
+            else:
+                serializer = TareaSerializer(tarea)
+            tareas_serializadas.append(serializer.data)
+
+        return Response({"success": True, "data": tareas_serializadas}, status=status.HTTP_200_OK)
 
 class TareaPorPasosCreateView(APIView):
     """

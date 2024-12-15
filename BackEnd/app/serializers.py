@@ -147,7 +147,6 @@ class TareaPorPasosSerializer(TareaSerializer):
         
         # Crear la instancia de TareaPorPasos
         tarea = TareaPorPasos(**validated_data).save()
-        
         # Agregar los pasos
         for paso_data in pasos_data:
             tarea.pasos.append(Paso(**paso_data))

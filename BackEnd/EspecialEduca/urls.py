@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/alumnos/<str:alumno_id>/', AlumnoDetail.as_view(), name='alumno-detail'),
     path('api/alumnos/<str:alumno_id>/tareas/', TareaAlumnoView.as_view(), name='alumno-lista-tareas'),
     path('api/alumnos/<str:alumno_id>/tareas/hoy/', TareasHoyAlumnoView.as_view(), name='tareas-hoy-alumno'),
+    path('api/alumnos/<str:alumno_id>/tareas/semana/', TareasSemanaAlumnoView.as_view(), name='tareas-pendientes-alumno'),
     path('api/tareas/<str:tarea_id>/', TareaDetail.as_view(), name='tarea-detail'),
     path('api/tareas/', TareaList.as_view(), name='tarea-list'),
     path('api/tareas/<str:tarea_id>/modificar/', TareaUpdateView.as_view(), name='tarea-modificar'),
