@@ -5,6 +5,7 @@ import "../css/Boton.css"
 function Boton(props){
     return(
         <Link to = {props.route}>
+            <img src={props.foto} className = "foto_boton" alt=""></img>
             <button className = {props.className ?? "button-17"} href = {props.route} onClick={props.onClickAlto}>{props.nombre}</button>
         </Link>       
     );

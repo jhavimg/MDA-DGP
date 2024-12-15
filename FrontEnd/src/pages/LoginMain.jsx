@@ -4,27 +4,40 @@ import LoginItem from "../components/LoginItem";
 import { useEffect } from "react";
 import Boton from "../components/Boton";
 
-
+import alberto from "../images/alberto.jpg"
+import ana from "../images/ana.jpg"
+import carla from "../images/carla.jpg"
+import carlos from "../images/carlos.jpg"
+import juan from "../images/juan.jpg"
+import javier from "../images/javier.jpeg"
+import lucas from "../images/lucas.jpg"
+import luisa from "../images/luisa.jpg"
+import maria from "../images/maria.jpg"
+import marta from "../images/marta.jpg"
+import pedro from "../images/pedro.jpg"
+import sofia from "../images/sofia.jpg"
 function LoginMain(){
     //FALTA BBDD, CSS Y LÓGICA BOTONES 
 
     let more = false;  
 
-    useEffect(()=>{
-        const pages = document.querySelectorAll(".photo-page");
-        function updateGallery() {
-            console.log(pages[0].classList);
-            /*if (!more){
-                pages[0].classList.add("active");
-                pages[1].classList.remove("active")         
-            }
-            else{
-                pages[0].classList.remove("active");
-                pages[1].classList.add("active")  
-            }*/
+    function pageFlip(number) {
+        
+        let page = number;
+
+        const page1 = document.getElementById("photo-page_1");
+        const page2 = document.getElementById("photo-page_2");
+
+        if (!more && page === 0) {
+            page1.style.display = 'block';
+            page2.style.display = 'none';
+            more = true;
+        } else if(more && page === 1) {
+            page1.style.display = 'none';
+            page2.style.display = 'block';
+            more = false;
         }
-        updateGallery();
-    }, [more]);
+    }
     
     return(<>
     <div className = "body">
@@ -33,27 +46,27 @@ function LoginMain(){
         <main>
             <h2>Elige tu foto</h2>
             <div id="photo-gallery">
-                <div className="photo-page active">
-                    <LoginItem route = "login_alumno/Carlos/contra" nombre = "Carlos" />
-                    <LoginItem route = "login_alumno/Maria/contra" nombre = "Maria" />
-                    <LoginItem route = "login_alumno/Juan/contra" nombre = "Juan" />
-                    <LoginItem route = "login_alumno/Ana/contra" nombre = "Ana" />
-                    <LoginItem route = "login_alumno/Pedro/contra" ontranombre = "Pedro" />
-                    <LoginItem route = "login_alumno/Luisa/contra" nombre = "Luisa" />
+                <div id="photo-page_1">
+                    <LoginItem route = "login_alumno/Carlos/contra" imagen = {carlos} nombre = "Carlos" />
+                    <LoginItem route = "login_alumno/Maria/picto" imagen = {maria} nombre = "Maria" />
+                    <LoginItem route = "login_alumno/Juan/contra" imagen = {juan} nombre = "Juan" />
+                    <LoginItem route = "login_alumno/Ana/picto" imagen = {ana} nombre = "Ana" />
+                    <LoginItem route = "login_alumno/Pedro/picto" imagen = {pedro} nombre = "Pedro" />
+                    <LoginItem route = "login_alumno/Luisa/contra" imagen = {luisa} nombre = "Luisa" />
                     
                 </div>
-                <div className="photo-page">
-                <LoginItem route = "login_alumno/Javier/contra" nombre = "Javier" />
-                <LoginItem route = "login_alumno/Sofia/picto" nombre = "Sofia" />
-                <LoginItem route = "login_alumno/Alberto/picto" nombre = "Alberto" />
-                <LoginItem route = "login_alumno/Carla/contra" nombre = "Carla" />
-                <LoginItem route = "login_alumno/Lucas/picto" nombre = "Lucas" />
-                <LoginItem route = "login_alumno/Marta/contra" nombre = "Marta" />
+                <div id="photo-page_2">
+                <LoginItem route = "login_alumno/Javier/contra" imagen = {javier} nombre = "Javier" />
+                <LoginItem route = "login_alumno/Sofia/picto" imagen = {sofia} nombre = "Sofia" />
+                <LoginItem route = "login_alumno/Alberto/picto" imagen = {alberto} nombre = "Alberto" />
+                <LoginItem route = "login_alumno/Carla/contra" imagen = {carla} nombre = "Carla" />
+                <LoginItem route = "login_alumno/Lucas/picto" imagen = {lucas} nombre = "Lucas" />
+                <LoginItem route = "login_alumno/Marta/contra" imagen = {marta} nombre = "Marta" />
                 </div>
             </div>
             <div className="pagination">
-                <Boton nombre = "⟵" className="arrow" onClickAlto = {more = false}/>
-                <Boton nombre = "⟶" className="arrow" onClickAlto = {more = true}/>
+                <Boton nombre = "⟵" className="arrow" onClickAlto = {()=>{pageFlip(1)}}/>
+                <Boton nombre = "⟶" className="arrow" onClickAlto = {()=>{pageFlip(0)}}/>
             </div>
         </main>
     </div>

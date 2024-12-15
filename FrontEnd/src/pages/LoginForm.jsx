@@ -3,6 +3,10 @@ import "../css/LoginForm.css"
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
+import vaca from "../images/vaca.jpg"
+import perro from "../images/perro.jpg"
+import cerdo from "../images/cerdo.jpg"
+import elefante from "../images/elefante.jpg"
 
 function LoginForm(props){
 
@@ -79,7 +83,7 @@ function LoginForm(props){
 
             <div className="input-group">
                 <label>
-                    <input type="radio" id="pictogram-option" name="login-type" value="pictogramas" onClick={handleLoginTypeChange} checked/>
+                    <input type="radio" id="pictogram-option" name="login-type" value="pictogramas" onClick={handleLoginTypeChange}/>
                     Pictogramas
                 </label>
                 <label>
@@ -90,10 +94,10 @@ function LoginForm(props){
             <div id="pictogram-section">
                 <p>Selecciona un pictograma:</p>
                 <div className="pictogramas">
-                    <img src="vaca.jpg" alt="Vaca" onclick={()=>togglePictogramSelection(this)}/>
-                    <img src="cerdo.jpg" alt="Cerdo" onclick={()=>togglePictogramSelection(this)}/>
-                    <img src="perro.jpg" alt="Perro" onclick={()=>togglePictogramSelection(this)}/>
-                    <img src="elefante.jpg" alt="Elefante" onclick={()=>togglePictogramSelection(this)}/>
+                    <img src={vaca} alt="Vaca" onclick={()=>togglePictogramSelection(this)}/>
+                    <img src={cerdo} alt="Cerdo" onclick={()=>togglePictogramSelection(this)}/>
+                    <img src={perro} alt="Perro" onclick={()=>togglePictogramSelection(this)}/>
+                    <img src={elefante} alt="Elefante" onclick={()=>togglePictogramSelection(this)}/>
                 </div>
                 <input type="file" id="upload-pictogram" accept="image/*" onchange={()=>addUploadedPictogram()}/>
             </div>

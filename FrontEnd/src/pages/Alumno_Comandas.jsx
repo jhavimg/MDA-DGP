@@ -194,7 +194,7 @@ function AlumnoComandas() {
             <div className="cuerpo_comandas">
                 <div className="menu-container">
                     <div className="cabecera-peticion">
-                        <Boton className = "boton-volver-atras" nombre = "Volver atrás" route = "/clases_comandas"/>
+                        <Boton className = "boton-volver-atras" nombre = "Volver atrás   ↩" route = "/clases_comandas"/>
                         <h1>MENÚS DEL AULA {aula || "no especificada"}</h1>
                     </div>
                     <div className="numbers-grid">

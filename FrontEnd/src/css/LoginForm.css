@@ -85,3 +85,11 @@ button:hover {
 #upload-pictogram {
     margin-top: 10px;
 }
+
+#pictogram-section{
+    display:none;
+}
+
+#text-password{
+    display:none;
+}

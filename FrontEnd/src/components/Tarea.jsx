@@ -83,7 +83,7 @@ function Tarea(props) {
                         {props.archivos}
                     </div>
 
-                    <Boton className="boton-terminar" nombre="Terminar Tarea" onClickAlto={completedTask} />
+                    <Boton className="boton-terminar" nombre="Terminar Tarea  ✔" onClickAlto={completedTask} />
                 </div>
         </>
     );

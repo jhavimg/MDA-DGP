@@ -8,18 +8,16 @@ import LoginPicto from "../components/LoginPicto";
 function LoginAlumno(props){
     //FALTA BBDD Y LÓGICA JS(En Login Contra y Picto!!!)
     //FALTA ELIMINAR PAGINA PICTO (NO HACER AUN QUE QUEDAN FUNCIONES QUE IMPLEMENTAR)
-    //FALTA FILTRAR PICTO O CONTRA
-    //FALTA BBDD METER ID DEL ALUMNO
     const {user, type} = useParams();
 
     // Asociar foto y nombre con el usuario
     const users = {
-        "Carlos": { name: "Carlos", photo: "carlos.jpg", password: "12345" },
-        "Maria": { name: "Maria", photo: "maria.jpg", password: "67890" },
-        "Juan": { name: "Juan", photo: "juan.jpg", password: "abcde" },
-        "Ana": { name: "Ana", photo: "ana.jpg", password: "fghij" },
-        "Pedro": { name: "Pedro", photo: "pedro.jpg", password: "klmno" },
-        "Luisa": { name: "Luisa", photo: "luisa.jpg", password: "pqrst" }
+        "Carlos": { name: "Carlos", photo: "../images/carlos.jpg", password: "12345" },
+        "Maria": { name: "Maria", photo: "../images/maria.jpg", password: "67890" },
+        "Juan": { name: "Juan", photo: "../images/juan.jpg", password: "abcde" },
+        "Ana": { name: "Ana", photo: "../images/ana.jpg", password: "fghij" },
+        "Pedro": { name: "Pedro", photo: "../images/pedro.jpg", password: "klmno" },
+        "Luisa": { name: "Luisa", photo: "../images/luisa.jpg", password: "pqrst" }
     };
 
     /*if (user && users[user]) {
@@ -43,11 +41,10 @@ function LoginAlumno(props){
             alert("Usuario o contraseña incorrectos. Intenta nuevamente.");
         }
     });*/
-
     return(<>
     <div className = "body2">
         <div className="container">
-            <PerfilAlumno nombre = {user} foto = "" />
+            <PerfilAlumno nombre = {user} foto = {users[user].photo} />
 
             <LoginContra user = {users[user]} salir = {type}/>
             <LoginPicto user = {users[user]} salir = {type}/>
