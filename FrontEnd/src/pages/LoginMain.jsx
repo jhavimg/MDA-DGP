@@ -65,8 +65,8 @@ function LoginMain(){
                 </div>
             </div>
             <div className="pagination">
-                <Boton nombre = "⟵" className="arrow" onClickAlto = {()=>{pageFlip(1)}}/>
-                <Boton nombre = "⟶" className="arrow" onClickAlto = {()=>{pageFlip(0)}}/>
+                <button className = "arrow" onClick = {()=>{pageFlip(1)}}>⟵</button>
+                <button className = "arrow" onClick = {()=>{pageFlip(0)}}>⟶</button>
             </div>
         </main>
     </div>
