@@ -1,8 +1,6 @@
 import "../css/LoginMain.css"
 import LoginCabecera from "../components/CabeceraLogin";
 import LoginItem from "../components/LoginItem";
-import { useEffect } from "react";
-import Boton from "../components/Boton";
 
 import alberto from "../images/alberto.jpg"
 import ana from "../images/ana.jpg"
@@ -40,6 +38,7 @@ function LoginMain(){
     }
     
     return(<>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
     <div className = "body">
         <div className="container-login">
         <LoginCabecera className = "header" route = "" />
