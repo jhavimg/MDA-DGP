@@ -65,8 +65,8 @@ function LoginMain(){
                 </div>
             </div>
             <div className="pagination">
-                <button className = "arrow" onClick = {()=>{pageFlip(1)}}>⟵</button>
-                <button className = "arrow" onClick = {()=>{pageFlip(0)}}>⟶</button>
+                <button aria-label="Página Anterior" className = "arrow" onClick = {()=>{pageFlip(1)}}>⟵</button>
+                <button aria-label="Siguiente Página" className = "arrow" onClick = {()=>{pageFlip(0)}}>⟶</button>
             </div>
         </main>
     </div>

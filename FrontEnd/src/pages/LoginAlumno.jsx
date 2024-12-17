@@ -17,7 +17,13 @@ function LoginAlumno(props){
         "Juan": { name: "Juan", photo: "../images/juan.jpg", password: "abcde" },
         "Ana": { name: "Ana", photo: "../images/ana.jpg", password: "fghij" },
         "Pedro": { name: "Pedro", photo: "../images/pedro.jpg", password: "klmno" },
-        "Luisa": { name: "Luisa", photo: "../images/luisa.jpg", password: "pqrst" }
+        "Luisa": { name: "Luisa", photo: "../images/luisa.jpg", password: "pqrst" },
+        "Javier": { name: "Javier", photo: "../images/javier.jpg", password: "54321" },
+        "Sofia": { name: "Sofia", photo: "../images/sofia.jpg", password: "09876" },
+        "Alberto": { name: "Alberto", photo: "../images/alberto.jpg", password: "edcba" },
+        "Carla": { name: "Carla", photo: "../images/carla.jpg", password: "jihgf" },
+        "Lucas": { name: "Lucas", photo: "../images/lucas.jpg", password: "onmlk" },
+        "Marta": { name: "Marta", photo: "../images/marta.jpg", password: "tsrqp" }
     };
 
     /*if (user && users[user]) {
