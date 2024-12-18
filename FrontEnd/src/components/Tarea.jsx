@@ -9,7 +9,7 @@ function Tarea(props) {
     const [tarea, setTarea] = useState({});
 
     async function getTarea() {
-        let promise = await fetch(`http://localhost:8000/api/tareas/${props.ident}/`);
+        let promise = await fetch(`https://especialeduca.jmarin.dev/api/tareas/${props.ident}/`);
         let response = await promise.json();
         setTarea(response);
     }
@@ -19,7 +19,7 @@ function Tarea(props) {
     }, []);
 
     var oculto = false;
-    function completedTask(){
+    async function completedTask(){
         if (!oculto){
             document.querySelector(".tarea_container").style.display = "none";
             const element = document.querySelector(".felicitacion-hidden");
@@ -34,12 +34,8 @@ function Tarea(props) {
             element.classList.remove("felicitacion");
             element.classList.add("felicitacion-hidden");
         }
-        oculto = !oculto;
-    }
-    useEffect(()=>{
-    }, [oculto])
+        oculto = !oculto;  
 
-    async function completedTask() {
         try {
             // Realiza una solicitud POST para marcar la tarea como completada
             const response = await fetch(`https://especialeduca.jmarin.dev/api/tareas/${props.ident}/modificar/`, {
@@ -60,6 +56,8 @@ function Tarea(props) {
             console.error("Error al conectar con el backend:", error);
         }
     }
+    useEffect(()=>{
+    }, [oculto])
 
     // Retorna la estructura de la tarea
     return (
