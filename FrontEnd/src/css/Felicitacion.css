@@ -19,6 +19,9 @@
 }
 
 .felicitacion h1 {
+    inline-size: 100%;
+    text-align: center;
+
     font-size: 2em;
     color: #155724;
     margin-bottom: 20px;
