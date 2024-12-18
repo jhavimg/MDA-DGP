@@ -51,7 +51,7 @@ function AForm(props) {
     };
 
     return (
-        <div className="container">
+        <div className="container-aform">
             <h1>Crear Alumno</h1>
             <form id="studentForm" onSubmit={handleSubmit}>
                 <label htmlFor="email">Correo Electrónico:</label>

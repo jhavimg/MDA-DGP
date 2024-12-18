@@ -14,18 +14,22 @@
 
 .buscador{
     inline-size: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .search-bar .input-buscador {
     flex: 1;
-    inline-size: 90%;
+    inline-size: 70%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .search-btn{
-    inline-size: 8%;
+    inline-size: fit-content;
+    margin: 0;
 }
 
 .search-btn,

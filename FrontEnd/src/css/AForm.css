@@ -1,3 +1,22 @@
+.container-aform{
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 0 auto;
+    width: 70%;
+
+    h1{
+        inline-size: 100%;
+        text-align: center;
+    }
+}
+
+#studentForm{
+    margin: 0 auto;
+}
+
 .section {
     margin: 0 auto;
     margin-bottom: 15px;

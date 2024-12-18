@@ -100,7 +100,7 @@ function TForm(props) {
     };
 
     return (
-        <div className="container">
+        <div className="container-tform">
             <form>
                 <label htmlFor="titulo">Título de la tarea:</label>
                 <input className="input-form" type="text" id="titulo" name="titulo" required/>
