@@ -39,10 +39,9 @@ function LoginMain(){
     
     return(<>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"></link>
-    <div className = "body">
+    <div className = "body-login ">
         <div className="container-login">
-        <LoginCabecera className = "header" route = "" />
-        <main>
+            <LoginCabecera className = "header" route = "" />
             <h2>Elige tu foto</h2>
             <div id="photo-gallery">
                 <div id="photo-page_1">
@@ -67,7 +66,6 @@ function LoginMain(){
                 <button aria-label="Página Anterior" className = "arrow" onClick = {()=>{pageFlip(1)}}>⟵</button>
                 <button aria-label="Siguiente Página" className = "arrow" onClick = {()=>{pageFlip(0)}}>⟶</button>
             </div>
-        </main>
     </div>
     </div>
     </>
