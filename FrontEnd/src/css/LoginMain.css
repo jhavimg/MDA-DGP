@@ -131,3 +131,7 @@ main h2 {
     font-size: 1.5rem; /* Reducido */
     font-weight: bold;
 }
+
+#photo-page_1{
+    display: none;
+}

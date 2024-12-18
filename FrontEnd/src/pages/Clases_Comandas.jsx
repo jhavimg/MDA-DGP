@@ -108,19 +108,19 @@ function ClasesComandas(props) {
                         <div className="cabecera-peticion">
                             <Boton
                                 className="boton-volver-atras"
-                                nombre="Volver atrás"
-                                route=""
+                                nombre="Volver atrás   ↩"
+                                route="/alumno"
                             />
                             <h1>CLASES</h1>
                         </div>
                         <div className="numbers-grid">
-                            <ClaseComp nombre="1" route={`/alumno_comandas/${tareaId}`} />
-                            <ClaseComp nombre="2" route={`/alumno_comandas/${tareaId}`} />
+                            <ClaseComp nombre="Albayzin" route={`/alumno_comandas/${tareaId}`} />
+                            <ClaseComp nombre="Granada" route={`/alumno_comandas/${tareaId}`} />
                         </div>
                         
                             <Boton
                                 className="boton-terminar"
-                                nombre="Terminar Tarea"
+                                nombre="Terminar Tarea  ✔"
                                 onClickAlto={completedTask}
                             />
                         
