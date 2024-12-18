@@ -3,12 +3,10 @@ import "../css/Alumno.css"
 import { useState, useEffect } from 'react';
 
 function Alumno(props){
-
-
     const [tareas, setTareas] = useState([]);
 
     async function getTareas(){
-        let promise = await fetch("https://especialeduca.jmarin.dev/api/alumnos/67542ee0a3e40099a2f112cb/tareas/");
+        let promise = await fetch("https://especialeduca.jmarin.dev/api/alumnos/67542efe9e8aba9166ad3559/tareas/");
         let response = await promise.json();
         setTareas(response.data);
     }
@@ -29,7 +27,7 @@ function Alumno(props){
                     <Boton className = "tarea" nombre = "Tomar Comandas" route = "/clases_comandas" foto = "https://www.pictoeduca.com/config/timthumb-alt.php?src=https://www.pictoeduca.com/uploads/2017/06/comer-1.png&w=847&h=847"/>
                     
                     {tareas.map(tarea=>
-                        <Boton className = "tarea" nombre = {tarea.nombre} ident = {tarea.id} route = "/tarea_detail" />
+                        <Boton className = "tarea" nombre = {tarea.nombre} ident = {tarea.id} route = {`/tarea_detail/${tarea.id}`} foto = "https://vectorified.com/images/check-icon-png-1.png" />
                     )}
                 </div>   
             </div>
