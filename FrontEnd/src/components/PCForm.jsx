@@ -12,7 +12,7 @@ function PCForm() {
     useEffect(() => {
         async function fetchAlumnos() {
             try {
-                const response = await fetch("http://localhost:8000/api/alumnos/");
+                const response = await fetch("https://especialeduca.jmarin.dev/api/alumnos/");
                 const data = await response.json();
                 setAlumnos(data.data);
             } catch (error) {
