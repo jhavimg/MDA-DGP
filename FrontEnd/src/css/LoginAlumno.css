@@ -1,3 +1,26 @@
+.animal-grid{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    button{
+        background-color: white;
+        flex: 1;
+    }
+
+    img{
+        width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+}
+
+.animal-grid button:hover{
+    scale: 1.2;
+    transition: 0.5s;
+    background-color: white;
+    box-shadow: 0px 0px 8px grey;
+}
+
 .body2 {
     font-family: 'Patrick Hand', Arial, sans-serif;
     margin: 0;
@@ -63,7 +86,8 @@ form {
 
 .btn-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 25px;
     margin-top: 30px;
 }
 

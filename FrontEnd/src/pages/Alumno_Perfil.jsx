@@ -93,8 +93,10 @@ function AlumnoPerfil() {
       <div>
         <Perfil nombre={alumno.nickname} foto={alumno.foto || URL_IMAGEN_POR_DEFECTO} fechaNacimiento={alumno.fechaNacimiento} />
         <br />
-        <Boton nombre="Seguimiento" route={`/seguimiento/${id}`} />
-        <Boton nombre="Establecer Login" route={`/login_form/${id}`} />
+        <div className='botones-alumno'>
+          <Boton nombre="Seguimiento" route={`/seguimiento/${id}`} />
+          <Boton nombre="Establecer Login" route={`/login_form/${id}`} />
+        </div>
       </div>
       <br />
       <Accesibilidad initialAccesibilidades={accesibilidadesAlumno} onAccesibilidadesChange={handleAccesibilidadesChange} />
