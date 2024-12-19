@@ -1,65 +1,76 @@
-import '../css/Agenda.css';
+import '../css/Agenda.css'
 import { useState, useEffect } from 'react';
-
-function Agenda({ alumnoId }) {
-    const [tareas, setTareas] = useState([]);
-
-    useEffect(() => {
-        async function getTareas() {
-            try {
-                const response = await fetch(`https://especialeduca.jmarin.dev/api/alumnos/${alumnoId}/tareas/semana/`);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const data = await response.json();
-                setTareas(data.data || []);
-            } catch (error) {
-                console.error("Error fetching tareas:", error);
-            }
-        }
-
-        getTareas();
-    }, [alumnoId]);
-
-    const daysOfWeek = ['DOMINGO', 'LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO'];
-
-    const tareasPorDia = {
-        'LUNES': [],
-        'MARTES': [],
-        'MIÉRCOLES': [],
-        'JUEVES': [],
-        'VIERNES': [],
-        'SÁBADO': [],
-        'DOMINGO': [],
-    };
-
-    tareas.forEach((tarea) => {
-        const fecha = new Date(tarea.fecha);
-        const dayIndex = fecha.getDay(); // 0 (domingo) a 6 (sábado)
-        const dayName = daysOfWeek[dayIndex];
-        if (tareasPorDia[dayName]) {
-            tareasPorDia[dayName].push(tarea);
-        }
-    });
-
-    return (
-        <div className="cuerpo_agenda">
-            <div className="container">
-                <div className="grid">
-                    {daysOfWeek.map((dayName) => (
-                        <div key={dayName} className="day-container">
-                            <div className="day">{dayName}</div>
-                            <div className="tasks">
-                                {tareasPorDia[dayName].map((tarea) => (
-                                    <div key={tarea.id} className={`task ${tarea.estado === 'hecho' ? 'done' : 'not-done'}`}>
-                                        {tarea.nombre}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
+function Agenda() {
+  const [tareas, setTareas] = useState({});
+  async function getTareas(){
+    let promise = await fetch("https://especialeduca.jmarin.dev/api/alumnos");
+    let response = await promise.json();
+    setTareas(response);
+    console.log(tareas);
 }
-
+/*
+useEffect(()=>{
+    getTareas();
+    
+}, [])
+*/
+  return (
+    <>
+    <div className = "cuerpo_agenda">
+        <div className="container">
+            <div className="grid">
+                    <div className="day-container">
+                        <div className="day">LUNES</div>
+                        <div className="tasks">
+                            <div className="task done">Coger materiales</div>
+                            <div className="task not-done">Limpiar suelo</div> 
+                        </div>
+                    </div>
+                
+                    <div className="day-container">
+                        <div className="day">MARTES</div>
+                        <div className="tasks">
+                            <div className="task not-done">Usar microondas</div>
+                            <div className="task done">Doblar ropa</div>
+                        </div>
+                    </div>
+                
+                    <div className="day-container">
+                        <div className="day">MIÉRCOLES</div>
+                        <div className="tasks">
+                            <div className="task done">Comanda de menú</div>
+                        </div>
+                    </div>
+                
+                    <div className="day-container">
+                        <div className="day">JUEVES</div>
+                        <div className="tasks">
+                            <div className="task not-done">Comanda de menú</div>
+                        </div>
+                    </div>
+                
+                    <div className="day-container">
+                        <div className="day">VIERNES</div>
+                        <div className="tasks">
+                            <div className="task done">Coger materiales</div>
+                        </div>
+                    </div>
+                
+                    <div className="day-container">
+                        <div className="day">SÁBADO</div>
+                        <div className="tasks">
+                        </div>
+                    </div>
+                
+                    <div className="day-container">
+                        <div className="day">DOMINGO</div>
+                        <div className="tasks">
+                        </div>
+                    </div>
+                </div>        
+        </div>
+    </div>
+    </>
+  );
+}
 export default Agenda;
