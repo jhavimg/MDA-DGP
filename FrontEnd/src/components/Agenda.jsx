@@ -17,7 +17,7 @@ useEffect(()=>{
   return (
     <>
     <div className = "cuerpo_agenda">
-        <div className="container">
+        <div className="container-agenda">
             <div className="grid">
                     <div className="day-container">
                         <div className="day">LUNES</div>
