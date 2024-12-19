@@ -40,7 +40,7 @@ function LoginPicto(props){
             </div>
     
             <div className="btn-container">
-                <Boton className = "btn btn-secondary" route = "/" nombre = "No Soy Yo" />
+            <Boton className = "btn-secondary" route = "/" nombre = " Salir  X" />
             </div>
         </>    
         );
