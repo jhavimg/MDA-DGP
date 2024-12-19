@@ -16,11 +16,13 @@ body{
     align-items: center;
 
     inline-size: 100%;
-    block-size: 100vh;
+    block-size: fit-content;
 }
 
 .container-login {
     inline-size: 85%;
+    block-size: 100vh;
+
     margin: 0 auto;
     text-align: center;
 }
