@@ -1,8 +1,10 @@
 import '../css/Alumno_Comandas.css';
+import "../css/Alumno.css"
 import Boton from '../components/Boton';
 import Felicitacion from '../components/Felicitacion';
 import ClaseComp from '../components/ClaseComp';
 import { useState } from 'react';
+import BotonClase from '../components/BotonClase';
 
 function ClasesComandas(props) {
     const [tarea, setTarea] = useState(null);
@@ -55,8 +57,8 @@ function ClasesComandas(props) {
                         <h1>CLASES</h1>
                     </div>
                     <div className="numbers-grid">
-                        <ClaseComp nombre="Albaicin" route={`/alumno_comandas/${tareaId}`} />
-                        <ClaseComp nombre="Granada" route={`/alumno_comandas/${tareaId}`} />
+                        <BotonClase className = "tarea" nombre = "Albaicín" route = {`/alumno_comandas/${tareaId}`} foto="https://cdn-icons-png.flaticon.com/512/3197/3197877.png"/>
+                        <BotonClase className = "tarea" nombre = "Granada" route = {`/alumno_comandas/${tareaId}`} foto="https://cdn-icons-png.flaticon.com/512/3197/3197877.png"/>
                     </div>
 
                     <Boton
