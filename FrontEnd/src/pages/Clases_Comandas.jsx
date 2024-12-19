@@ -1,8 +1,5 @@
 import '../css/Alumno_Comandas.css';
-import "../css/Alumno.css"
 import Boton from '../components/Boton';
-import Felicitacion from '../components/Felicitacion';
-import ClaseComp from '../components/ClaseComp';
 import { useState } from 'react';
 import BotonClase from '../components/BotonClase';
 
@@ -67,7 +64,6 @@ function ClasesComandas(props) {
                         onClickAlto={completedTask}
                     />
                 </div>
-                <Felicitacion className={oculto ? "felicitacion-hidden" : "felicitacion"} />
             </div>
             
         </>
