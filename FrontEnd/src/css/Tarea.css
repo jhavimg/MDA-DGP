@@ -9,6 +9,11 @@ body{
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-family: 'Patrick Hand', sans-serif; /* Fuente escolar */
+
+    h1{
+        inline-size: 100%;
+        text-align: center;
+    }
 }
 .Tarea_tit {
     color: #005A9C; /* Color de títulos */
