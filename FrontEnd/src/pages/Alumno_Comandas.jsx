@@ -61,7 +61,7 @@ function AlumnoComandas() {
         };
 
         try {
-            const response = await fetch(`http://localhost:8000/api/peticiones_comedor/${tareaId}/menus/`, {
+            const response = await fetch(`https://especialeduca.jmarin.dev/api/peticiones_comedor/${tareaId}/menus/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
